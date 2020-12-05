@@ -1,5 +1,5 @@
 const path = require("path");
-const { app, BrowserWindow } = require("electron");
+const { app, screen, BrowserWindow } = require("electron");
 const isDev = require("electron-is-dev");
 
 const PORT = 3100;
@@ -19,10 +19,12 @@ if (require("electron-squirrel-startup")) {
 }
 
 function createWindow() {
+  const { width, height } = screen.getPrimaryDisplay().size;
+  const margin = Math.round(Math.min(width, height) * 0.05);
   // Create the browser window.
   const win = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: width - margin * 2,
+    height: height - margin * 2,
     webPreferences: {
       nodeIntegration: true
     }

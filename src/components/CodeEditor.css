@@ -1,0 +1,36 @@
+/* Theme overrides for the Ace Editor */
+
+/* gutter */
+.ace_editor .ace_gutter {
+  background: #282828;
+  color: #fff4;
+}
+
+/* selection */
+.ace_editor .ace_marker-layer .ace_selection {
+  background: var(--selection);
+  border-radius: 0.1rem;
+}
+
+/* code completion */
+.ace_dark.ace_editor.ace_autocomplete .ace_marker-layer .ace_active-line {
+  background-color: var(--selection);
+}
+.ace_dark.ace_editor.ace_autocomplete .ace_completion-highlight {
+  color: #0ff;
+}
+
+/* snippet preview */
+.ace_tooltip {
+  background: #26282d;
+  color: #b6b6b6;
+  border-color: #484747;
+  box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.51);
+  font-size: 0.6rem;
+  font-family: Monaco, Menlo, "Ubuntu Mono", Consolas, source-code-pro,
+    monospace;
+}
+.ace_tooltip hr {
+  opacity: 0.2;
+  margin-top: 0;
+}
