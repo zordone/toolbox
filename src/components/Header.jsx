@@ -3,7 +3,7 @@ import styled, { keyframes } from "styled-components";
 import logoPng from "../logo.png";
 import { displayName } from "../utils";
 
-const TITLE_OPACITY = 0.3;
+const TITLE_OPACITY = 0.2;
 
 const Container = displayName(
   "Container",
@@ -12,7 +12,7 @@ const Container = displayName(
     background: var(--header-bg);
     align-items: center;
     user-select: none;
-    font-size: 2rem;
+    font-size: 1.6rem;
     font-weight: bold;
   `
 );
@@ -21,7 +21,7 @@ const Logo = displayName(
   "Logo",
   styled.img`
     padding: 0.5rem;
-    width: 3rem;
+    width: 2.5rem;
     height: auto;
     opacity: 0.7;
   `
@@ -34,16 +34,6 @@ const Title = displayName(
     margin: 0;
     font: inherit;
     opacity: ${TITLE_OPACITY};
-  `
-);
-
-const Separator = displayName(
-  "Separator",
-  styled.div`
-    font: inherit;
-    font-size: 3rem;
-    margin: 0 0.1rem 0.3rem 0.05em;
-    opacity: ${TITLE_OPACITY / 3};
   `
 );
 
@@ -148,7 +138,7 @@ const Header = ({ searchRef, tools, onSelectTool, onClick }) => {
     <Container onClick={onClick}>
       <Logo src={logoPng} />
       <Title>Toolbox</Title>
-      <Separator children="/" />
+      {value || cursor ? <Title children="/" /> : null}
       <Value isOk={isOk}>{value}</Value>
       {cursor && <Cursor />}
       <Completion>{completion}</Completion>

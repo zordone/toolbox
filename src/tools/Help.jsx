@@ -11,7 +11,7 @@ const Key = displayName(
     background: #999;
     box-shadow: -0.08rem 0.08rem 0 0.08rem #777;
     color: #444;
-    width: 1rem;
+    min-width: 1rem;
     height: 1rem;
     display: inline-block;
     text-align: center;
@@ -42,6 +42,20 @@ const ToolItem = displayName(
   `
 );
 
+const ToolName = displayName(
+  "ToolName",
+  styled.span`
+    font-weight: 700;
+  `
+);
+
+const ToolDesc = displayName(
+  "ToolDesc",
+  styled.span`
+    opacity: 0.6;
+  `
+);
+
 const Help = ({ tools }) => {
   const sortedTools = Object.values(tools)
     .map((tool) => tool.name)
@@ -51,13 +65,14 @@ const Help = ({ tools }) => {
   return (
     <div>
       <p>
-        Press <Key>⌘</Key>+<Key>F</Key> to search for a tool.
+        Press <Key>esc</Key> or <Key>⌘</Key><Key>F</Key> to search for a tool.
       </p>
       <Heading>Tools</Heading>
       <ToolList>
         {sortedTools.map((tool) => (
           <ToolItem key={tool.name}>
-            <strong>{tool.name}</strong> - {tool.description}
+            <ToolName>{tool.name}</ToolName>
+            <ToolDesc> - {tool.description}</ToolDesc>
           </ToolItem>
         ))}
       </ToolList>

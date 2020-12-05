@@ -7,7 +7,7 @@ import { reindent } from "../utils";
 import Playground from "../components/Playground";
 
 const initialCode = reindent(`
-  const birth = moment("1981-06-30");
+  const birth = moment("1981-06-16");
   const today = moment();
   const ageInDays = today.diff(birth, 'day');
 

@@ -2,8 +2,25 @@
 
 /* gutter */
 .ace_editor .ace_gutter {
-  background: #282828;
-  color: #fff4;
+  background: #1c1c1c;
+  color: hsl(0, 0%, 30%);
+}
+
+/* code editor */
+.ace_content .ace_text-layer .ace_line {
+  margin: 0 0.2rem;
+}
+
+.ace_editor .ace_cursor {
+  color: currentColor;
+  margin-left: 3px;
+  width: 2px;
+  opacity: 0.8;
+}
+
+/* active line */
+.ace_editor .ace_marker-layer .ace_active-line {
+  background: #32353b80;
 }
 
 /* selection */
