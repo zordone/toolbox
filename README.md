@@ -17,8 +17,8 @@ But since I plan to add a lot of tools to this toolbox, I've spent a lot of time
 ## Main scripts
 
 - `npm start` - Start development in browser.
-- `npm run dev` - Start development in electron.
-- `npm run make` - Build MacOS app.
+- `npm run dev` - Start development in Electron.
+- `npm run make` - Build production MacOS app. Output: `out/Toolbox-darwin-x64/Toolbox.app'.
 
 ## Changing the port
 

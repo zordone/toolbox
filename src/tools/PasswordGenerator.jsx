@@ -42,7 +42,7 @@ const PasswordGenerator = () => {
     setPass(pass.join(""));
   }, []);
 
-  useEffect(generate, []);
+  useEffect(generate, [generate]);
 
   return (
     <Grid>

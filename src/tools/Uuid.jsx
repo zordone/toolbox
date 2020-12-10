@@ -21,7 +21,7 @@ const Uuid = () => {
     setUuid(uuidv4());
   }, []);
 
-  useEffect(generate, []);
+  useEffect(generate, [generate]);
 
   return (
     <Grid>
