@@ -21,6 +21,7 @@ It's easiest to search for the current port and replace it everywhere.
 - fuzzy tool search
 - saved settings infrastructure
 - moment playground: load locales from UI?
+- undo support in text fields
 
 ## More tools
 

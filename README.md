@@ -2,11 +2,11 @@
 
 Collection of my small development tools bundled in an Electron app.
 
+My tools are probably not that useful for others, but the project might be a good starting point to build your own toolbox.
+
 ## Tools
 
 There are only a few tools at the moment. I will add new tools incrementally.
-
-Most of the tools could be useful for other developers, but some of them are specific to me.
 
 ## Platform
 
