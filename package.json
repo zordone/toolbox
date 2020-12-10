@@ -44,6 +44,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "lint": "eslint --ext js,jsx src",
     "package": "react-scripts build && electron-forge package",
     "make": "react-scripts build && electron-forge make",
     "generate-app-icon": "npx electron-icon-maker --input=/Users/zord/Development/toolbox-electron/_work/icon.png --output=src"
