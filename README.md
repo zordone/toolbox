@@ -1,6 +1,6 @@
 # Toolbox
 
-Collection of small development tools bundled in an Electron app.
+Collection of my small development tools bundled in an Electron app.
 
 ## Tools
 
@@ -12,7 +12,7 @@ Most of the tools could be useful for other developers, but some of them are spe
 
 Usually, when I make small tools for myself, it's not worth the time to polish them, or create reusable components.
 
-But since I plan to add a lot of tools to this toolbox, I spent a lot of time creating kind of a platform for them. This makes it easy to add new tools, make their UIs consistent, generalise often needed functionalities, etc. It also contains base components for classes of tools, like generators, analyzers, playgrounds.
+But since I plan to add a lot of tools to this toolbox, I've spent a lot of time creating kind of a platform for them. This makes it easy to add new tools, make their UIs consistent, generalise often needed functionalities, etc. It also contains base components for classes of tools, like generators, analyzers, playgrounds.
 
 ## Main scripts
 
