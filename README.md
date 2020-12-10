@@ -19,3 +19,14 @@ But since I plan to add a lot of tools to this toolbox, I've spent a lot of time
 - `npm start` - Start development in browser.
 - `npm run dev` - Start development in electron.
 - `npm run make` - Build MacOS app.
+
+## Changing the port
+
+It's easiest to search for the current port and replace it everywhere.
+
+- package.json scripts
+- electron.js PORT constant
+
+## Changing the icon
+
+- Put the new icon to `_work/icon.png` in 1024x1024 resolution, then `npm run generate-app-icon`
