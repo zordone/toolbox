@@ -10,7 +10,7 @@ const initialCode = reindent(`
     { id: 3, name: "Alice", email: "alice@alice.com" }
   ];
 
-  const result = _.find(contacts, 'id', 2);
+  const result = _.find(contacts, { id: 2 });
 `);
 
 const initialWatchExprs = ["contacts", "result"];
