@@ -86,9 +86,9 @@ const WatchRemove = displayName(
 
 const formatValue = (value) => {
   if (value === undefined) return "undefined";
-  if (isNaN(value)) return "NaN";
   if (value === Infinity) return "Infinity";
   if (value === -Infinity) return "-Infinity";
+  if (typeof value === 'number' && isNaN(value)) return "NaN";
   return JSON.stringify(value);
 }
 
