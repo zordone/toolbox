@@ -146,7 +146,7 @@ const Playground = ({
             },
             {
               name: "focusSearch",
-              bindKey: { win: "Ctrl-f", mac: "Ctrl-f" },
+              bindKey: { win: "Ctrl-f", mac: "Cmd-f" },
               exec: focusSearch,
             },
           ]}

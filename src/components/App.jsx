@@ -25,8 +25,9 @@ const App = () => {
   const [currentToolId, setCurrentToolId] = useState("");
   const [pasted, setPasted] = useState("");
 
-  const focusSearch = useCallback(() => {
+  const focusSearch = useCallback((event) => {
     searchRef.current.focus();
+    event?.preventDefault?.();
     return false;
   }, [searchRef]);
 
@@ -46,7 +47,7 @@ const App = () => {
     return () => document.removeEventListener("paste", onPaste);
   }, [onPaste]);
 
-  useHotkeys("command+f,ctrl+f,esc", focusSearch);
+  useHotkeys("cmd+f,esc", focusSearch);
 
   const tool = tools[currentToolId] || tools.Help;
   const Tool = tool.component;
