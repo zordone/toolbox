@@ -58,8 +58,8 @@ export const WatchHelp = displayName(
   "WatchHelp",
   styled.span`
     align-self: flex-end;
-    opacity: 0.5;
-    font-size: 0.8rem;
+    opacity: 0.4;
+    font-size: 0.7rem;
   `
 );
 

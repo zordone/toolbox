@@ -43,6 +43,7 @@ export const SplitterPane = displayName(
     height: 100%;
     grid-template-columns: 1fr;
     grid-template-rows: 0fr 1fr;
+    gap: var(--gap-size);
   `
 );
 

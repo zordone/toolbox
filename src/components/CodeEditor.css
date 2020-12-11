@@ -6,14 +6,8 @@
   color: hsl(0, 0%, 30%);
 }
 
-/* code editor */
-.ace_content .ace_text-layer .ace_line {
-  margin: 0 0.2rem;
-}
-
 .ace_editor .ace_cursor {
   color: currentColor;
-  margin-left: 3px;
   width: 2px;
   opacity: 0.8;
 }

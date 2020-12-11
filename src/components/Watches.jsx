@@ -75,6 +75,12 @@ const WatchRemove = displayName(
     chromeless: true,
   })`
     font-size: 0.7rem;
+    opacity: 0.5;
+    &:hover {
+      color: red;
+      opacity: 0.7;
+      
+    }
   `
 );
 
