@@ -78,6 +78,14 @@ const WatchRemove = displayName(
   `
 );
 
+const formatValue = (value) => {
+  if (value === undefined) return "undefined";
+  if (isNaN(value)) return "NaN";
+  if (value === Infinity) return "Infinity";
+  if (value === -Infinity) return "-Infinity";
+  return JSON.stringify(value);
+}
+
 const WatchList = ({ watches, onRemove }) => (
   <WatchesScroller>
     <WatchesContent>
@@ -91,7 +99,7 @@ const WatchList = ({ watches, onRemove }) => (
           {typeof value === "object" && !isError ? (
             <JsonViewer src={value} />
           ) : (
-            <WatchValue isError={isError} children={JSON.stringify(value)} />
+            <WatchValue isError={isError} children={formatValue(value)} />
           )}
         </Watch>
       ))}
