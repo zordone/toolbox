@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import saferEval from "safer-eval";
 import { toast } from "react-toastify";
+import styled from "styled-components";
+import { displayName } from "../utils";
 import { FieldLabel } from "./Fields";
 import CodeEditor from "./CodeEditor";
 import { reindent, noop } from "../utils";
@@ -19,6 +21,7 @@ const wrapperEnd = "})()";
 const runCode = (code, extraContext, watchExprs) => {
   const watchCode = Array.from(watchExprs)
     .map((expr) => {
+      // extra String() to make undefined to "undefined"
       const exprStr = JSON.stringify(expr);
       return `
         try {
@@ -42,6 +45,23 @@ const runCode = (code, extraContext, watchExprs) => {
   saferEval(fullCode, context);
   return context;
 };
+    
+export const LabelRow = displayName(
+  "LabelRow",
+  styled.div`
+    display: flex;
+    justify-content: space-between;
+  `
+);
+
+export const WatchHelp = displayName(
+  "WatchHelp",
+  styled.span`
+    align-self: flex-end;
+    opacity: 0.5;
+    font-size: 0.8rem;
+  `
+);
 
 const Playground = ({
   label = "Edit your javascript code:",
@@ -107,7 +127,10 @@ const Playground = ({
   return (
     <Splitter split="vertical" defaultSize="75%">
       <SplitterPane>
-        <FieldLabel>{label}</FieldLabel>
+        <LabelRow>
+          <FieldLabel>{label}</FieldLabel>
+          <WatchHelp>Press ^W to add/remove watch.</WatchHelp>
+        </LabelRow>
         <CodeEditor
           editorRef={editorRef}
           state={code}
