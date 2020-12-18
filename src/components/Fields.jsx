@@ -31,6 +31,10 @@ const Input = displayName(
 
 const defaultValidator = (text) => ({ error: null, value: text });
 
+const stopPropagation = (event) => {
+  event.stopPropagation();
+};
+
 export const BasicField = ({
   type = "text",
   state = "",
@@ -70,6 +74,7 @@ export const BasicField = ({
       error={error}
       readOnly={readOnly}
       monoSpace={monoSpace}
+      onPaste={stopPropagation}
       {...rest}
     />
   );
