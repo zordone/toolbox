@@ -1,6 +1,6 @@
 {
   "name": "toolbox",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "main": "public/electron.js",
   "homepage": "./",
   "private": true,
