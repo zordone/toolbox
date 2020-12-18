@@ -71,6 +71,7 @@
         "name": "Toolbox",
         "ignore": [
           "/_work$",
+          "/docs$",
           ".md$"
         ]
       },
