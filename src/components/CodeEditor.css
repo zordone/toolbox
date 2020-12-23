@@ -6,7 +6,7 @@
   color: hsl(0, 0%, 30%);
 }
 
-.ace_editor .ace_cursor {
+.ace_editor:focus .ace_cursor {
   color: currentColor;
   width: 2px;
   opacity: 0.8;
@@ -14,7 +14,7 @@
 
 /* active line */
 .ace_editor .ace_marker-layer .ace_active-line {
-  background: #32353b80;
+  background: #32353b40;
 }
 
 /* selection */

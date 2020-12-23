@@ -2,6 +2,7 @@ import React from "react";
 import AspectRatio from "./AspectRatio";
 import Base64 from "./Base64";
 import Help from "./Help";
+import JsonFormatter from "./JsonFormatter";
 import KimbleCalculator from "./KimbleCalculator";
 import MomentPlayground from "./MomentPlayground";
 import PasswordGenerator from "./PasswordGenerator";
@@ -25,6 +26,10 @@ const tools = {
     description: "Instructions and the list of all the tools.",
     component: (props) => <Help tools={tools} {...props} />,
   },
+  JsonFormatter: {
+    name: "JsonFormatter",
+    description: "JSON formatter and editor.",
+    component: JsonFormatter,
   },
   KimbleCalculator: {
     name: "KimbleCalculator",
@@ -33,12 +38,12 @@ const tools = {
   },
   LodashPlayground: {
     name: "LodashPlayground",
-    description: "Lodash playground.",
+    description: "JavaScript playground with Lodash.",
     component: LodashPlayground,
   },
   MomentPlayground: {
     name: "MomentPlayground",
-    description: "Moment.js playground.",
+    description: "JavaScript playground with Moment.js.",
     component: MomentPlayground,
   },
   PasswordGenerator: {

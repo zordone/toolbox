@@ -3,6 +3,7 @@ import styled from "styled-components";
 import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/theme-tomorrow_night";
 import "ace-builds/src-noconflict/mode-javascript";
+import "ace-builds/src-noconflict/mode-json";
 import "ace-builds/src-noconflict/ext-language_tools";
 import "ace-builds/src-noconflict/snippets/javascript";
 import { noop, displayName } from "../utils";
@@ -104,6 +105,8 @@ const CodeEditor = ({
           enableSnippets: true,
           tabSize: 2,
           useWorker: false,
+          foldStyle: "markbeginend",
+          highlightGutterLine: false,
         }}
         {...rest}
       />
