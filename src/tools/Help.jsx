@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { displayName } from "../utils";
+import { displayName, noop } from "../utils";
 
 const Key = displayName(
   "Key",
@@ -44,8 +44,9 @@ const ToolItem = displayName(
 
 const ToolName = displayName(
   "ToolName",
-  styled.span`
+  styled.a`
     font-weight: 700;
+    cursor: pointer;
   `
 );
 
@@ -56,7 +57,7 @@ const ToolDesc = displayName(
   `
 );
 
-const Help = ({ tools }) => {
+const Help = ({ tools, onSelectTool = noop }) => {
   const sortedTools = Object.values(tools)
     .map((tool) => tool.name)
     .sort()
@@ -65,13 +66,16 @@ const Help = ({ tools }) => {
   return (
     <div>
       <p>
-        Press <Key>esc</Key> or <Key>⌘</Key><Key>F</Key> to search for a tool.
+        Press <Key>esc</Key> or <Key>⌘</Key>
+        <Key>F</Key> to search for a tool.
       </p>
       <Heading>Tools</Heading>
       <ToolList>
         {sortedTools.map((tool) => (
           <ToolItem key={tool.name}>
-            <ToolName>{tool.name}</ToolName>
+            <ToolName onClick={() => onSelectTool(tool.name)}>
+              {tool.name}
+            </ToolName>
             <ToolDesc> - {tool.description}</ToolDesc>
           </ToolItem>
         ))}

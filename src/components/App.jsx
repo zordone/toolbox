@@ -22,7 +22,7 @@ const ToolContainer = displayName(
 
 const App = () => {
   const searchRef = useRef();
-  const [currentToolId, setCurrentToolId] = useState("");
+  const [currentToolName, setCurrentToolName] = useState("");
   const [pasted, setPasted] = useState("");
 
   const focusSearch = useCallback(
@@ -34,8 +34,8 @@ const App = () => {
     [searchRef]
   );
 
-  const onSelectTool = useCallback((id) => {
-    setCurrentToolId(id);
+  const onSelectTool = useCallback((name) => {
+    setCurrentToolName(name);
   }, []);
 
   const onPaste = useCallback((event) => {
@@ -52,7 +52,7 @@ const App = () => {
 
   useHotkeys("cmd+f,esc", focusSearch);
 
-  const tool = tools[currentToolId] || tools.Help;
+  const tool = tools[currentToolName] || tools.Help;
   const Tool = tool.component;
   Tool.displayName = "Tool";
 
@@ -71,7 +71,11 @@ const App = () => {
         onClick={focusSearch}
       />
       <ToolContainer>
-        <Tool pasted={pasted} focusSearch={focusSearch} />
+        <Tool
+          pasted={pasted}
+          focusSearch={focusSearch}
+          onSelectTool={onSelectTool}
+        />
       </ToolContainer>
     </div>
   );

@@ -23,7 +23,8 @@ const tools = {
   Help: {
     name: "Help",
     description: "Instructions and the list of all the tools.",
-    component: () => <Help tools={tools} />,
+    component: (props) => <Help tools={tools} {...props} />,
+  },
   },
   KimbleCalculator: {
     name: "KimbleCalculator",

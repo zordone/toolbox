@@ -160,6 +160,13 @@ const Search = ({ searchRef, tools, currentToolName, onSelectTool = noop }) => {
     setIndex(0);
   }, [value, tools, searcher]);
 
+  // updates value when current tool changes
+  useEffect(() => {
+    if (!isFocused && currentToolName !== value) {
+      setValue(currentToolName);
+    }
+  }, [isFocused, currentToolName, value]);
+
   return (
     <SearchContainer>
       <SearchInput
