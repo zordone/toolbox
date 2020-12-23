@@ -31,6 +31,10 @@ It's easiest to search for the current port and replace it everywhere.
 
 - Put the new icon to `_work/icon.png` in 1024x1024 resolution, then `npm run generate-app-icon`
 
+## Electron notes
+
+- If you add files or folders that you don't want to include in the build, add them to `package.json` `packagerConfig.ignore`.
+
 ## Screenshots
 
 ![Help](docs/screenshot-help.png)

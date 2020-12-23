@@ -6,8 +6,10 @@
   --main-bg: #242424;
   --main-fg: #ddd;
   --header-bg: #181818;
+  --error-bg: #8008;
+  --error-fg: #ff3b00;
+  --error-outline: var(--error-fg);
   --focus-outline: #006eff;
-  --error-outline: #ff3b00;
   --input-color: #00c3ff;
   --input-color-readonly: #999;
   --input-bg: #181818;

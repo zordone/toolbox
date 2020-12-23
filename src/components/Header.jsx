@@ -1,7 +1,8 @@
-import React, { useState } from "react";
-import styled, { keyframes } from "styled-components";
+import React from "react";
+import styled from "styled-components";
 import logoPng from "../logo.png";
-import { displayName } from "../utils";
+import { displayName, noop } from "../utils";
+import Search from "./Search";
 
 const TITLE_OPACITY = 0.2;
 
@@ -37,117 +38,22 @@ const Title = displayName(
   `
 );
 
-const Value = displayName(
-  "Value",
-  styled.div`
-    font: inherit;
-    color: ${({ isOk }) => (isOk ? "inherit" : "#f005")};
-  `
-);
-
-const Completion = displayName(
-  "Completion",
-  styled.div`
-    font: inherit;
-    opacity: ${TITLE_OPACITY};
-  `
-);
-
-const Search = displayName(
-  "Search",
-  styled.input`
-    position: absolute;
-    top: -10rem;
-    background: transparent;
-    color: inherit;
-    font: inherit;
-    border: none;
-    outline: none;
-    margin: 0;
-  `
-);
-
-const cursorBlinking = keyframes`
-  0% { opacity: 1; }
-  45% { opacity: 1; }
-  50% { opacity: 0; }
-  95% { opacity: 0; }
-`;
-
-const Cursor = displayName(
-  "Cursor",
-  styled.div`
-    width: 1px;
-    background: currentColor;
-    height: 2rem;
-    animation-name: ${cursorBlinking};
-    animation-duration: 1s;
-    animation-iteration-count: infinite;
-  `
-);
-
-const Header = ({ searchRef, tools, onSelectTool, onClick }) => {
-  const [value, setValue] = useState("");
-  const [completion, setCompletion] = useState("");
-  const [cursor, setCursor] = useState(false);
-  const [isOk, setIsOk] = useState(false);
-
-  const onInput = (event) => {
-    const value = event.target.value.toLowerCase().trim();
-    if (!value) {
-      setValue("");
-      setCompletion("");
-      setIsOk(true);
-      return;
-    }
-    const matches = Object.values(tools)
-      .filter((tool) => tool.name.toLowerCase().startsWith(value))
-      .map((tool) => tool.name)
-      .sort();
-    if (matches.length) {
-      const match = matches[0];
-      setValue(match.slice(0, value.length));
-      setCompletion(match.slice(value.length));
-      setIsOk(true);
-      return;
-    }
-    setValue(value);
-    setCompletion("");
-    setIsOk(false);
-  };
-
-  const onFocus = () => {
-    searchRef.current.value = "";
-    setValue("");
-    setCursor(true);
-  };
-  const onBlur = () => setCursor(false);
-
-  const onKeyPress = (event) => {
-    if (event.key === "Enter" && isOk && value) {
-      const completed = value + completion;
-      setValue(completed);
-      setCompletion("");
-      onSelectTool(completed);
-      searchRef.current.value = "";
-      searchRef.current.blur();
-    }
-  };
-
+const Header = ({
+  searchRef,
+  tools,
+  currentToolName,
+  onSelectTool = noop,
+  onClick = noop,
+}) => {
   return (
     <Container onClick={onClick}>
       <Logo src={logoPng} />
-      <Title>Toolbox</Title>
-      {value || cursor ? <Title children="/" /> : null}
-      <Value isOk={isOk}>{value}</Value>
-      {cursor && <Cursor />}
-      <Completion>{completion}</Completion>
+      <Title>Toolbox/</Title>
       <Search
-        ref={searchRef}
-        onInput={onInput}
-        onFocus={onFocus}
-        onBlur={onBlur}
-        onKeyPress={onKeyPress}
+        searchRef={searchRef}
+        tools={tools}
+        currentToolName={currentToolName}
+        onSelectTool={onSelectTool}
       />
     </Container>
   );

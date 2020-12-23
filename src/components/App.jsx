@@ -25,11 +25,14 @@ const App = () => {
   const [currentToolId, setCurrentToolId] = useState("");
   const [pasted, setPasted] = useState("");
 
-  const focusSearch = useCallback((event) => {
-    searchRef.current.focus();
-    event?.preventDefault?.();
-    return false;
-  }, [searchRef]);
+  const focusSearch = useCallback(
+    (event) => {
+      searchRef.current.focus();
+      event?.preventDefault?.();
+      return false;
+    },
+    [searchRef]
+  );
 
   const onSelectTool = useCallback((id) => {
     setCurrentToolId(id);
@@ -63,6 +66,7 @@ const App = () => {
       <Header
         searchRef={searchRef}
         tools={tools}
+        currentToolName={tool.name}
         onSelectTool={onSelectTool}
         onClick={focusSearch}
       />
