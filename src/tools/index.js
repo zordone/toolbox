@@ -6,6 +6,7 @@ import JsonFormatter from "./JsonFormatter";
 import KimbleCalculator from "./KimbleCalculator";
 import MomentPlayground from "./MomentPlayground";
 import PasswordGenerator from "./PasswordGenerator";
+import Regex from "./Regex";
 import Uuid from "./Uuid";
 import LodashPlayground from "./LodashPlayground";
 import WordCounter from "./WordCounter";
@@ -51,6 +52,11 @@ const tools = {
     name: "PasswordGenerator",
     description: "Random password generator.",
     component: PasswordGenerator,
+  },
+  Regex: {
+    name: "Regex",
+    description: "Regular expression tester website.",
+    component: Regex,
   },
   Unindent: {
     name: "Unindent",
