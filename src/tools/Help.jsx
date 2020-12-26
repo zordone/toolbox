@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { displayName, noop } from "../utils";
+import packageJson from "../../package.json";
 
 const Key = displayName(
   "Key",
@@ -57,6 +58,13 @@ const ToolDesc = displayName(
   `
 );
 
+const Footer = displayName(
+  "Footer",
+  styled.p`
+    opacity: 0.1;
+  `
+);
+
 const Help = ({ tools, onSelectTool = noop }) => {
   const sortedTools = Object.values(tools)
     .map((tool) => tool.name)
@@ -80,6 +88,7 @@ const Help = ({ tools, onSelectTool = noop }) => {
           </ToolItem>
         ))}
       </ToolList>
+      <Footer>v{packageJson.version}</Footer>
     </div>
   );
 };
