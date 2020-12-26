@@ -9,6 +9,7 @@ import PasswordGenerator from "./PasswordGenerator";
 import Uuid from "./Uuid";
 import LodashPlayground from "./LodashPlayground";
 import WordCounter from "./WordCounter";
+import Unindent from "./Unindent";
 
 const tools = {
   AspectRatio: {
@@ -50,6 +51,11 @@ const tools = {
     name: "PasswordGenerator",
     description: "Random password generator.",
     component: PasswordGenerator,
+  },
+  Unindent: {
+    name: "Unindent",
+    description: "Unindent JavaScript code or other indented text.",
+    component: Unindent,
   },
   Uuid: {
     name: "Uuid",
