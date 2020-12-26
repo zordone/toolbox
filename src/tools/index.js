@@ -7,10 +7,11 @@ import KimbleCalculator from "./KimbleCalculator";
 import MomentPlayground from "./MomentPlayground";
 import PasswordGenerator from "./PasswordGenerator";
 import Regex from "./Regex";
+import Unindent from "./Unindent";
 import Uuid from "./Uuid";
 import LodashPlayground from "./LodashPlayground";
 import WordCounter from "./WordCounter";
-import Unindent from "./Unindent";
+import CanIUse from "./CanIUse";
 
 const tools = {
   AspectRatio: {
@@ -22,6 +23,11 @@ const tools = {
     name: "Base64",
     description: "Base64 encoder and decoder.",
     component: Base64,
+  },
+  CanIUse: {
+    name: "CanIUse",
+    description: "Browser support tables website.",
+    component: CanIUse,
   },
   Help: {
     name: "Help",
