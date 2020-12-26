@@ -51,8 +51,9 @@ const defaultValidator = (text) => ({ error: null, value: text });
 const CodeEditor = ({
   editorRef,
   mode = "javascript",
-  state = "",
+  state,
   setState = noop,
+  initialCode = "",
   readOnly = false,
   monoSpace = false,
   onValidate = defaultValidator,
@@ -62,16 +63,6 @@ const CodeEditor = ({
   const [lastError, setLastError] = useState();
   const [error, setError] = useState();
   const [inputValue, setInputValue] = useState(state);
-
-  useEffect(() => {
-    setInputValue(state);
-  }, [state]);
-
-  useEffect(() => {
-    if (error && error !== lastError) {
-      setLastError(error);
-    }
-  }, [error, lastError]);
 
   const onChange = useCallback(
     (text) => {
@@ -84,6 +75,25 @@ const CodeEditor = ({
     },
     [setState, onValidate]
   );
+
+  // set initial code through validation
+  useEffect(() => {
+    if (state === undefined && !!initialCode) {
+      onChange(initialCode);
+    }
+  }, [initialCode, state, setState, onChange]);
+
+  // set editor value to external state
+  useEffect(() => {
+    setInputValue(state);
+  }, [state]);
+
+  // keep last error info until next validation
+  useEffect(() => {
+    if (error && error !== lastError) {
+      setLastError(error);
+    }
+  }, [error, lastError]);
 
   return (
     <EditorContainer area={area}>

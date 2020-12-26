@@ -37,3 +37,5 @@ export const reindent = (code, baseIndent = 0) => {
   const reindented = dedented.replace(/^/gm, newIndent);
   return reindented;
 };
+
+export const formatJson = (obj) => JSON.stringify(obj, null, 2);

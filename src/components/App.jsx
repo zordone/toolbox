@@ -42,6 +42,7 @@ const App = () => {
     const text = event.clipboardData.getData("Text") || "";
     if (text) {
       setPasted(text);
+      setTimeout(() => setPasted(null), 0);
     }
   }, []);
 
