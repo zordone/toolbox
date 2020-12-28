@@ -5,4 +5,6 @@ const Regex = () => (
   <Website url="https://regex101.com/" title="regex101" invert={false} />
 );
 
+Regex.displayName = "Regex";
+
 export default Regex;

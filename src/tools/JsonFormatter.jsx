@@ -36,4 +36,6 @@ const JsonFormatter = ({ pasted }) => {
   );
 };
 
+JsonFormatter.displayName = "JsonFormatter";
+
 export default JsonFormatter;

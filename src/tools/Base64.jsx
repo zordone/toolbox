@@ -67,4 +67,6 @@ const Base64 = () => {
   );
 };
 
+Base64.displayName = "Base64";
+
 export default Base64;

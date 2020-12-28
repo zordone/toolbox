@@ -61,7 +61,6 @@ const App = () => {
 
   const tool = tools[currentToolName] || tools.Help;
   const Tool = tool.component;
-  Tool.displayName = "Tool";
 
   return (
     <div className="App">

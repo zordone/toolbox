@@ -106,4 +106,6 @@ const Help = ({ tools, onSelectTool = noop }) => {
   );
 };
 
+Help.displayName = "Help";
+
 export default Help;

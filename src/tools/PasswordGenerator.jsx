@@ -58,4 +58,6 @@ const PasswordGenerator = () => {
   );
 };
 
+PasswordGenerator.displayName = "PasswordGenerator";
+
 export default PasswordGenerator;

@@ -37,4 +37,6 @@ const Uuid = () => {
   );
 };
 
+Uuid.displayName = "Uuid";
+
 export default Uuid;

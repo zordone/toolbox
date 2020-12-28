@@ -147,4 +147,6 @@ const KimbleCalculator = (props) => {
   );
 };
 
+KimbleCalculator.displayName = "KimbleCalculator";
+
 export default KimbleCalculator;

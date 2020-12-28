@@ -50,4 +50,6 @@ const WordCounter = (props) => {
   );
 };
 
+WordCounter.displayName = "WordCounter";
+
 export default WordCounter;

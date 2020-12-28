@@ -29,4 +29,6 @@ const Unindent = ({ pasted }) => {
   );
 };
 
+Unindent.displayName = "Unindent";
+
 export default Unindent;

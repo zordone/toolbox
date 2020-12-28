@@ -30,4 +30,6 @@ const LodashPlayground = (props) => {
   );
 };
 
+LodashPlayground.displayName = "LodashPlayground";
+
 export default LodashPlayground;

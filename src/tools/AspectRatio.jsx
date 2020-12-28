@@ -119,4 +119,6 @@ const AspectRatio = ({ pasted }) => {
   );
 };
 
+AspectRatio.displayName = "AspectRatio";
+
 export default AspectRatio;

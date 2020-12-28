@@ -46,4 +46,6 @@ const MomentPlayground = (props) => {
   );
 };
 
+MomentPlayground.displayName = "MomentPlayground";
+
 export default MomentPlayground;
