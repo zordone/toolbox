@@ -138,6 +138,7 @@ const KimbleCalculator = (props) => {
         name="kimble log"
         initialText={initialText}
         onUpdateResults={analyze}
+        toolComp={KimbleCalculator}
         {...props}
       />
       <GroupedSection title="Hours per day" groupedData={itemsByDay} />

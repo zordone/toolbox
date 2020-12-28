@@ -44,6 +44,7 @@ const WordCounter = (props) => {
       name="text"
       initialText={initialText}
       onUpdateResults={analyze}
+      toolComp={WordCounter}
       {...props}
     />
   );

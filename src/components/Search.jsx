@@ -2,6 +2,7 @@ import React, { useState, useCallback, useEffect } from "react";
 import styled from "styled-components";
 import FuzzySearch from "fuzzy-search";
 import { displayName, noop } from "../utils";
+import { cssShadow } from "./styledCss";
 
 const MAX_OPTIONS = 10;
 
@@ -38,6 +39,7 @@ const SearchInput = displayName(
 const SearchOptions = displayName(
   "SearchOptions",
   styled.div`
+    ${cssShadow}
     position: absolute;
     z-index: 1;
     top: 100%;
@@ -47,7 +49,6 @@ const SearchOptions = displayName(
     display: ${({ isVisible }) => (isVisible ? "block" : "none")};
     font-weight: 400;
     padding: 0.5rem 0;
-    box-shadow: 0 0 2rem #0008;
     border-radius: var(--border-radius);
     max-height: calc(100vh - 5rem);
     overflow-y: scroll;
@@ -120,12 +121,12 @@ const Search = ({ searchRef, tools, currentToolName, onSelectTool = noop }) => {
         const toolName = filtered[index].name;
         setValue(toolName);
         onSelectTool(toolName);
-        setTimeout(() => searchRef.current.blur(), 0);
+        setTimeout(() => searchRef.current?.blur(), 0);
         return;
       }
       if (key === "Escape" || key === "Tab") {
         setValue(currentToolName);
-        searchRef.current.blur();
+        searchRef.current?.blur();
         event.stopPropagation();
         event.preventDefault();
         return;

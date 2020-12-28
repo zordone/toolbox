@@ -1,5 +1,6 @@
-import React, { useState, useCallback } from "react";
+import React, { useCallback } from "react";
 import Formatter from "../components/Formatter";
+import { usePersistedState } from "../persistedState";
 import { reindent } from "../utils";
 
 const initialCode = `
@@ -10,7 +11,7 @@ const initialCode = `
 `;
 
 const Unindent = ({ pasted }) => {
-  const [code, setCode] = useState();
+  const [code, setCode] = usePersistedState(Unindent, "code", undefined);
 
   const onValidate = useCallback((value) => ({ value: reindent(value) }), []);
 

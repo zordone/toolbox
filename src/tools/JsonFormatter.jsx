@@ -1,17 +1,18 @@
-import React, { useState, useCallback } from "react";
+import React, { useCallback } from "react";
 import Formatter from "../components/Formatter";
+import { usePersistedState } from "../persistedState";
 import { formatJson } from "../utils";
 
 const initialJson = formatJson({
   hello: "world",
   foo: {
-    id: "foo1",
-    value: 1,
+    id: "foo-1",
+    value: 42,
   },
 });
 
 const JsonFormatter = ({ pasted }) => {
-  const [json, setJson] = useState(initialJson);
+  const [json, setJson] = usePersistedState(JsonFormatter, "json", initialJson);
 
   const onValidate = useCallback((value) => {
     try {

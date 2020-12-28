@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { NumberField, RatioField, FieldLabel } from "../components/Fields";
 import Button from "../components/Buttons";
 import Icon from "../components/Icon";
 import { patterns, matchGroups, gcd, displayName } from "../utils";
+import { usePersistedState } from "../persistedState";
 
 const WIDTH = "width";
 const HEIGHT = "height";
@@ -38,39 +39,39 @@ const parseRatio = (ratio) =>
   ratio.split(":").map((value) => parseInt(value, 10));
 
 const AspectRatio = ({ pasted }) => {
-  const [width, setWidth] = useState(1920);
-  const [height, setHeight] = useState(1080);
-  const [ratio, setRatio] = useState("16:9");
-  const [calculated, setCalculated] = useState(RATIO);
+  const [width, setWidth] = usePersistedState(AspectRatio, "width", 1920);
+  const [height, setHeight] = usePersistedState(AspectRatio, "height", 1080);
+  const [ratio, setRatio] = usePersistedState(AspectRatio, "ratio", "16:9");
+  const [calc, setCalc] = usePersistedState(AspectRatio, "calc", RATIO);
 
   // recognize pasted resolution or ratio
   useEffect(() => {
     const cleaned = pasted.replace(/\*/g, "x").replace(/\s/g, "");
     matchGroups(cleaned, patterns.resolution, ({ width, height }) => {
-      setCalculated(RATIO);
+      setCalc(RATIO);
       setWidth(parseInt(width, 10));
       setHeight(parseInt(height, 10));
     });
     matchGroups(cleaned, patterns.ratio, ({ width, height }) => {
-      setCalculated(WIDTH);
+      setCalc(WIDTH);
       setRatio(`${width}:${height}`);
     });
-  }, [pasted]);
+  }, [pasted, setCalc, setHeight, setRatio, setWidth]);
 
   // recalculate selected field
-  if (calculated === WIDTH) {
+  if (calc === WIDTH) {
     const [ratioWidth, ratioHeight] = parseRatio(ratio);
     const newWidth = (height / ratioHeight) * ratioWidth;
     if (newWidth !== width) {
       setWidth(newWidth);
     }
-  } else if (calculated === HEIGHT) {
+  } else if (calc === HEIGHT) {
     const [ratioWidth, ratioHeight] = parseRatio(ratio);
     const newHeight = (width / ratioWidth) * ratioHeight;
     if (newHeight !== height) {
       setHeight(newHeight);
     }
-  } else if (calculated === RATIO) {
+  } else if (calc === RATIO) {
     const [ratioWidth, ratioHeight] = normalizeFraction(width, height);
     const newRatio = `${ratioWidth}:${ratioHeight}`;
     if (newRatio !== ratio) {
@@ -84,12 +85,12 @@ const AspectRatio = ({ pasted }) => {
       <NumberField
         state={width}
         setState={setWidth}
-        readOnly={calculated === WIDTH}
+        readOnly={calc === WIDTH}
       />
       <Calculator
-        isOn={calculated === WIDTH}
+        isOn={calc === WIDTH}
         onClick={() => {
-          setCalculated(WIDTH);
+          setCalc(WIDTH);
         }}
       />
 
@@ -97,25 +98,21 @@ const AspectRatio = ({ pasted }) => {
       <NumberField
         state={height}
         setState={setHeight}
-        readOnly={calculated === HEIGHT}
+        readOnly={calc === HEIGHT}
       />
       <Calculator
-        isOn={calculated === HEIGHT}
+        isOn={calc === HEIGHT}
         onClick={() => {
-          setCalculated(HEIGHT);
+          setCalc(HEIGHT);
         }}
       />
 
       <FieldLabel>Ratio</FieldLabel>
-      <RatioField
-        state={ratio}
-        setState={setRatio}
-        readOnly={calculated === RATIO}
-      />
+      <RatioField state={ratio} setState={setRatio} readOnly={calc === RATIO} />
       <Calculator
-        isOn={calculated === RATIO}
+        isOn={calc === RATIO}
         onClick={() => {
-          setCalculated(RATIO);
+          setCalc(RATIO);
         }}
       />
     </Grid>

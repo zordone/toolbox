@@ -24,6 +24,7 @@ const LodashPlayground = (props) => {
       initialCode={initialCode}
       initialWatchExprs={initialWatchExprs}
       extraContext={extraContext}
+      toolComp={LodashPlayground}
       {...props}
     />
   );

@@ -24,6 +24,7 @@ const App = () => {
   const searchRef = useRef();
   const [currentToolName, setCurrentToolName] = useState("");
   const [pasted, setPasted] = useState("");
+  const [reload, setReload] = useState(0);
 
   const focusSearch = useCallback(
     (event) => {
@@ -36,7 +37,12 @@ const App = () => {
 
   const onSelectTool = useCallback((name) => {
     setCurrentToolName(name);
+    setReload(0);
   }, []);
+
+  const onReloadTool = useCallback(() => {
+    setReload(reload + 1);
+  }, [reload]);
 
   const onPaste = useCallback((event) => {
     const text = event.clipboardData.getData("Text") || "";
@@ -69,10 +75,12 @@ const App = () => {
         tools={tools}
         currentToolName={tool.name}
         onSelectTool={onSelectTool}
-        onClick={focusSearch}
+        onReloadTool={onReloadTool}
+        onTitleClick={focusSearch}
       />
       <ToolContainer>
         <Tool
+          key={`${tool.name}-${reload}`}
           pasted={pasted}
           focusSearch={focusSearch}
           onSelectTool={onSelectTool}

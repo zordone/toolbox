@@ -1,8 +1,6 @@
 import React from "react";
 import moment from "moment";
-
 import "moment/locale/hu";
-
 import { reindent } from "../utils";
 import Playground from "../components/Playground";
 
@@ -42,6 +40,7 @@ const MomentPlayground = (props) => {
       initialCode={initialCode}
       initialWatchExprs={initialWatchExprs}
       extraContext={extraContext}
+      toolComp={MomentPlayground}
       {...props}
     />
   );

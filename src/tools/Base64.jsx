@@ -4,6 +4,9 @@ import { toast } from "react-toastify";
 import { TextArea, FieldLabel } from "../components/Fields";
 import { CopyButton, PasteButton } from "../components/Buttons";
 import { displayName } from "../utils";
+import { usePersistedState } from "../persistedState";
+
+const initialText = "Hello World!";
 
 const SideBySide = displayName(
   "SideBySide",
@@ -27,21 +30,24 @@ const Grid = displayName(
 );
 
 const Base64 = () => {
-  const [text, setText] = useState("");
-  const [base64, setBase64] = useState("");
+  const [text, setText] = usePersistedState(Base64, "text", initialText);
+  const [base64, setBase64] = useState();
 
   useEffect(() => {
     setBase64(btoa(text));
   }, [text]);
 
   useEffect(() => {
+    if (base64 === undefined) {
+      return;
+    }
     try {
       setText(atob(base64));
     } catch (err) {
       setText("");
       toast.error("Invalid Base64 string.");
     }
-  }, [base64]);
+  }, [base64, setText]);
 
   return (
     <SideBySide>

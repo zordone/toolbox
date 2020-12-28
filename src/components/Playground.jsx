@@ -8,6 +8,7 @@ import CodeEditor from "./CodeEditor";
 import { reindent, noop } from "../utils";
 import WatchList from "./Watches";
 import Splitter, { SplitterPane } from "./Splitter";
+import { usePersistedState, usePersistedStateSet } from "../persistedState";
 
 const defaultCode = reindent(`
   const number = 1 + 2 + 3;
@@ -45,7 +46,7 @@ const runCode = (code, extraContext, watchExprs) => {
   saferEval(fullCode, context);
   return context;
 };
-    
+
 export const LabelRow = displayName(
   "LabelRow",
   styled.div`
@@ -68,10 +69,15 @@ const Playground = ({
   initialCode = defaultCode,
   initialWatchExprs = defaultWatchExprs,
   extraContext = {},
+  toolComp,
   focusSearch = noop,
 }) => {
-  const [code, setCode] = useState(initialCode);
-  const [watchExprs, setWatchExprs] = useState(new Set(initialWatchExprs));
+  const [code, setCode] = usePersistedState(toolComp, "code", initialCode);
+  const [watchExprs, setWatchExprs] = usePersistedStateSet(
+    toolComp,
+    "watchExprs",
+    new Set(initialWatchExprs)
+  );
   const [watchResults, setWatchResults] = useState([]);
   const editorRef = useRef();
 

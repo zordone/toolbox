@@ -4,6 +4,7 @@ import { TextArea, FieldLabel } from "./Fields";
 import { CopyButton } from "./Buttons";
 import { displayName } from "../utils";
 import { cssGridArea } from "./styledCss";
+import { usePersistedState } from "../persistedState";
 
 const Grid = displayName(
   "Grid",
@@ -56,9 +57,10 @@ const TextAnalyzer = ({
   name = "text",
   initialText = "",
   onUpdateResults = () => [],
+  toolComp,
   pasted,
 }) => {
-  const [text, setText] = useState(initialText);
+  const [text, setText] = usePersistedState(toolComp, "text", initialText);
   const [results, setResults] = useState([]);
 
   useEffect(() => {
@@ -70,7 +72,7 @@ const TextAnalyzer = ({
     if (pasted) {
       setText(pasted);
     }
-  }, [pasted]);
+  }, [pasted, setText]);
 
   return (
     <Grid>
