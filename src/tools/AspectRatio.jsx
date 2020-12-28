@@ -46,7 +46,7 @@ const AspectRatio = ({ pasted }) => {
 
   // recognize pasted resolution or ratio
   useEffect(() => {
-    const cleaned = pasted.replace(/\*/g, "x").replace(/\s/g, "");
+    const cleaned = pasted?.replace(/\*/g, "x").replace(/\s/g, "");
     matchGroups(cleaned, patterns.resolution, ({ width, height }) => {
       setCalc(RATIO);
       setWidth(parseInt(width, 10));
