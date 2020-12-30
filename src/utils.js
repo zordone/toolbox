@@ -22,6 +22,14 @@ export const displayName = (name, StyledComp) => {
   return StyledComp;
 };
 
+export const setToolMeta = (toolComp, { name, description }) => {
+  toolComp.displayName = name;
+  toolComp.meta = {
+    name,
+    description,
+  };
+};
+
 export const capitalize = (text) => `${text[0].toUpperCase()}${text.slice(1)}`;
 
 export const reindent = (code, baseIndent = 0) => {

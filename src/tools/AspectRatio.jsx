@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { NumberField, RatioField, FieldLabel } from "../components/Fields";
 import Button from "../components/Buttons";
 import Icon from "../components/Icon";
-import { patterns, matchGroups, gcd, displayName } from "../utils";
+import { patterns, matchGroups, gcd, displayName, setToolMeta } from "../utils";
 import { usePersistedState } from "../persistedState";
 
 const WIDTH = "width";
@@ -119,6 +119,9 @@ const AspectRatio = ({ pasted }) => {
   );
 };
 
-AspectRatio.displayName = "AspectRatio";
+setToolMeta(AspectRatio, {
+  name: "AspectRatio",
+  description: "Aspect ratio calculator.",
+});
 
 export default AspectRatio;

@@ -11,7 +11,7 @@ export const usePersistedState = (
   onSerialize = identity,
   onDeserialize = identity
 ) => {
-  const toolName = toolComp?.displayName;
+  const toolName = toolComp?.meta.name;
   if (!toolName) {
     throw new Error("usePersistedState: No tool name!");
   }

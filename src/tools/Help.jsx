@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { displayName, noop } from "../utils";
+import { displayName, noop, setToolMeta } from "../utils";
 import packageJson from "../../package.json";
 
 const Key = displayName(
@@ -57,6 +57,9 @@ const ToolName = displayName(
   styled.a`
     font-weight: 700;
     cursor: pointer;
+    &:hover {
+      color: var(--link-hover);
+    }
   `
 );
 
@@ -106,6 +109,9 @@ const Help = ({ tools, onSelectTool = noop }) => {
   );
 };
 
-Help.displayName = "Help";
+setToolMeta(Help, {
+  name: "Help",
+  description: "Instructions and the list of all the tools.",
+});
 
 export default Help;

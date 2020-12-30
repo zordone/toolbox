@@ -1,6 +1,6 @@
 import React from "react";
 import TextAnalyzer from "../components/TextAnalyzer";
-import { reindent } from "../utils";
+import { reindent, setToolMeta } from "../utils";
 
 const initialText = reindent(`
   Being human makes us susceptible to the onset of feelings. The role of these emotions varies. 
@@ -50,6 +50,9 @@ const WordCounter = (props) => {
   );
 };
 
-WordCounter.displayName = "WordCounter";
+setToolMeta(WordCounter, {
+  name: "WordCounter",
+  description: "Word, line, and character counter.",
+});
 
 export default WordCounter;

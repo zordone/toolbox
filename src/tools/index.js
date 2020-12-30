@@ -1,84 +1,55 @@
 import React from "react";
 import AspectRatio from "./AspectRatio";
 import Base64 from "./Base64";
+import CanIUse from "./CanIUse";
 import Help from "./Help";
 import JsonFormatter from "./JsonFormatter";
 import KimbleCalculator from "./KimbleCalculator";
+import LodashPlayground from "./LodashPlayground";
 import MomentPlayground from "./MomentPlayground";
 import PasswordGenerator from "./PasswordGenerator";
 import Regex from "./Regex";
 import Unindent from "./Unindent";
 import Uuid from "./Uuid";
-import LodashPlayground from "./LodashPlayground";
 import WordCounter from "./WordCounter";
-import CanIUse from "./CanIUse";
 
-const tools = {
-  AspectRatio: {
-    name: "AspectRatio",
-    description: "Aspect ratio calculator.",
-    component: AspectRatio,
-  },
-  Base64: {
-    name: "Base64",
-    description: "Base64 encoder and decoder.",
-    component: Base64,
-  },
-  CanIUse: {
-    name: "CanIUse",
-    description: "Browser support tables website.",
-    component: CanIUse,
-  },
-  Help: {
-    name: "Help",
-    description: "Instructions and the list of all the tools.",
-    component: (props) => <Help tools={tools} {...props} />,
-  },
-  JsonFormatter: {
-    name: "JsonFormatter",
-    description: "JSON formatter and editor.",
-    component: JsonFormatter,
-  },
-  KimbleCalculator: {
-    name: "KimbleCalculator",
-    description: "Kimble time log calculator.",
-    component: KimbleCalculator,
-  },
-  LodashPlayground: {
-    name: "LodashPlayground",
-    description: "JavaScript playground with Lodash.",
-    component: LodashPlayground,
-  },
-  MomentPlayground: {
-    name: "MomentPlayground",
-    description: "JavaScript playground with Moment.js.",
-    component: MomentPlayground,
-  },
-  PasswordGenerator: {
-    name: "PasswordGenerator",
-    description: "Random password generator.",
-    component: PasswordGenerator,
-  },
-  Regex: {
-    name: "Regex",
-    description: "Regular expression tester website.",
-    component: Regex,
-  },
-  Unindent: {
-    name: "Unindent",
-    description: "Unindent JavaScript code or other indented text.",
-    component: Unindent,
-  },
-  Uuid: {
-    name: "Uuid",
-    description: "UUID generator.",
-    component: Uuid,
-  },
-  WordCounter: {
-    name: "WordCounter",
-    description: "Word, line, and character counter.",
-    component: WordCounter,
-  },
-};
+const allTools = [
+  AspectRatio,
+  Base64,
+  CanIUse,
+  Help,
+  JsonFormatter,
+  KimbleCalculator,
+  LodashPlayground,
+  MomentPlayground,
+  PasswordGenerator,
+  Regex,
+  Unindent,
+  Uuid,
+  WordCounter,
+];
+
+// compile tools info object
+//   {
+//     AspectRatio: {
+//       name: "AspectRatio",
+//       description: "Aspect ratio calculator.",
+//       component: AspectRatio,
+//     },
+//     ...
+//   }
+const tools = Object.fromEntries(
+  allTools.map((toolComp) => [
+    toolComp.meta.name,
+    {
+      name: toolComp.meta.name,
+      description: toolComp.meta.description,
+      component: toolComp,
+    },
+  ])
+);
+
+// help needs the tools as an extra prop
+tools.Help.component = (props) => <Help tools={tools} {...props} />;
 
 export default tools;

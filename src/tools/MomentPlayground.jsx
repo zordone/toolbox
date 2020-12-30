@@ -1,7 +1,7 @@
 import React from "react";
 import moment from "moment";
 import "moment/locale/hu";
-import { reindent } from "../utils";
+import { reindent, setToolMeta } from "../utils";
 import Playground from "../components/Playground";
 
 const initialCode = reindent(`
@@ -46,6 +46,9 @@ const MomentPlayground = (props) => {
   );
 };
 
-MomentPlayground.displayName = "MomentPlayground";
+setToolMeta(MomentPlayground, {
+  name: "MomentPlayground",
+  description: "JavaScript playground with Moment.js.",
+});
 
 export default MomentPlayground;

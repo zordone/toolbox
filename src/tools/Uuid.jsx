@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { v4 as uuidv4 } from "uuid";
 import { TextField } from "../components/Fields";
 import Button, { CopyButton } from "../components/Buttons";
-import { displayName } from "../utils";
+import { displayName, setToolMeta } from "../utils";
 
 const Grid = displayName(
   "Grid",
@@ -37,6 +37,9 @@ const Uuid = () => {
   );
 };
 
-Uuid.displayName = "Uuid";
+setToolMeta(Uuid, {
+  name: "Uuid",
+  description: "UUID generator.",
+});
 
 export default Uuid;

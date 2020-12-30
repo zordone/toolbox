@@ -1,6 +1,6 @@
 import React from "react";
 import _ from "lodash";
-import { reindent } from "../utils";
+import { reindent, setToolMeta } from "../utils";
 import Playground from "../components/Playground";
 
 const initialCode = reindent(`
@@ -30,6 +30,9 @@ const LodashPlayground = (props) => {
   );
 };
 
-LodashPlayground.displayName = "LodashPlayground";
+setToolMeta(LodashPlayground, {
+  name: "LodashPlayground",
+  description: "JavaScript playground with Lodash.",
+});
 
 export default LodashPlayground;

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { toast } from "react-toastify";
 import { TextArea, FieldLabel } from "../components/Fields";
 import { CopyButton, PasteButton } from "../components/Buttons";
-import { displayName } from "../utils";
+import { displayName, setToolMeta } from "../utils";
 import { usePersistedState } from "../persistedState";
 
 const initialText = "Hello World!";
@@ -67,6 +67,9 @@ const Base64 = () => {
   );
 };
 
-Base64.displayName = "Base64";
+setToolMeta(Base64, {
+  name: "Base64",
+  description: "Base64 encoder and decoder.",
+});
 
 export default Base64;

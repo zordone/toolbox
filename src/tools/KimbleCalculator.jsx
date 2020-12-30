@@ -2,7 +2,7 @@ import React, { useState, useCallback } from "react";
 import styled from "styled-components";
 import _ from "lodash";
 import TextAnalyzer from "../components/TextAnalyzer";
-import { reindent } from "../utils";
+import { reindent, setToolMeta } from "../utils";
 import { displayName } from "../utils";
 
 const initialText = reindent(`
@@ -147,6 +147,9 @@ const KimbleCalculator = (props) => {
   );
 };
 
-KimbleCalculator.displayName = "KimbleCalculator";
+setToolMeta(KimbleCalculator, {
+  name: "KimbleCalculator",
+  description: "Kimble time log calculator.",
+});
 
 export default KimbleCalculator;

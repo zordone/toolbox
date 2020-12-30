@@ -2,7 +2,7 @@ import React, { useState, useCallback, useEffect } from "react";
 import styled from "styled-components";
 import { TextField } from "../components/Fields";
 import Button, { CopyButton } from "../components/Buttons";
-import { displayName } from "../utils";
+import { displayName, setToolMeta } from "../utils";
 
 const LENGTH = 16;
 const SPECIALS = 2;
@@ -58,6 +58,9 @@ const PasswordGenerator = () => {
   );
 };
 
-PasswordGenerator.displayName = "PasswordGenerator";
+setToolMeta(PasswordGenerator, {
+  name: "PasswordGenerator",
+  description: "Random password generator.",
+});
 
 export default PasswordGenerator;

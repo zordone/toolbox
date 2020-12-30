@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
 import Formatter from "../components/Formatter";
 import { usePersistedState } from "../persistedState";
-import { formatJson } from "../utils";
+import { formatJson, setToolMeta } from "../utils";
 
 const initialJson = formatJson({
   hello: "world",
@@ -36,6 +36,9 @@ const JsonFormatter = ({ pasted }) => {
   );
 };
 
-JsonFormatter.displayName = "JsonFormatter";
+setToolMeta(JsonFormatter, {
+  name: "JsonFormatter",
+  description: "JSON formatter and editor.",
+});
 
 export default JsonFormatter;

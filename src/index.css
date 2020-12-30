@@ -14,6 +14,7 @@
   --input-color-readonly: #999;
   --input-bg: #181818;
   --input-bg-readonly: #181818;
+  --link-hover: var(--input-color);
   --border-radius: 0.2rem;
   --selection: #297d9793;
   --gap-size: 0.5rem;

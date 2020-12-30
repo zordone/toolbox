@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
 import Formatter from "../components/Formatter";
 import { usePersistedState } from "../persistedState";
-import { reindent } from "../utils";
+import { reindent, setToolMeta } from "../utils";
 
 const initialCode = `
       const foo = 'hello';
@@ -29,6 +29,9 @@ const Unindent = ({ pasted }) => {
   );
 };
 
-Unindent.displayName = "Unindent";
+setToolMeta(Unindent, {
+  name: "Unindent",
+  description: "Unindent JavaScript code or other indented text.",
+});
 
 export default Unindent;
