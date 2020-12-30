@@ -23,11 +23,12 @@ function createWindow() {
   const margin = Math.round(Math.min(width, height) * 0.05);
   // Create the browser window.
   const win = new BrowserWindow({
+    backgroundColor: "#000",
     width: width - margin * 2,
     height: height - margin * 2,
     webPreferences: {
-      nodeIntegration: true
-    }
+      nodeIntegration: true,
+    },
   });
 
   // and load the index.html of the app.
@@ -51,8 +52,8 @@ app.whenReady().then(() => {
 
   if (isDev) {
     installExtension(REACT_DEVELOPER_TOOLS)
-      .then(name => console.log(`Added Extension:  ${name}`))
-      .catch(error => console.log(`An error occurred: , ${error}`));
+      .then((name) => console.log(`Added Extension:  ${name}`))
+      .catch((error) => console.log(`An error occurred: , ${error}`));
   }
 });
 
