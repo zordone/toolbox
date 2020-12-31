@@ -3,9 +3,8 @@ import styled from "styled-components";
 import { TextField } from "../components/Fields";
 import Button, { CopyButton } from "../components/Buttons";
 import { displayName, setToolMeta } from "../utils";
+import { useSettings } from "../settings";
 
-const LENGTH = 16;
-const SPECIALS = 2;
 const NORMAL_CHARS =
   "abcdefghijklmnopqrstuvwxyz" +
   "ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
@@ -24,6 +23,7 @@ const Grid = displayName(
 
 const PasswordGenerator = () => {
   const [pass, setPass] = useState("");
+  const settings = useSettings(PasswordGenerator);
 
   const generate = useCallback(() => {
     const chars = NORMAL_CHARS.split("");
@@ -32,15 +32,15 @@ const PasswordGenerator = () => {
       chars.splice(Math.trunc(Math.random() * chars.length), 1)[0];
     const pickSpec = () =>
       specs.splice(Math.trunc(Math.random() * specs.length), 1)[0];
-    const pass = Array(LENGTH - SPECIALS)
+    const pass = Array(settings.length - settings.specials)
       .fill(0)
       .map(pickChar);
-    for (let i = 0; i < SPECIALS; i++) {
+    for (let i = 0; i < settings.specials; i++) {
       const index = Math.random() * pass.length;
       pass.splice(index, 0, pickSpec());
     }
     setPass(pass.join(""));
-  }, []);
+  }, [settings]);
 
   useEffect(generate, [generate]);
 
@@ -61,6 +61,15 @@ const PasswordGenerator = () => {
 setToolMeta(PasswordGenerator, {
   name: "PasswordGenerator",
   description: "Random password generator.",
+  settings: [
+    { key: "length", title: "Password length", type: "number", initial: 16 },
+    {
+      key: "specials",
+      title: "Special characters",
+      type: "number",
+      initial: 2,
+    },
+  ],
 });
 
 export default PasswordGenerator;
