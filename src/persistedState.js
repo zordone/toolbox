@@ -3,6 +3,8 @@ import { identity } from "./utils";
 
 const PREFIX = "state";
 
+const getKey = (toolName, stateKey) => [PREFIX, toolName, stateKey].join("-");
+
 // useState persisted into local storage
 export const usePersistedState = (
   toolComp,
@@ -18,7 +20,7 @@ export const usePersistedState = (
   if (typeof stateKey !== "string" || !stateKey) {
     throw new Error("usePersistedState: No state key!");
   }
-  const key = [PREFIX, toolName, stateKey].join("-");
+  const key = getKey(toolName, stateKey);
   const [state, setState] = useState(
     () => onDeserialize(JSON.parse(localStorage.getItem(key))) || defaultValue
   );
@@ -38,7 +40,7 @@ export const usePersistedStateSet = (toolComp, stateKey, defaultValue) =>
 // clear all state persisted by a given tool
 export const clearPersistedStateFor = (tool) => {
   const toolName = tool?.name;
-  const compPrefix = [PREFIX, toolName, ""].join("-");
+  const compPrefix = getKey(toolName, "");
   Object.keys(localStorage)
     .filter((key) => key.startsWith(compPrefix))
     .forEach((key) => {

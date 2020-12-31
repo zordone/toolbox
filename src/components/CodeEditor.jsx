@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback, useEffect, useRef } from "react";
 import styled from "styled-components";
 import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/theme-tomorrow_night";
@@ -63,6 +63,7 @@ const CodeEditor = ({
   const [lastError, setLastError] = useState();
   const [error, setError] = useState();
   const [inputValue, setInputValue] = useState(state);
+  const onChangeRef = useRef();
 
   const onChange = useCallback(
     (text) => {
@@ -76,12 +77,13 @@ const CodeEditor = ({
     [setState, onValidate]
   );
 
-  // set initial code through validation
+  // re-validate state when validator changes
   useEffect(() => {
-    if (state === undefined && !!initialCode) {
-      onChange(initialCode);
+    if (state !== undefined && onChange !== onChangeRef.current) {
+      onChange(state);
     }
-  }, [initialCode, state, setState, onChange]);
+    onChangeRef.current = onChange;
+  }, [state, onChange]);
 
   // set editor value to external state
   useEffect(() => {

@@ -22,11 +22,12 @@ export const displayName = (name, StyledComp) => {
   return StyledComp;
 };
 
-export const setToolMeta = (toolComp, { name, description }) => {
+export const setToolMeta = (toolComp, { name, description, settings = [] }) => {
   toolComp.displayName = name;
   toolComp.meta = {
     name,
     description,
+    settings,
   };
 };
 

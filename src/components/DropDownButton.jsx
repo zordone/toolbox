@@ -23,7 +23,7 @@ const DropDown = displayName(
     flex-direction: column;
     top: 100%;
     right: 0;
-    background: inherit;
+    background: var(--modal-bg);
     gap: 0.2rem;
     padding: 0.2rem 0;
     border-radius: var(--border-radius);
@@ -46,6 +46,11 @@ const Item = displayName(
       cursor: pointer;
       &:hover {
         background: var(--selection);
+      }
+      &:disabled {
+        opacity: 0.4;
+        background: none;
+        cursor: default;
       }
     }
   `

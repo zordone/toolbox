@@ -31,5 +31,5 @@ export const cssFieldStyle = css`
 `;
 
 export const cssShadow = css`
-  box-shadow: 0 0 1rem #0004;
+  box-shadow: 0 0 1rem #0006;
 `;

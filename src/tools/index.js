@@ -42,8 +42,7 @@ const tools = Object.fromEntries(
   allTools.map((toolComp) => [
     toolComp.meta.name,
     {
-      name: toolComp.meta.name,
-      description: toolComp.meta.description,
+      ...toolComp.meta,
       component: toolComp,
     },
   ])

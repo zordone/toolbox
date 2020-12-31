@@ -5,6 +5,8 @@ import logoPng from "../logo.png";
 import { displayName, noop } from "../utils";
 import Search from "./Search";
 import DropDownButton from "./DropDownButton";
+import { useModal } from "./Modal";
+import ModalSettings from "./ModalSettings";
 
 const TITLE_OPACITY = 0.2;
 
@@ -60,19 +62,23 @@ const Header = ({
   onReloadTool = noop,
   onTitleClick = noop,
 }) => {
+  const settings = useModal();
+
   const onLogoClick = () => {
     onSelectTool("Help");
   };
 
   const onSettings = () => {
-    // TODO: implement settings
-    console.log("Not implemented.");
+    settings.open();
   };
 
   const onClearState = () => {
     clearPersistedStateFor(tools[currentToolName]);
     onReloadTool();
   };
+
+  const tool = tools[currentToolName];
+  const hasSettings = tool.settings?.length;
 
   return (
     <Container>
@@ -86,11 +92,19 @@ const Header = ({
       />
       <Buttons>
         <DropDownButton>
-          <button onClick={onSettings}>Tool settings</button>
+          <button onClick={onSettings} disabled={!hasSettings}>
+            Tool settings
+          </button>
           <button onClick={onReloadTool}>Reload tool</button>
           <button onClick={onClearState}>Clear persisted tool state</button>
         </DropDownButton>
       </Buttons>
+      <ModalSettings
+        key={currentToolName}
+        modalState={settings}
+        tool={tool}
+        onSave={onReloadTool}
+      />
     </Container>
   );
 };

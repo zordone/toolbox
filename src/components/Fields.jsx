@@ -10,23 +10,28 @@ const Input = displayName(
     title: error || null,
     spellCheck: false,
   }))`
-  ${cssFieldStyle}
-  ${cssGridArea}
-  ${({ error }) =>
-    error &&
-    `
-    :focus {
-      outline: none;
-      border-color: 0.1rem solid var(--error-outline);
-      box-shadow: 0 0 0.3rem var(--error-outline);
-    }    
-  `}
-  ${({ monoSpace }) =>
-    monoSpace &&
-    `
-    font-family: monospace;
-  `}
-`
+    ${cssFieldStyle}
+    ${cssGridArea}
+    ${({ error }) =>
+      error &&
+      `
+      :focus {
+        outline: none;
+        border-color: 0.1rem solid var(--error-outline);
+        box-shadow: 0 0 0.3rem var(--error-outline);
+      }
+    `}
+    ${({ monoSpace }) =>
+      monoSpace &&
+      `
+      font-family: monospace;
+    `}
+    ${({ fullWidth }) =>
+      fullWidth &&
+      `
+      width: 100%;
+    `}
+  `
 );
 
 const defaultValidator = (text) => ({ error: null, value: text });
@@ -114,6 +119,5 @@ export const FieldLabel = displayName(
   styled.span`
     ${cssGridArea}
     align-self: center;
-    --opacity: 0.5;
   `
 );

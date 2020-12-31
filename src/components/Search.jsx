@@ -45,7 +45,7 @@ const SearchOptions = displayName(
     top: 100%;
     left: 0;
     right: 0;
-    background: inherit;
+    background: var(--modal-bg);
     display: ${({ isVisible }) => (isVisible ? "block" : "none")};
     font-weight: 400;
     padding: 0.5rem 0;
