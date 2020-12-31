@@ -25,7 +25,9 @@ export const usePersistedState = (
     () => onDeserialize(JSON.parse(localStorage.getItem(key))) || defaultValue
   );
   useEffect(() => {
-    localStorage.setItem(key, JSON.stringify(onSerialize(state)));
+    if (state !== undefined) {
+      localStorage.setItem(key, JSON.stringify(onSerialize(state)));
+    }
   }, [key, state, onSerialize]);
   return [state, setState];
 };

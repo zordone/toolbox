@@ -16,7 +16,10 @@ export const useSettings = (toolOrComp) => {
 
   const [settings] = useState(() => {
     const key = getKey(meta.name);
-    return JSON.parse(localStorage.getItem(key) || "{}");
+    const saved = JSON.parse(localStorage.getItem(key) || "{}");
+    return Object.fromEntries(
+      meta.settings.map(({ key, initial }) => [key, saved[key] || initial])
+    );
   });
 
   return settings;

@@ -19,14 +19,9 @@ const TypeToInput = {
 };
 
 const ModalSettings = ({ modalState, tool, onSave = noop }) => {
-  const settings = tool.settings;
+  const config = tool.settings;
   const saved = useSettings(tool);
-  const [values, setValues] = useState(() => {
-    const initialValues = Object.fromEntries(
-      settings.map(({ key, initial }) => [key, saved[key] || initial])
-    );
-    return initialValues;
-  });
+  const [values, setValues] = useState(saved);
 
   const onSaveClick = () => {
     saveSettings(tool, values);
@@ -34,11 +29,17 @@ const ModalSettings = ({ modalState, tool, onSave = noop }) => {
     onSave();
   };
 
+  const onKeyDown = ({ key }) => {
+    if (key === "Enter") {
+      onSaveClick();
+    }
+  };
+
   return (
     <Modal isOpen={modalState.isOpen} onClose={modalState.close}>
       <ModalTitle>{tool.name} Settings</ModalTitle>
-      <ModalBody autoFocus>
-        {settings.map(({ key, title, type }, index) => {
+      <ModalBody autoFocus onKeyDown={onKeyDown}>
+        {config.map(({ key, title, type }, index) => {
           const Input = TypeToInput[type] || TypeToInput.text;
           return (
             <React.Fragment key={key}>

@@ -77,13 +77,17 @@ const CodeEditor = ({
     [setState, onValidate]
   );
 
-  // re-validate state when validator changes
+  // extra validations
   useEffect(() => {
-    if (state !== undefined && onChange !== onChangeRef.current) {
+    if (state === undefined && !!initialCode) {
+      // validate initial code
+      onChange(initialCode);
+    } else if (state !== undefined && onChange !== onChangeRef.current) {
+      // re-validate state when validator changes
       onChange(state);
     }
     onChangeRef.current = onChange;
-  }, [state, onChange]);
+  }, [state, initialCode, onChange]);
 
   // set editor value to external state
   useEffect(() => {
