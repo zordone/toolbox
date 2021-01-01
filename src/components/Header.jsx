@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useCallback } from "react";
 import styled from "styled-components";
+import { useHotkeys } from "react-hotkeys-hook";
 import { clearPersistedStateFor } from "../persistedState";
 import logoPng from "../logo.png";
 import { displayName, noop } from "../utils";
@@ -62,23 +63,33 @@ const Header = ({
   onReloadTool = noop,
   onTitleClick = noop,
 }) => {
-  const settings = useModal();
-
-  const onLogoClick = () => {
-    onSelectTool("Help");
-  };
-
-  const onSettings = () => {
-    settings.open();
-  };
-
-  const onClearState = () => {
-    clearPersistedStateFor(tools[currentToolName]);
-    onReloadTool();
-  };
-
   const tool = tools[currentToolName];
   const hasSettings = tool.settings?.length;
+  const settings = useModal();
+
+  const onLogoClick = useCallback(() => {
+    onSelectTool("Help");
+  }, [onSelectTool]);
+
+  const onSettings = useCallback(() => {
+    settings.open();
+  }, [settings]);
+
+  const onClearState = useCallback(() => {
+    clearPersistedStateFor(tools[currentToolName]);
+    onReloadTool();
+  }, [currentToolName, onReloadTool, tools]);
+
+  useHotkeys(
+    "cmd+,",
+    (event) => {
+      if (hasSettings) {
+        onSettings();
+      }
+      event.preventDefault();
+    },
+    [hasSettings, onSettings]
+  );
 
   return (
     <Container>
