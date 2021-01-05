@@ -15,7 +15,7 @@ const Button = displayName(
     cursor: pointer;
     font-size: inherit;
     padding: 0.2rem 1rem;
-    color: ${({ isOn }) => (isOn ? "var(--input-color)" : "currentColor")};
+    color: ${({ isOn }) => (isOn ? "var(--input-fg)" : "currentColor")};
     ${({ chromeless }) =>
       chromeless &&
       `

@@ -62,7 +62,7 @@ const WatchValue = displayName(
     font-size: 0.8rem;
     max-height: 8rem;
     overflow: scroll;
-    color: ${({ isError }) => (isError ? "red" : "var(--input-color)")};
+    color: ${({ isError }) => (isError ? "red" : "var(--input-fg)")};
   `
 );
 
@@ -79,7 +79,6 @@ const WatchRemove = displayName(
     &:hover {
       color: red;
       opacity: 0.7;
-      
     }
   `
 );
@@ -88,9 +87,9 @@ const formatValue = (value) => {
   if (value === undefined) return "undefined";
   if (value === Infinity) return "Infinity";
   if (value === -Infinity) return "-Infinity";
-  if (typeof value === 'number' && isNaN(value)) return "NaN";
+  if (typeof value === "number" && isNaN(value)) return "NaN";
   return JSON.stringify(value);
-}
+};
 
 const WatchList = ({ watches, onRemove }) => (
   <WatchesScroller>

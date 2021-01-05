@@ -43,7 +43,7 @@ const Value = displayName(
 );
 
 const Unit = displayName(
-  "Text",
+  "Unit",
   styled.span`
     ${cssGridArea}
     white-space: nowrap;

@@ -10,11 +10,11 @@
   --error-fg: #ff3b00;
   --error-outline: var(--error-fg);
   --focus-outline: #006eff;
-  --input-color: #00c3ff;
-  --input-color-readonly: #999;
+  --input-fg: #00c3ff;
+  --input-fg-readonly: #999;
   --input-bg: #181818;
-  --input-bg-readonly: #181818;
-  --link-hover: var(--input-color);
+  --input-bg-readonly: #18181870;
+  --link-hover: var(--input-fg);
   --border-radius: 0.2rem;
   --selection: #297d9793;
   --gap-size: 0.5rem;
@@ -60,4 +60,8 @@ input::-webkit-inner-spin-button {
 }
 input[type="number"] {
   -moz-appearance: textfield;
+}
+
+::selection {
+  background: var(--selection);
 }

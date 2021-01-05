@@ -6,7 +6,7 @@ export const cssGridArea = css`
 
 export const cssFieldStyle = css`
   background: var(--input-bg);
-  color: var(--input-color);
+  color: var(--input-fg);
   border: none;
   outline: none;
   padding: 0.2rem;
@@ -22,6 +22,7 @@ export const cssFieldStyle = css`
       box-shadow: 0 0 0.3rem var(--focus-outline);
     `}
   }
+
   ${({ readOnly }) =>
     readOnly &&
     `
