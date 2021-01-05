@@ -3,12 +3,15 @@ import styled from "styled-components";
 import { NumberField, RatioField, FieldLabel } from "../components/Fields";
 import Button from "../components/Buttons";
 import Icon from "../components/Icon";
-import { patterns, matchGroups, gcd, displayName, setToolMeta } from "../utils";
+import { matchGroups, gcd, displayName, setToolMeta } from "../utils";
 import { usePersistedState } from "../persistedState";
 
 const WIDTH = "width";
 const HEIGHT = "height";
 const RATIO = "ratio";
+
+const reResolution = /(?<width>\d+)x(?<height>\d+)/;
+const reRatio = /(?<width>\d+):(?<height>\d+)/;
 
 const Grid = displayName(
   "Grid",
@@ -47,12 +50,12 @@ const AspectRatio = ({ pasted }) => {
   // recognize pasted resolution or ratio
   useEffect(() => {
     const cleaned = pasted?.replace(/\*/g, "x").replace(/\s/g, "");
-    matchGroups(cleaned, patterns.resolution, ({ width, height }) => {
+    matchGroups(cleaned, reResolution, ({ width, height }) => {
       setCalc(RATIO);
       setWidth(parseInt(width, 10));
       setHeight(parseInt(height, 10));
     });
-    matchGroups(cleaned, patterns.ratio, ({ width, height }) => {
+    matchGroups(cleaned, reRatio, ({ width, height }) => {
       setCalc(WIDTH);
       setRatio(`${width}:${height}`);
     });

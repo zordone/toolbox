@@ -12,11 +12,6 @@ export const matchGroups = (text, regex, onMatch = noop) => {
   }
 };
 
-export const patterns = {
-  resolution: /(?<width>\d+)x(?<height>\d+)/,
-  ratio: /(?<width>\d+):(?<height>\d+)/,
-};
-
 export const displayName = (name, StyledComp) => {
   StyledComp.displayName = name;
   return StyledComp;
