@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
+import { toast } from "react-toastify";
 import { NumberField, RatioField, FieldLabel } from "../components/Fields";
 import Button from "../components/Buttons";
 import Icon from "../components/Icon";
@@ -54,10 +55,12 @@ const AspectRatio = ({ pasted }) => {
       setCalc(RATIO);
       setWidth(parseInt(width, 10));
       setHeight(parseInt(height, 10));
+      toast.success("Pasted width & height.");
     });
     matchGroups(cleaned, reRatio, ({ width, height }) => {
       setCalc(WIDTH);
       setRatio(`${width}:${height}`);
+      toast.success("Pasted aspect ratio.");
     });
   }, [pasted, setCalc, setHeight, setRatio, setWidth]);
 
