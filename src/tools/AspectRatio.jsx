@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { toast } from "react-toastify";
-import { NumberField, RatioField, FieldLabel } from "../components/Fields";
+import { RatioField, FieldLabel, IntegerField } from "../components/Fields";
 import Button from "../components/Buttons";
 import Icon from "../components/Icon";
 import { matchGroups, gcd, displayName, setToolMeta } from "../utils";
@@ -88,7 +88,7 @@ const AspectRatio = ({ pasted }) => {
   return (
     <Grid>
       <FieldLabel>Width</FieldLabel>
-      <NumberField
+      <IntegerField
         state={width}
         setState={setWidth}
         readOnly={calc === WIDTH}
@@ -101,7 +101,7 @@ const AspectRatio = ({ pasted }) => {
       />
 
       <FieldLabel>Height</FieldLabel>
-      <NumberField
+      <IntegerField
         state={height}
         setState={setHeight}
         readOnly={calc === HEIGHT}

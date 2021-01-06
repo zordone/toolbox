@@ -62,11 +62,11 @@ setToolMeta(PasswordGenerator, {
   name: "PasswordGenerator",
   description: "Random password generator.",
   settings: [
-    { key: "length", title: "Password length", type: "number", initial: 16 },
+    { key: "length", title: "Password length", type: "integer", initial: 16 },
     {
       key: "specials",
       title: "Special characters",
-      type: "number",
+      type: "integer",
       initial: 2,
     },
   ],

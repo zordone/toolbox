@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { displayName, noop } from "../utils";
 import Modal, { ModalBody, ModalFooter, ModalTitle } from "./Modal";
 import Button from "./Buttons";
-import { TextField, NumberField } from "./Fields";
+import { TextField, IntegerField, FloatField } from "./Fields";
 import { saveSettings, useSettings } from "../settings";
 
 const Name = displayName(
@@ -15,7 +15,8 @@ const Name = displayName(
 
 const TypeToInput = {
   text: TextField,
-  number: NumberField,
+  integer: IntegerField,
+  float: FloatField,
 };
 
 const ModalSettings = ({ modalState, tool, onSave = noop }) => {

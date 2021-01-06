@@ -38,7 +38,7 @@ setToolMeta(Unindent, {
   name: "Unindent",
   description: "Unindent JavaScript code or other indented text.",
   settings: [
-    { key: "leading", title: "Leading spaces", type: "number", initial: 0 },
+    { key: "leading", title: "Leading spaces", type: "integer", initial: 0 },
   ],
 });
 

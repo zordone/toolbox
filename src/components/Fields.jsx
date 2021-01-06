@@ -89,13 +89,25 @@ export const TextField = (props) => <BasicField {...props} type="text" />;
 
 export const TextArea = (props) => <BasicField {...props} as="textarea" />;
 
-export const NumberField = (props) => (
+export const IntegerField = (props) => (
   <BasicField
     {...props}
     type="number"
     onValidate={(text) => {
       const value = parseInt(text, 10);
-      const error = isNaN(value) ? "Not a valid number" : null;
+      const error = isNaN(value) ? "Not a valid integer" : null;
+      return { value, error };
+    }}
+  />
+);
+
+export const FloatField = (props) => (
+  <BasicField
+    {...props}
+    type="number"
+    onValidate={(text) => {
+      const value = parseFloat(text, 10);
+      const error = isNaN(value) ? "Not a valid float" : null;
       return { value, error };
     }}
   />
