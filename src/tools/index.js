@@ -2,6 +2,7 @@ import React from "react";
 import AspectRatio from "./AspectRatio";
 import Base64 from "./Base64";
 import CanIUse from "./CanIUse";
+import Color from "./Color";
 import Help from "./Help";
 import JsonFormatter from "./JsonFormatter";
 import KimbleCalculator from "./KimbleCalculator";
@@ -17,6 +18,7 @@ const allTools = [
   AspectRatio,
   Base64,
   CanIUse,
+  Color,
   Help,
   JsonFormatter,
   KimbleCalculator,
@@ -35,6 +37,7 @@ const allTools = [
 //       name: "AspectRatio",
 //       description: "Aspect ratio calculator.",
 //       component: AspectRatio,
+//       settings: [...],
 //     },
 //     ...
 //   }

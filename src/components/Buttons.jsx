@@ -6,7 +6,7 @@ import Icon from "../components/Icon";
 import { displayName, capitalize } from "../utils";
 import { cssFieldStyle, cssGridArea } from "./styledCss";
 
-const Button = displayName(
+const StyledButton = displayName(
   "Button",
   styled.button`
     ${cssFieldStyle}
@@ -15,14 +15,26 @@ const Button = displayName(
     cursor: pointer;
     font-size: inherit;
     padding: 0.2rem 1rem;
-    color: ${({ isOn }) => (isOn ? "var(--input-fg)" : "currentColor")};
-    ${({ chromeless }) =>
-      chromeless &&
+    color: ${({ $isOn }) => ($isOn ? "var(--input-fg)" : "currentColor")};
+    ${({ $chromeless }) =>
+      $chromeless &&
       `
       background: none; 
       padding: unset;
     `}
+    ${({ $fullWidth }) => $fullWidth && `width: 100%;`}
   `
+);
+
+const Button = ({ isOn, chromeless, fullWidth, children, ...rest }) => (
+  <StyledButton
+    $isOn={isOn}
+    $chromeless={chromeless}
+    $fullWidth={fullWidth}
+    {...rest}
+  >
+    {children}
+  </StyledButton>
 );
 
 export default Button;
@@ -62,6 +74,19 @@ export const PasteButton = ({ name, setState, ...rest }) => {
       icon="fa-paste"
       onClick={paste}
       title={`Paste into ${name}`}
+      {...rest}
+    />
+  );
+};
+
+export const OnOfffButton = ({ state, setState, ...rest }) => {
+  const isOn = !!state;
+  return (
+    <IconButton
+      icon={isOn ? "fa-toggle-on" : "fa-toggle-off"}
+      isOn={isOn}
+      onClick={() => setState(!state)}
+      title="Toggle On / Off`"
       {...rest}
     />
   );

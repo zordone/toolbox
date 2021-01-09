@@ -12,6 +12,10 @@ export const matchGroups = (text, regex, onMatch = noop) => {
   }
 };
 
+export const limit = (num, min, max) => Math.min(max, Math.max(num, min));
+
+export const roundTo = (num, fixed) => num && num.toFixed(fixed);
+
 export const displayName = (name, StyledComp) => {
   StyledComp.displayName = name;
   return StyledComp;
