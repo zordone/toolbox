@@ -119,14 +119,14 @@ const KimbleCalculator = (props) => {
         unit: "h in total,",
       },
       {
-        title: "Hours left from the dily 8h",
+        title: "Hours left from the daily 8h",
         value: (8 - sum).toFixed(2),
         unit: "h to go today,",
       },
       {
         title: "Hours left from the weekly 40h",
         value: (40 - sum).toFixed(2),
-        unit: "h to go tis week.",
+        unit: "h to go this week.",
       },
     ];
   }, []);
