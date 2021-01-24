@@ -1,6 +1,7 @@
 const path = require("path");
 const { app, screen, BrowserWindow } = require("electron");
 const isDev = require("electron-is-dev");
+const windowStateKeeper = require("electron-window-state");
 
 const PORT = 3100;
 
@@ -19,17 +20,35 @@ if (require("electron-squirrel-startup")) {
 }
 
 function createWindow() {
-  const { width, height } = screen.getPrimaryDisplay().size;
-  const margin = Math.round(Math.min(width, height) * 0.05);
+  // Default window size.
+  const {
+    width: screenWidth,
+    height: screenHeight,
+  } = screen.getPrimaryDisplay().size;
+  const margins = Math.round(Math.min(screenWidth, screenHeight) * 0.1);
+  const defaultWidth = screenWidth - margins;
+  const defaultHeight = screenHeight - margins;
+
+  // Load the previous state with fallback to defaults.
+  let mainWindowState = windowStateKeeper({
+    defaultWidth,
+    defaultHeight,
+  });
+
   // Create the browser window.
   const win = new BrowserWindow({
     backgroundColor: "#000",
-    width: width - margin * 2,
-    height: height - margin * 2,
+    x: mainWindowState.x,
+    y: mainWindowState.y,
+    width: mainWindowState.width,
+    height: mainWindowState.height,
     webPreferences: {
       nodeIntegration: true,
     },
   });
+
+  // Watch window position & size.
+  mainWindowState.manage(win);
 
   // and load the index.html of the app.
   win.loadURL(
