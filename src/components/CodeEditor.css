@@ -23,6 +23,11 @@
   border-radius: 0.1rem;
 }
 
+/* comments */
+.ace_editor .ace_text-layer .ace_comment {
+  color: #666;
+}
+
 /* code completion */
 .ace_dark.ace_editor.ace_autocomplete .ace_marker-layer .ace_active-line {
   background-color: var(--selection);

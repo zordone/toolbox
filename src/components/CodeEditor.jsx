@@ -6,7 +6,7 @@ import "ace-builds/src-noconflict/mode-javascript";
 import "ace-builds/src-noconflict/mode-json";
 import "ace-builds/src-noconflict/ext-language_tools";
 import "ace-builds/src-noconflict/snippets/javascript";
-import { noop, displayName } from "../utils";
+import { noop, displayName, stopPropagation } from "../utils";
 import { cssGridArea } from "./styledCss";
 import "./CodeEditor.css";
 
@@ -102,7 +102,7 @@ const CodeEditor = ({
   }, [error, lastError]);
 
   return (
-    <EditorContainer area={area}>
+    <EditorContainer area={area} onPaste={stopPropagation}>
       <StyledEditor
         ref={editorRef}
         mode={mode}

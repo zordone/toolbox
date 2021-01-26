@@ -3,7 +3,7 @@ import React, { useCallback } from "react";
 import { toast } from "react-toastify";
 import styled from "styled-components";
 import Icon from "../components/Icon";
-import { displayName, capitalize } from "../utils";
+import { displayName, capitalize, noop } from "../utils";
 import { cssFieldStyle, cssGridArea } from "./styledCss";
 
 const StyledButton = displayName(
@@ -87,6 +87,56 @@ export const OnOfffButton = ({ state, setState, ...rest }) => {
       isOn={isOn}
       onClick={() => setState(!state)}
       title="Toggle On / Off`"
+      {...rest}
+    />
+  );
+};
+
+export const OpenButton = ({
+  fieldName,
+  setName,
+  setContent,
+  dialogOptions,
+  ...rest
+}) => {
+  const open = useCallback(() => {
+    window.electronApi
+      ?.showOpenDialog(dialogOptions)
+      .then(({ name, content }) => {
+        if (content !== null) {
+          setName(name);
+          setContent(content);
+          toast.success(capitalize(`File loaded.`));
+        }
+      })
+      .catch(noop);
+  }, [dialogOptions, setContent, setName]);
+  return (
+    <IconButton
+      icon="fa-folder-open"
+      onClick={open}
+      title={`Open ${fieldName} file`}
+      {...rest}
+    />
+  );
+};
+
+export const SaveButton = ({ fieldName, content, dialogOptions, ...rest }) => {
+  const save = useCallback(() => {
+    window.electronApi
+      ?.showSaveDialog(content, dialogOptions)
+      .then(({ name }) => {
+        if (name) {
+          toast.success(capitalize(`File saved to: ${name}`));
+        }
+      })
+      .catch(noop);
+  }, [content, dialogOptions]);
+  return (
+    <IconButton
+      icon="fa-save"
+      onClick={save}
+      title={`Save ${fieldName} file`}
       {...rest}
     />
   );

@@ -12,6 +12,7 @@ export const cssFieldStyle = css`
   padding: 0.2rem;
   border-radius: var(--border-radius);
   font-size: 1rem;
+  box-sizing: border-box;
 
   :focus {
     outline: none;

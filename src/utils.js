@@ -47,3 +47,12 @@ export const reindent = (code, baseIndent = 0) => {
 };
 
 export const formatJson = (obj) => JSON.stringify(obj, null, 2);
+
+export const stopPropagation = (event) => {
+  event.stopPropagation();
+};
+
+export const preventDefault = (event) => {
+  event.preventDefault();
+  event.stopPropagation();
+};

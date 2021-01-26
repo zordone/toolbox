@@ -5,6 +5,7 @@ import CanIUse from "./CanIUse";
 import Color from "./Color";
 import Help from "./Help";
 import JsonFormatter from "./JsonFormatter";
+import JsonTransformer from "./JsonTransformer";
 import KimbleCalculator from "./KimbleCalculator";
 import LodashPlayground from "./LodashPlayground";
 import MomentPlayground from "./MomentPlayground";
@@ -21,6 +22,7 @@ const allTools = [
   Color,
   Help,
   JsonFormatter,
+  JsonTransformer,
   KimbleCalculator,
   LodashPlayground,
   MomentPlayground,

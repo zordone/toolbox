@@ -10,6 +10,14 @@ import WatchList from "./Watches";
 import Splitter, { SplitterPane } from "./Splitter";
 import { usePersistedState, usePersistedStateSet } from "../persistedState";
 
+export const commonContext = {
+  console,
+  Boolean,
+  String,
+  Number,
+  Date,
+};
+
 const defaultCode = reindent(`
   const number = 1 + 2 + 3;
 `);
@@ -35,10 +43,8 @@ const runCode = (code, extraContext, watchExprs) => {
     .join("\n");
 
   const context = {
+    ...commonContext,
     ...extraContext,
-    console,
-    Boolean,
-    String,
     watches: [],
   };
 

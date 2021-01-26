@@ -10,6 +10,7 @@
   --error-fg: #ff3b00;
   --error-outline: var(--error-fg);
   --focus-outline: #006eff;
+  --ok-outline: #00ff00;
   --input-fg: #00c3ff;
   --input-fg-readonly: #999;
   --input-bg: #181818;
