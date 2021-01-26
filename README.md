@@ -18,7 +18,7 @@ But since I plan to add a lot of tools to this toolbox, I've spent the time crea
 
 - `npm start` - Start development in browser.
 - `npm run dev` - Start development in Electron.
-- `npm run make` - Build production MacOS app. Output: `out/Toolbox-darwin-x64/Toolbox.app'.
+- `npm run make` - Build production MacOS app. Output: `out/Toolbox-darwin-x64/Toolbox.app`.
 
 ## Changing the port
 
@@ -39,7 +39,9 @@ It's easiest to search for the current port and replace it everywhere.
 
 ![Help](docs/screenshot-help.png)
 ![Search](docs/screenshot-search.png)
+![Json](docs/screenshot-json.png)
 ![Lodash](docs/screenshot-lodash.png)
 ![Base64](docs/screenshot-bsase64.png)
 ![Uuid](docs/screenshot-uuid.png)
+![Color](docs/screenshot-color.png)
 ![Regex](docs/screenshot-regex.png)
