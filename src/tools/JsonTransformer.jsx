@@ -74,7 +74,8 @@ const JsonTransformer = () => {
       const fullCode = codeTemplate.replace("{{TRANSFORM}}", newCode);
       try {
         const result = saferEval(fullCode, context);
-        setOutput(formatJson(result));
+        // setTimeout prevents the cursor jumping back when updating the output before the code.
+        setTimeout(() => setOutput(formatJson(result)), 0);
         return { value: newCode };
       } catch (err) {
         return { error: err.message };
