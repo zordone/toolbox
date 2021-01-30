@@ -7,19 +7,24 @@ import { displayName, formatJson, reindent, setToolMeta } from "../utils";
 import CodeEditor from "../components/CodeEditor";
 import { commonContext } from "../components/Playground";
 import { usePersistedState } from "../persistedState";
-import { OpenButton, SaveButton } from "../components/Buttons";
+import {
+  CopyButton,
+  OpenButton,
+  PasteButton,
+  SaveButton,
+} from "../components/Buttons";
 
 const Grid = displayName(
   "Grid",
   styled.div`
     display: grid;
-    grid-template-columns: 28rem 0fr 1fr 0fr;
+    grid-template-columns: 27rem 0fr 0fr 1fr 0fr;
     grid-template-rows: 0fr 0fr 0fr 1fr;
     grid-template-areas:
-      "lin   open  lout save"
-      "fin   fin   fout fout"
-      "lcode lcode fout fout"
-      "fcode fcode fout fout";
+      "lin   open  paste lout save copy"
+      "fin   fin   fin   fout fout fout"
+      "lcode lcode lcode fout fout fout"
+      "fcode fcode fcode fout fout fout";
     gap: var(--gap-size);
     height: 100%;
   `
@@ -94,6 +99,7 @@ const JsonTransformer = () => {
         fieldName="input"
         dialogOptions={dialogOptions}
       />
+      <PasteButton area="paste" name="input JSON" setState={setContent} />
       <FileField
         area="fin"
         {...{ name, setName, content, setContent }}
@@ -113,10 +119,11 @@ const JsonTransformer = () => {
       <FieldLabel area="lout">Output:</FieldLabel>
       <SaveButton
         area="save"
-        content={content}
+        content={output}
         fieldName="output"
         dialogOptions={dialogOptions}
       />
+      <CopyButton area="copy" name="output JSON" state={output} />
       <TextArea
         area="fout"
         state={output}

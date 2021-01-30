@@ -15,6 +15,7 @@
   --input-fg-readonly: #999;
   --input-bg: #181818;
   --input-bg-readonly: #18181870;
+  --input-placeholder: #fff2;
   --link-hover: var(--input-fg);
   --border-radius: 0.2rem;
   --selection: #297d9793;
@@ -65,4 +66,9 @@ input[type="number"] {
 
 ::selection {
   background: var(--selection);
+}
+
+::placeholder {
+  color: var(--input-placeholder);
+  opacity: 1;
 }

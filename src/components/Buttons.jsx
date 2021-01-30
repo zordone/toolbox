@@ -14,7 +14,7 @@ const StyledButton = displayName(
     border: none;
     cursor: pointer;
     font-size: inherit;
-    padding: 0.2rem 1rem;
+    padding: 0.2rem 0.5rem;
     color: ${({ $isOn }) => ($isOn ? "var(--input-fg)" : "currentColor")};
     ${({ $chromeless }) =>
       $chromeless &&
