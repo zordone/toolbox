@@ -14,6 +14,7 @@ const SideBySide = displayName(
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: var(--gap-size);
+    height: 100%;
   `
 );
 
@@ -22,6 +23,7 @@ const Grid = displayName(
   styled.div`
     display: grid;
     grid-template-columns: 1fr 0fr 0fr;
+    grid-template-rows: 0fr 1fr;
     grid-template-areas:
       "label copy  paste"
       "field field field";

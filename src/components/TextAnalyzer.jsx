@@ -11,11 +11,13 @@ const Grid = displayName(
   styled.div`
     display: grid;
     grid-template-columns: 1fr 0fr;
+    grid-template-rows: 0fr 1fr 0fr;
     grid-template-areas:
       "label copy"
       "text  text"
       "foot  foot";
     gap: var(--gap-size);
+    height: 100%;
   `
 );
 

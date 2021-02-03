@@ -34,6 +34,17 @@ const sumHoursBy = (collecion, key) => {
   return grouped;
 };
 
+const Grid = displayName(
+  "Grid",
+  styled.div`
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    gap: var(--gap-size);
+    height: 100%;
+  `
+);
+
 const RowTitle = displayName(
   "RowTitle",
   styled.div`
@@ -132,7 +143,7 @@ const KimbleCalculator = (props) => {
   }, []);
 
   return (
-    <>
+    <Grid>
       <TextAnalyzer
         label="Paste the Kimble time log here"
         name="kimble log"
@@ -143,7 +154,7 @@ const KimbleCalculator = (props) => {
       />
       <GroupedSection title="Hours per day" groupedData={itemsByDay} />
       <GroupedSection title="Hours per category" groupedData={itemsByCat} />
-    </>
+    </Grid>
   );
 };
 
