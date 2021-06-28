@@ -6,7 +6,8 @@ import hotkeys from "hotkeys-js";
 import styled from "styled-components";
 import Header from "./Header";
 import tools from "../tools";
-import { displayName } from "../utils";
+import { displayName, setToolMeta } from "../utils";
+import { usePersistedState } from "../persistedState";
 
 hotkeys.filter = function (event) {
   return true;
@@ -22,7 +23,12 @@ const ToolContainer = displayName(
 
 const App = () => {
   const searchRef = useRef();
-  const [currentToolName, setCurrentToolName] = useState("");
+  const [currentToolName, setCurrentToolName] = usePersistedState(
+    App,
+    "tool",
+    ""
+  );
+
   const [pasted, setPasted] = useState("");
   const [reload, setReload] = useState(0);
 
@@ -35,10 +41,13 @@ const App = () => {
     [searchRef]
   );
 
-  const onSelectTool = useCallback((name) => {
-    setCurrentToolName(name);
-    setReload(0);
-  }, []);
+  const onSelectTool = useCallback(
+    (name) => {
+      setCurrentToolName(name);
+      setReload(0);
+    },
+    [setCurrentToolName]
+  );
 
   const onReloadTool = useCallback(() => {
     setReload(reload + 1);
@@ -88,5 +97,8 @@ const App = () => {
     </div>
   );
 };
+
+// only needed for usePersistedState. App isn't added to the tools array.
+setToolMeta(App, { name: "App", description: "Root app component" });
 
 export default App;
