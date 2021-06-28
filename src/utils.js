@@ -32,6 +32,8 @@ export const setToolMeta = (toolComp, { name, description, settings = [] }) => {
 
 export const capitalize = (text) => `${text[0].toUpperCase()}${text.slice(1)}`;
 
+export const repeat = (text, times = 1, separator = '') => Array(times).fill(text).join(separator);
+
 export const reindent = (code, baseIndent = 0) => {
   const trimmed = code
     .replace(/^[\s\n\r]+$/gm, "\n") // trim blanks

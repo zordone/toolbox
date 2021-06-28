@@ -27,6 +27,8 @@ export const usePersistedState = (
   useEffect(() => {
     if (state !== undefined) {
       localStorage.setItem(key, JSON.stringify(onSerialize(state)));
+    } else {
+      localStorage.removeItem(key);
     }
   }, [key, state, onSerialize]);
   return [state, setState];

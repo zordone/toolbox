@@ -49,6 +49,7 @@ export const BasicField = ({
   readOnly = false,
   monoSpace = false,
   onValidate = defaultValidator,
+  onChange = noop,
   inputRef,
   ...rest
 }) => {
@@ -59,7 +60,7 @@ export const BasicField = ({
     setInputValue(state);
   }, [state]);
 
-  const onChange = useCallback(
+  const onChangeInternal = useCallback(
     (event) => {
       const text = event.target.value;
       const { value, error } = onValidate(text);
@@ -68,8 +69,9 @@ export const BasicField = ({
       if (!error) {
         setState(value);
       }
+      onChange(value);
     },
-    [setState, onValidate]
+    [setState, onValidate, onChange]
   );
 
   return (
@@ -77,7 +79,7 @@ export const BasicField = ({
       ref={inputRef}
       type={type}
       value={inputValue}
-      onChange={onChange}
+      onChange={onChangeInternal}
       error={error}
       readOnly={readOnly}
       monoSpace={monoSpace}
