@@ -23,7 +23,8 @@ import {
 } from "../utils";
 import { usePersistedState } from "../persistedState";
 
-const reRgba = /^rgba?\((?<r>\d+),\s*(?<g>\d+),\s*(?<b>\d+)(|,\s*(?<a>[\d.]+))\)$/;
+const reRgba =
+  /^rgba?\((?<r>\d+),\s*(?<g>\d+),\s*(?<b>\d+)(|,\s*(?<a>[\d.]+))\)$/;
 const reShortable = /^#(\w)\1(\w)\2(\w)\3(?:(\w)\4)?$/;
 const reHsla = /^hsl\((\d+)\s+?(\d+)%\s+?(\d+)%\s*\/?\s*([\d.]+)?\)$/;
 
@@ -338,7 +339,7 @@ const Color = () => {
 
   return (
     <Grid>
-      <FieldLabel>Select part to edit:</FieldLabel>
+      <FieldLabel>Select part to edit</FieldLabel>
       <Aspect
         aspectRatio="1:1"
         onMouseEnter={() => setIsHover(true)}
@@ -357,9 +358,9 @@ const Color = () => {
           />
         ))}
       </Aspect>
-      <FieldLabel>Selected:</FieldLabel>
+      <FieldLabel>Selected</FieldLabel>
       <EditorGrid>
-        <FieldLabel>Part:</FieldLabel>
+        <FieldLabel>Part</FieldLabel>
         <TextField state={selected} readOnly />
         <OnOfffButton
           state={toggles[selected]}
@@ -368,7 +369,7 @@ const Color = () => {
 
         <Separator area="sep1" />
 
-        <FieldLabel>Color:</FieldLabel>
+        <FieldLabel>Color</FieldLabel>
         <TextField state={colors[selected]} setState={setColor} monoSpace />
         <Cell>
           <CopyButton name="color" state={colors[selected]} />
@@ -379,7 +380,7 @@ const Color = () => {
 
         {hslaFields.map(({ key, label, Field }, index) => (
           <React.Fragment key={key}>
-            <FieldLabel>{label}:</FieldLabel>
+            <FieldLabel>{label}</FieldLabel>
             <Field
               state={hsla[index]}
               setState={(val) => setHslaPart(index, val)}
@@ -403,7 +404,7 @@ const Color = () => {
 
         {copyFields.map(({ name, state }) => (
           <React.Fragment key={name}>
-            <FieldLabel>{name}:</FieldLabel>
+            <FieldLabel>{name}</FieldLabel>
             <TextField state={state} readOnly monoSpace />
             <CopyButton name={name} state={state} />
           </React.Fragment>

@@ -23,7 +23,7 @@ const Unindent = ({ pasted }) => {
   return (
     <Formatter
       pasted={pasted}
-      title="Edit your code:"
+      title="Edit your code"
       name="code"
       state={code}
       setState={setCode}

@@ -36,7 +36,7 @@ const extraContext = { moment };
 const MomentPlayground = (props) => {
   return (
     <Playground
-      label="Edit your moment.js code:"
+      label="Edit your moment.js code"
       initialCode={initialCode}
       initialWatchExprs={initialWatchExprs}
       extraContext={extraContext}

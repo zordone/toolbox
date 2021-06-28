@@ -165,7 +165,7 @@ const Playground = ({
         />
       </SplitterPane>
       <SplitterPane>
-        <FieldLabel>Watches:</FieldLabel>
+        <FieldLabel>Watches</FieldLabel>
         <WatchList watches={watchResults} onRemove={removeWatch} />
       </SplitterPane>
     </Splitter>

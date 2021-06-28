@@ -20,7 +20,7 @@ const extraContext = { _ };
 const LodashPlayground = (props) => {
   return (
     <Playground
-      label="Edit your lodash code:"
+      label="Edit your lodash code"
       initialCode={initialCode}
       initialWatchExprs={initialWatchExprs}
       extraContext={extraContext}

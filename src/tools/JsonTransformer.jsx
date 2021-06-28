@@ -91,7 +91,7 @@ const JsonTransformer = () => {
 
   return (
     <Grid>
-      <FieldLabel area="lin">Input:</FieldLabel>
+      <FieldLabel area="lin">Input</FieldLabel>
       <OpenButton
         area="open"
         setName={setName}
@@ -107,7 +107,7 @@ const JsonTransformer = () => {
         allowTypes={allowTypes}
         monoSpace
       />
-      <FieldLabel area="lcode">Transform:</FieldLabel>
+      <FieldLabel area="lcode">Transform</FieldLabel>
       <CodeEditor
         area="fcode"
         state={code}
@@ -116,7 +116,7 @@ const JsonTransformer = () => {
         focus={true}
         onValidate={onValidate}
       />
-      <FieldLabel area="lout">Output:</FieldLabel>
+      <FieldLabel area="lout">Output</FieldLabel>
       <SaveButton
         area="save"
         content={output}

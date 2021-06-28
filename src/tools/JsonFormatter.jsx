@@ -26,7 +26,7 @@ const JsonFormatter = ({ pasted }) => {
   return (
     <Formatter
       pasted={pasted}
-      title="Edit your JSON:"
+      title="Edit your JSON"
       name="JSON"
       state={json}
       setState={setJson}
