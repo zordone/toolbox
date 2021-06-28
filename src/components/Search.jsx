@@ -157,7 +157,16 @@ const Search = ({ searchRef, tools, currentToolName, onSelectTool = noop }) => {
       setIndex(null);
       return;
     }
-    setFiltered(searcher.search(term).slice(0, MAX_OPTIONS));
+    const matches = searcher
+      .search(term)
+      .sort((a, b) => {
+        // if the name starts exactly with the term, sort it to the top
+        const aExact = Number(a.name.toLowerCase().startsWith(term));
+        const bExact = Number(b.name.toLowerCase().startsWith(term));
+        return bExact - aExact;
+      })
+      .slice(0, MAX_OPTIONS);
+    setFiltered(matches);
     setIndex(0);
   }, [value, tools, searcher]);
 
