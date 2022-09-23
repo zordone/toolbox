@@ -4,5 +4,6 @@ export { default as IntegerField } from "./IntegerField";
 export { default as FloatField } from "./FloatField";
 export { default as RatioField } from "./RatioField";
 export { default as FileField } from "./FileField";
+export { default as TextAreaHighlight } from "./TextAreaHighlight";
 
 export { default as FieldLabel } from "./FieldLabel";

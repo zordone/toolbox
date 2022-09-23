@@ -32,7 +32,8 @@ export const setToolMeta = (toolComp, { name, description, settings = [] }) => {
 
 export const capitalize = (text) => `${text[0].toUpperCase()}${text.slice(1)}`;
 
-export const repeat = (text, times = 1, separator = '') => Array(times).fill(text).join(separator);
+export const repeat = (text, times = 1, separator = "") =>
+  Array(times).fill(text).join(separator);
 
 export const reindent = (code, baseIndent = 0) => {
   const trimmed = code
@@ -47,6 +48,14 @@ export const reindent = (code, baseIndent = 0) => {
   const reindented = dedented.replace(/^/gm, newIndent);
   return reindented;
 };
+
+export const escapeHtml = (unsafe) =>
+  unsafe
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&apos;");
 
 export const formatJson = (obj) => JSON.stringify(obj, null, 2);
 

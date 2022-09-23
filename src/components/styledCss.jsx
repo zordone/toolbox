@@ -14,7 +14,8 @@ export const cssFieldStyle = css`
   font-size: 1rem;
   box-sizing: border-box;
 
-  :focus {
+  :focus,
+  :focus-within {
     outline: none;
     ${({ chromeless }) =>
       !chromeless &&

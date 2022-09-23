@@ -12,6 +12,7 @@ import LoremIpsum from "./LoremIpsum";
 import MomentPlayground from "./MomentPlayground";
 import PasswordGenerator from "./PasswordGenerator";
 import Regex from "./Regex";
+import Regex101 from "./Regex101";
 import Unindent from "./Unindent";
 import Uuid from "./Uuid";
 import WordCounter from "./WordCounter";
@@ -30,6 +31,7 @@ const allTools = [
   MomentPlayground,
   PasswordGenerator,
   Regex,
+  Regex101,
   Unindent,
   Uuid,
   WordCounter,
