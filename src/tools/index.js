@@ -7,6 +7,7 @@ import Help from "./Help";
 import JsonFormatter from "./JsonFormatter";
 import JsonTransformer from "./JsonTransformer";
 import KimbleCalculator from "./KimbleCalculator";
+import LiquidTester from "./LiquidTester";
 import LodashPlayground from "./LodashPlayground";
 import LoremIpsum from "./LoremIpsum";
 import MomentPlayground from "./MomentPlayground";
@@ -26,6 +27,7 @@ const allTools = [
   JsonFormatter,
   JsonTransformer,
   KimbleCalculator,
+  LiquidTester,
   LodashPlayground,
   LoremIpsum,
   MomentPlayground,
