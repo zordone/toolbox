@@ -22,10 +22,8 @@ if (require("electron-squirrel-startup")) {
 
 function createWindow() {
   // Default window size.
-  const {
-    width: screenWidth,
-    height: screenHeight,
-  } = screen.getPrimaryDisplay().size;
+  const { width: screenWidth, height: screenHeight } =
+    screen.getPrimaryDisplay().size;
   const margins = Math.round(Math.min(screenWidth, screenHeight) * 0.1);
   const defaultWidth = screenWidth - margins;
   const defaultHeight = screenHeight - margins;
@@ -63,6 +61,20 @@ function createWindow() {
   if (isDev) {
     win.webContents.openDevTools({ mode: "detach" });
   }
+
+  // Remove X-Frame-Options headers to allow embedding websites.
+  // Only works in production mode.
+  const urls = ["https://regex101.com/*", "https://caniuse.com/*"];
+  win.webContents.session.webRequest.onHeadersReceived(
+    { urls },
+    (details, callback) => {
+      if (details && details.responseHeaders) {
+        delete details.responseHeaders["X-Frame-Options"];
+        delete details.responseHeaders["x-frame-options"];
+      }
+      callback({ cancel: false, responseHeaders: details.responseHeaders });
+    }
+  );
 
   return win;
 }

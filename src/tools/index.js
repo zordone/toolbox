@@ -32,7 +32,8 @@ const allTools = [
   LoremIpsum,
   MomentPlayground,
   PasswordGenerator,
-  Regex,
+  // disabled for now, because Regex101 is working again.
+  // Regex,
   Regex101,
   Unindent,
   Uuid,

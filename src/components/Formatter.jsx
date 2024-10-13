@@ -10,6 +10,7 @@ const Grid = displayName(
   "Grid",
   styled.div`
     display: grid;
+    grid-area: ${({ area }) => area};
     grid-template-columns: 1fr 0fr;
     grid-template-rows: 0fr 1fr;
     grid-template-areas:
@@ -21,6 +22,7 @@ const Grid = displayName(
 );
 
 const Formatter = ({
+  area,
   pasted,
   title,
   name,
@@ -39,7 +41,7 @@ const Formatter = ({
   }, [pasted, setState, name]);
 
   return (
-    <Grid>
+    <Grid area={area}>
       <FieldLabel area="label">{title}</FieldLabel>
       <CopyButton area="copy" name={name} state={state} />
       <PasteButton area="paste" name={name} setState={setState} />

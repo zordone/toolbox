@@ -1,6 +1,6 @@
 {
   "name": "toolbox",
-  "version": "1.0.11",
+  "version": "1.0.12-beta.3",
   "main": "public/electron.js",
   "homepage": "./",
   "private": true,
@@ -11,6 +11,7 @@
     "electron-squirrel-startup": "^1.0.0",
     "electron-window-state": "^5.0.3",
     "fuzzy-search": "^3.2.1",
+    "liquidjs": "^9.42.0",
     "lodash": "^4.17.20",
     "moment": "^2.27.0",
     "react": "^17.0.1",
@@ -48,7 +49,7 @@
     "eject": "react-scripts eject",
     "lint": "eslint --ext js,jsx src",
     "package": "react-scripts build && electron-forge package",
-    "make": "react-scripts build && electron-forge make",
+    "make": "react-scripts build && electron-forge make --arch=\"arm64\"",
     "generate-app-icon": "npx electron-icon-maker --input=/Users/zord/Development/toolbox-electron/_work/icon.png --output=src"
   },
   "eslintConfig": {
