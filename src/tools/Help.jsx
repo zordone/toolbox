@@ -3,6 +3,22 @@ import styled from "styled-components";
 import { displayName, noop, setToolMeta } from "../utils";
 import packageJson from "../../package.json";
 
+const Container = displayName(
+  "Container",
+  styled.div`
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  `
+);
+
+const KeyInfo = displayName(
+  "KeyInfo",
+  styled.p`
+    margin: 0 0 1rem 0;
+  `
+);
+
 const Key = displayName(
   "Key",
   styled.span`
@@ -41,7 +57,9 @@ const Count = displayName(
 const ToolList = displayName(
   "ToolList",
   styled.ul`
-    margin-top: 0;
+    flex: 1 0 0;
+    overflow-y: scroll;
+    margin: 0;
   `
 );
 
@@ -75,6 +93,7 @@ const Footer = displayName(
   styled.p`
     font-size: 0.7rem;
     opacity: 0.2;
+    margin: 1rem 0 0 0;
   `
 );
 
@@ -85,11 +104,11 @@ const Help = ({ tools, onSelectTool = noop }) => {
     .map((name) => tools[name]);
 
   return (
-    <div>
-      <p>
+    <Container>
+      <KeyInfo>
         Press <Key>esc</Key> or <Key>⌘</Key>
         <Key>F</Key> to search for a tool.
-      </p>
+      </KeyInfo>
       <Heading>
         <span>Tools </span>
         <Count>{sortedTools.length}</Count>
@@ -105,7 +124,7 @@ const Help = ({ tools, onSelectTool = noop }) => {
         ))}
       </ToolList>
       <Footer>v{packageJson.version}</Footer>
-    </div>
+    </Container>
   );
 };
 
