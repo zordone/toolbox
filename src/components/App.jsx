@@ -18,6 +18,8 @@ const ToolContainer = displayName(
   styled.div`
     padding: 1rem;
     user-select: none;
+    overflow-y: hidden;
+    box-sizing: border-box;
   `
 );
 
