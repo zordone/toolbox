@@ -19,8 +19,12 @@ const StyledButton = displayName(
     ${({ $chromeless }) =>
       $chromeless &&
       `
-      background: none; 
-      padding: unset;
+      && {
+        background: none; 
+        padding: unset;
+        border: none;
+        box-shadow: none;
+      }
     `}
     ${({ $fullWidth }) => $fullWidth && `width: 100%;`}
   `

@@ -1,4 +1,5 @@
 import React from "react";
+import AsciiTable from "./AsciiTable";
 import AspectRatio from "./AspectRatio";
 import Base64 from "./Base64";
 import CanIUse from "./CanIUse";
@@ -12,13 +13,14 @@ import LodashPlayground from "./LodashPlayground";
 import LoremIpsum from "./LoremIpsum";
 import MomentPlayground from "./MomentPlayground";
 import PasswordGenerator from "./PasswordGenerator";
-import Regex from "./Regex";
+// import Regex from "./Regex";
 import Regex101 from "./Regex101";
 import Unindent from "./Unindent";
 import Uuid from "./Uuid";
 import WordCounter from "./WordCounter";
 
 const allTools = [
+  AsciiTable,
   AspectRatio,
   Base64,
   CanIUse,

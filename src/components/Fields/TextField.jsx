@@ -1,5 +1,5 @@
 import BasicField from "./BasicField";
 
-const TextField = (props) => <BasicField {...props} type="text" />;
+const TextField = (props) => <BasicField type="text" {...props} />;
 
 export default TextField;
