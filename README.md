@@ -16,24 +16,20 @@ But since I plan to add a lot of tools to this toolbox, I've spent the time crea
 
 ## Main scripts
 
-- `npm start` - Start development in browser.
-- `npm run dev` - Start development in Electron.
-- `npm run make` - Build production MacOS app. Output: `out/Toolbox-darwin-x64/Toolbox.app`.
+- `npm start` - Start development in Electron with dev server.
+- `npm run make` - Build production MacOS app. Output: `out/Toolbox-darwin-arm64/Toolbox.app`.
 
 ## Changing the port
 
-It's easiest to search for the current port and replace it everywhere.
-
-- package.json scripts
-- electron.js PORT constant
+- Set the new port parameter of `WebpackPlugin` in `forge.config.ts`.
 
 ## Changing the icon
 
-- Put the new icon to `_work/icon.png` in 1024x1024 resolution, then `npm run generate-app-icon`
+- Put the new icon to `_work/icon.png` in 1024x1024 resolution, then `npm run generate-app-icon`.
 
-## Electron notes
+## Changing the CSP policy
 
-- If you add files or folders that you don't want to include in the build, add them to `package.json` `packagerConfig.ignore`.
+- If you need to change the default CSP policy, see `devContentSecurityPolicy` in `forge.config.ts`.
 
 ## Screenshots
 
@@ -42,6 +38,7 @@ It's easiest to search for the current port and replace it everywhere.
 ![Json](docs/screenshot-json.png)
 ![Lodash](docs/screenshot-lodash.png)
 ![Base64](docs/screenshot-bsase64.png)
+![Ascii](docs/screenshot-ascii.png)
 ![Uuid](docs/screenshot-uuid.png)
 ![Color](docs/screenshot-color.png)
 ![Regex](docs/screenshot-regex.png)

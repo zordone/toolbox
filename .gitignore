@@ -9,7 +9,7 @@
 /coverage
 
 # production
-/build
+.webpack
 /out
 
 
@@ -26,4 +26,5 @@ yarn-error.log*
 
 /_work
 NOTES.md
+MIGRATION.md
 .eslintcache
