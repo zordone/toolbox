@@ -12,7 +12,13 @@ There are only a few tools at the moment. I will add new tools incrementally.
 
 Usually, when I make small tools for myself, it's not worth the time to polish them, or create reusable components to make a consistent look&feel.
 
-But since I plan to add a lot of tools to this toolbox, I've spent the time creating kind of a platform for them. This makes it easy to add new tools, make their UIs consistent, generalise often needed functionalities, etc. It also contains base components for classes of tools, like generators, analyzers, formatters, playgrounds, websites.
+But since I plan to add a lot of tools to this toolbox, I've spent the time to create kind of a platform for them:
+
+- Easy to add new tools.
+- Consistent UI and behaviours.
+- Persistent states across app restarts.
+- Generalised settings handling.
+- Reusable templates for tool types: analyzers, formatters, playgrounds, websites.
 
 ## Main scripts
 
