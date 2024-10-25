@@ -62,6 +62,19 @@ const Buttons = displayName(
     & > div {
       padding-left: 2rem;
     }
+    & button {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+  `
+);
+
+const Shortcut = displayName(
+  "Shortcut",
+  styled.span`
+    font-family: system-ui;
+    opacity: 0.4;
   `
 );
 
@@ -124,8 +137,12 @@ const Header: FC<HeaderProps> = ({
         <DropDownButton>
           <button onClick={onSettings} disabled={!hasSettings}>
             Tool settings
+            <Shortcut>⌘,</Shortcut>
           </button>
-          <button onClick={onReloadTool}>Reload tool</button>
+          <button onClick={onReloadTool}>
+            Reload tool
+            <Shortcut>⌘R</Shortcut>
+          </button>
           <button onClick={onClearState}>Clear tool state</button>
         </DropDownButton>
       </Buttons>
