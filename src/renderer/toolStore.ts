@@ -1,11 +1,5 @@
 import { FC } from "react";
-
-interface Setting {
-  initial: number;
-  key: string;
-  title: string;
-  type: "integer";
-}
+import { Setting } from "./settings";
 
 export interface ToolProps {
   focusSearch: (event: Event) => void | false;

@@ -22,7 +22,7 @@ const Grid = displayName(
   `
 );
 
-interface FormatterProps {
+interface FormatterProps extends ComponentProps<typeof CodeEditor> {
   area?: string;
   initialCode?: string;
   mode: ComponentProps<typeof CodeEditor>["mode"];

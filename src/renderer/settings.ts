@@ -1,6 +1,15 @@
 import { FC, useState } from "react";
 import { getToolByComponent, Tool } from "./toolStore";
 
+export type SettingType = "float" | "integer" | "text" | "boolean";
+
+export interface Setting {
+  initial: number | string | boolean;
+  key: string;
+  title: string;
+  type: SettingType;
+}
+
 const PREFIX = "settings";
 
 const getKey = (toolName: string) => [PREFIX, toolName].join("-");
@@ -23,7 +32,7 @@ export const useSettings = (toolOrComp: Tool | FC) => {
     const key = getKey(tool.name);
     const saved = JSON.parse(localStorage.getItem(key) || "{}");
     return Object.fromEntries(
-      tool.settings.map(({ key, initial }) => [key, saved[key] || initial])
+      tool.settings.map(({ key, initial }) => [key, saved[key] ?? initial])
     );
   });
 

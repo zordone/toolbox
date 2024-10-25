@@ -58,6 +58,10 @@ const Buttons = displayName(
     font-weight: 400;
     margin-right: 1rem;
     background: inherit;
+    /* extend the mouseleave area of the cog */
+    & > div {
+      padding-left: 2rem;
+    }
   `
 );
 
@@ -122,7 +126,7 @@ const Header: FC<HeaderProps> = ({
             Tool settings
           </button>
           <button onClick={onReloadTool}>Reload tool</button>
-          <button onClick={onClearState}>Clear persisted tool state</button>
+          <button onClick={onClearState}>Clear tool state</button>
         </DropDownButton>
       </Buttons>
       <ModalSettings

@@ -1,10 +1,16 @@
 import React, { FC, KeyboardEventHandler, useState } from "react";
 import styled from "styled-components";
-import { saveSettings, useSettings } from "../settings";
+import {
+  BooleanField,
+  Field,
+  FloatField,
+  IntegerField,
+  TextField,
+} from "../fields";
+import { saveSettings, SettingType, useSettings } from "../settings";
 import { Tool } from "../toolStore";
 import { displayName, noop } from "../utils";
 import Button from "./Buttons";
-import { FloatField, IntegerField, TextField } from "../fields";
 import Modal, { ModalBody, ModalFooter, ModalTitle, useModal } from "./Modal";
 
 const Name = displayName(
@@ -14,10 +20,11 @@ const Name = displayName(
   `
 );
 
-const TypeToInput = {
+const TypeToInput: Record<SettingType, Field> = {
   float: FloatField,
   integer: IntegerField,
   text: TextField,
+  boolean: BooleanField,
 };
 
 interface ModalSettingsProps {

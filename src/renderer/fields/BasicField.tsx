@@ -64,13 +64,13 @@ const Input = displayName(
   `
 );
 
-type Value = string | number;
+type Value = string | number | boolean;
 type Validator = (value: string) => { error: string | null; value: Value };
 
 interface BasicFieldProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, "onChange"> {
   area?: string;
-  as?: "textarea";
+  as?: "textarea" | "checkbox";
   fullWidth?: boolean;
   inputRef?: MutableRefObject<HTMLInputElement>;
   isDropOk?: boolean;
@@ -108,14 +108,15 @@ const BasicField: FC<BasicFieldProps> = ({
 
   const onChangeInternal: ChangeEventHandler<HTMLInputElement> = useCallback(
     (event) => {
-      const text = event.target.value;
-      const { value, error } = onValidate(text);
+      const { type, checked, value } = event.target;
+      const text = type === "checkbox" ? checked.toString() : value;
+      const { value: validatedValue, error } = onValidate(text);
       setInputValue(text);
       setError(error);
       if (!error) {
-        setState(value);
+        setState(validatedValue);
       }
-      onChange(value);
+      onChange(validatedValue);
     },
     [setState, onValidate, onChange]
   );
@@ -132,7 +133,8 @@ const BasicField: FC<BasicFieldProps> = ({
       readOnly={readOnly}
       ref={inputRef}
       type={type}
-      value={inputValue}
+      value={inputValue.toString()}
+      checked={inputValue === true}
       {...rest}
     />
   );

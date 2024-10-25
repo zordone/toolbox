@@ -20,6 +20,7 @@ import "./LoremIpsum";
 import "./MomentPlayground";
 import "./PasswordGenerator";
 import "./Regex101";
+import "./SheetsToJson";
 import "./Unindent";
 import "./Uuid";
 import "./WordCounter";

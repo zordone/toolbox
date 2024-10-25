@@ -13,7 +13,9 @@ const Container = displayName(
   styled.div<ContainerProps>`
     position: relative;
     background: inherit;
-    opacity: ${({ $fade }) => ($fade ? 0.2 : 1)};
+    &:not(:hover) {
+      opacity: ${({ $fade }) => ($fade ? 0.2 : 1)};
+    }
   `
 );
 
@@ -37,6 +39,7 @@ const DropDown = displayName(
     border-radius: var(--border-radius);
     width: max-content;
     margin: 0;
+    border: 1px solid var(--selection);
   `
 );
 

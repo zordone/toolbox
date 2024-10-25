@@ -1,3 +1,7 @@
+import BasicField from "./BasicField";
+export type Field = typeof BasicField;
+
+export { default as BooleanField } from "./BooleanField";
 export { default as FileField } from "./FileField";
 export { default as FloatField } from "./FloatField";
 export { default as IntegerField } from "./IntegerField";
