@@ -1,22 +1,21 @@
-import React, { ComponentProps, FC, useEffect, useRef, useState } from "react";
+import React, {
+  ComponentProps,
+  FC,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import ReactAce from "react-ace";
 import { toast } from "react-toastify";
-import saferEval from "safer-eval";
 import styled from "styled-components";
 import CodeEditor from "../common/CodeEditor";
+import { safeEval } from "../common/SafeEval";
 import Splitter, { SplitterPane } from "../common/Splitter";
 import WatchList, { Watch } from "../common/Watches";
 import { FieldLabel } from "../fields";
 import { usePersistedState, usePersistedStateSet } from "../persistedState";
 import { displayName, noop, reindent } from "../utils";
-
-export const commonContext = {
-  Boolean,
-  console,
-  Date,
-  Number,
-  String,
-};
 
 const defaultCode = reindent(`
   const number = 1 + 2 + 3;
@@ -25,37 +24,34 @@ const defaultCode = reindent(`
 const defaultWatchExprs = ["number"];
 
 const wrapperStart = "(function () {";
-const wrapperEnd = "})()";
+const wrapperEnd = "return context; })()";
 
-const runCode = (
+const runCode = async (
   code: string,
   extraContext: object,
   watchExprs: Set<string>
 ) => {
-  "use strict";
   const watchCode = Array.from(watchExprs)
     .map((expr) => {
       const exprStr = JSON.stringify(expr);
-      return `
+      return reindent(`
         try {
           watches.push({ expr: ${exprStr}, value: ${expr} });
         } catch (err) {
           watches.push({ expr: ${exprStr}, value: err.message, isError: true });
         }
-        `;
+      `);
     })
     .join("\n");
 
   const watches: Watch[] = [];
   const context = {
-    ...commonContext,
     ...extraContext,
     watches,
   };
 
   const fullCode = [wrapperStart, code, watchCode, wrapperEnd].join("\n");
-  saferEval(fullCode, context);
-  return context;
+  return safeEval(fullCode, context);
 };
 
 export const LabelRow = displayName(
@@ -84,8 +80,10 @@ interface PlaygroundProps {
   toolComp: FC;
 }
 
+const EMPTY = {};
+
 const Playground: FC<PlaygroundProps> = ({
-  extraContext = {},
+  extraContext = EMPTY,
   focusSearch = noop,
   initialCode = defaultCode,
   initialWatchExprs = defaultWatchExprs,
@@ -101,11 +99,11 @@ const Playground: FC<PlaygroundProps> = ({
   const [watchResults, setWatchResults] = useState<Watch[]>([]);
   const editorRef = useRef<ReactAce>();
 
-  const onValidate: ComponentProps<typeof CodeEditor>["onValidate"] = (
+  const onValidate: ComponentProps<typeof CodeEditor>["onValidate"] = async (
     newCode
   ) => {
     try {
-      runCode(newCode, extraContext, watchExprs);
+      await runCode(newCode, extraContext, watchExprs);
       return { value: newCode, error: null };
     } catch (err) {
       return { value: newCode, error: err.message };
@@ -113,21 +111,31 @@ const Playground: FC<PlaygroundProps> = ({
   };
 
   useEffect(() => {
-    try {
-      const context = runCode(code, extraContext, watchExprs);
-      setWatchResults(context.watches);
-    } catch (err) {
-      setWatchResults(
-        Array.from(watchExprs).map((expr) => ({
-          expr,
-          value: "?",
-          isError: true,
-        }))
-      );
-    }
+    runCode(code, extraContext, watchExprs)
+      .then((context: { watches: Watch[] }) => {
+        setWatchResults(context.watches);
+      })
+      .catch(() => {
+        setWatchResults(
+          Array.from(watchExprs).map((expr) => ({
+            expr,
+            value: "?",
+            isError: true,
+          }))
+        );
+      });
   }, [code, extraContext, watchExprs]);
 
-  const addWatch = () => {
+  const removeWatch = useCallback(
+    (expr: string) => {
+      watchExprs.delete(expr);
+      setWatchExprs(new Set(watchExprs));
+      toast.success("Watch expression removed.");
+    },
+    [setWatchExprs, watchExprs]
+  );
+
+  const addWatch = useCallback(() => {
     const expr = (editorRef.current.editor.getSelectedText() || "").trim();
     if (!expr) {
       toast.error("Watch expression can't be empty.");
@@ -144,13 +152,7 @@ const Playground: FC<PlaygroundProps> = ({
       setWatchExprs(new Set(watchExprs));
       toast.success("Watch expression added.");
     }
-  };
-
-  const removeWatch = (expr: string) => {
-    watchExprs.delete(expr);
-    setWatchExprs(new Set(watchExprs));
-    toast.success("Watch expression removed.");
-  };
+  }, [watchExprs, removeWatch, setWatchExprs]);
 
   const commands: ComponentProps<typeof CodeEditor>["commands"] = [
     {

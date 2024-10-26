@@ -28,8 +28,7 @@ const config: ForgeConfig = {
     new WebpackPlugin({
       port: 3100,
       mainConfig,
-      devContentSecurityPolicy:
-        "script-src 'self' https://kit.fontawesome.com https://fonts.googleapis.com 'unsafe-eval' blob:;",
+      devContentSecurityPolicy: `script-src 'self' https://kit.fontawesome.com https://fonts.googleapis.com https://cdnjs.cloudflare.com 'unsafe-eval' 'unsafe-inline' blob:;`,
       renderer: {
         config: rendererConfig,
         entryPoints: [

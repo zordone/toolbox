@@ -1,4 +1,3 @@
-import _ from "lodash";
 import React, { FC, useCallback, useState } from "react";
 import styled from "styled-components";
 import TextAnalyzer from "../templates/TextAnalyzer";
@@ -30,14 +29,25 @@ const reEol = /[\n\r]+/;
 const reDay = /^(\d\d):$/;
 const reLine = /^(\d{1,2}\.\d{2}) - (\w+):\s*(.*)$/;
 
+// TODO: switch to Object.groupBy as soon as forge & electron upgrades to a more recent ECMAScript spec
+const groupBy = (items: Item[], key: keyof Item): Record<string, Item[]> => {
+  const result: Record<string, Item[]> = {};
+  items.forEach((item) => {
+    const group = item[key];
+    result[group] ??= [];
+    result[group].push(item);
+  });
+  return result;
+};
+
 const sumHours = (hours: string[]): number =>
   hours
     .map(parseFloat)
     .filter(Boolean)
     .reduce((sum, item) => sum + item, 0);
 
-const sumHoursBy = (collecion: Item[], key: string): Grouped => {
-  const grouped = _.groupBy(collecion, key);
+const sumHoursBy = (collecion: Item[], key: keyof Item): Grouped => {
+  const grouped = groupBy(collecion, key);
   const result: Grouped = {};
   Object.keys(grouped).forEach((key) => {
     result[key] = sumHours(grouped[key].map(({ hours }) => hours));

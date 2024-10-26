@@ -1,4 +1,3 @@
-import _ from "lodash";
 import React, { FC } from "react";
 import Playground from "../templates/Playground";
 import { registerTool, ToolProps } from "../toolStore";
@@ -16,12 +15,9 @@ const initialCode = reindent(`
 
 const initialWatchExprs = ["contacts", "result"];
 
-const extraContext = { _ };
-
 const LodashPlayground: FC<ToolProps> = (props) => {
   return (
     <Playground
-      extraContext={extraContext}
       initialCode={initialCode}
       initialWatchExprs={initialWatchExprs}
       label="Edit your lodash code"

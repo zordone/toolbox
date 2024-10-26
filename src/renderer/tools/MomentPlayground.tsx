@@ -1,5 +1,3 @@
-import moment from "moment";
-import "moment/locale/hu";
 import React, { FC } from "react";
 import Playground from "../templates/Playground";
 import { registerTool, ToolProps } from "../toolStore";
@@ -32,12 +30,9 @@ const initialWatchExprs = [
   "ageMultiDiff",
 ];
 
-const extraContext = { moment };
-
 const MomentPlayground: FC<ToolProps> = (props) => {
   return (
     <Playground
-      extraContext={extraContext}
       initialCode={initialCode}
       initialWatchExprs={initialWatchExprs}
       label="Edit your moment.js code"

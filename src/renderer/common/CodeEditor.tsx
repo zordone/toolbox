@@ -56,7 +56,11 @@ const Error = displayName(
   `
 );
 
-type Validator = (text: string) => { error: string | null; value: string };
+interface ValidatorResult {
+  error: string | null;
+  value: string;
+}
+type Validator = (text: string) => ValidatorResult | Promise<ValidatorResult>;
 type OnChange = (value: string, event?: unknown) => void;
 
 const defaultValidator: Validator = (text) => ({ error: null, value: text });
@@ -89,8 +93,8 @@ const CodeEditor: FC<CodeEditorProps> = ({
   const onChangeRef = useRef<OnChange>();
 
   const onChange: OnChange = useCallback(
-    (text: string) => {
-      const { value, error } = onValidate(text);
+    async (text: string) => {
+      const { value, error } = await onValidate(text);
       setInputValue(text);
       setError(error);
       if (!error) {

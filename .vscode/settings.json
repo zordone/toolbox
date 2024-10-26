@@ -2,5 +2,6 @@
   "search.exclude": {
     ".webpack": true,
     "package-lock.json": true
-  }
+  },
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

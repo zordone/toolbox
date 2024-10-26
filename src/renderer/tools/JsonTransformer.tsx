@@ -1,6 +1,4 @@
-import _ from "lodash";
 import React, { useCallback, useState } from "react";
-import saferEval from "safer-eval";
 import styled from "styled-components";
 import {
   CopyButton,
@@ -9,9 +7,9 @@ import {
   SaveButton,
 } from "../common/Buttons";
 import CodeEditor from "../common/CodeEditor";
+import { safeEval } from "../common/SafeEval";
 import { FieldLabel, FileField, TextArea } from "../fields";
 import { usePersistedState } from "../persistedState";
-import { commonContext } from "../templates/Playground";
 import { registerTool } from "../toolStore";
 import { displayName, formatJson, reindent } from "../utils";
 
@@ -67,8 +65,7 @@ const JsonTransformer = () => {
   const [output, setOutput] = useState("");
 
   const onValidate = useCallback(
-    (newCode: string) => {
-      "use strict";
+    async (newCode: string) => {
       // parse input
       let input;
       try {
@@ -77,10 +74,10 @@ const JsonTransformer = () => {
         return { value: "", error: `Invalid input: ${err.message}` };
       }
       // run
-      const context = { ...commonContext, input, _ };
+      const context = { input };
       const fullCode = codeTemplate.replace("{{TRANSFORM}}", newCode);
       try {
-        const result = saferEval(fullCode, context);
+        const result = await safeEval(fullCode, context);
         // setTimeout prevents the cursor jumping back when updating the output before the code.
         setTimeout(() => setOutput(formatJson(result)), 0);
         return { value: newCode, error: null };
