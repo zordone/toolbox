@@ -17,11 +17,10 @@ const Grid = displayName(
   "Grid",
   styled.div`
     display: grid;
-    grid-template-columns: 0fr 4ch 0fr 8ch 0fr 4ch 1fr 0fr;
-    grid-template-rows: 0fr 1fr;
-    grid-template-areas:
-      "lRep rep lLen len lEol eol .   copy"
-      "out  out out  out out  out out out";
+    grid-template:
+      "lRep rep lLen len lEol eol .   copy" 0fr
+      "out  out out  out out  out out out" 1fr
+      / 0fr 4ch 0fr 8ch 0fr 4ch 1fr 0fr;
     gap: var(--gap-size);
     height: 100%;
   `

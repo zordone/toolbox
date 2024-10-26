@@ -17,13 +17,12 @@ const Grid = displayName(
   "Grid",
   styled.div`
     display: grid;
-    grid-template-columns: 27rem 0fr 0fr 1fr 0fr;
-    grid-template-rows: 0fr 0fr 0fr 1fr;
-    grid-template-areas:
-      "lin   open  paste lout save copy"
-      "fin   fin   fin   fout fout fout"
-      "lcode lcode lcode fout fout fout"
-      "fcode fcode fcode fout fout fout";
+    grid-template:
+      "lin   open  paste lout save copy" 0fr
+      "fin   fin   fin   fout fout fout" 0fr
+      "lcode lcode lcode fout fout fout" 0fr
+      "fcode fcode fcode fout fout fout" 1fr
+      / 27rem 0fr 0fr 1fr 0fr;
     gap: var(--gap-size);
     height: 100%;
   `

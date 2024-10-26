@@ -2,11 +2,11 @@
 
 Collection of my small development tools bundled in an Electron app.
 
-My tools are probably not that useful for others, but the project itself might be a good starting point to build your own toolbox.
+Probably not all of my tools are useful for everyone. Maybe you can reuse some. Or at the very least, the project itself might be a good starting point to build your own toolbox.
 
 ## Tools
 
-There are only a few tools at the moment. I will add new tools incrementally.
+There are quite a few tools already, but I will keep adding new tools incrementally.
 
 ## Platform
 
@@ -25,17 +25,13 @@ But since I plan to add a lot of tools to this toolbox, I've spent the time to c
 - `npm start` - Start development in Electron with dev server.
 - `npm run make` - Build production MacOS app. Output: `out/Toolbox-darwin-arm64/Toolbox.app`.
 
-## Changing the port
+## Customizations
 
-- Set the new port parameter of `WebpackPlugin` in `forge.config.ts`.
+If you fork this to build your own toolbox, you might want to change some things.
 
-## Changing the icon
-
-- Put the new icon to `_work/icon.png` in 1024x1024 resolution, then `npm run generate-app-icon`.
-
-## Changing the CSP policy
-
-- If you need to change the default CSP policy, see `devContentSecurityPolicy` in `forge.config.ts`.
+- Change the port: Set the `port` parameter of the `WebpackPlugin` in `forge.config.ts`.
+- Change the icon: Replace `_work/icon.png` with the new icon, in 1024x1024 resolution, then `npm run generate-app-icon`.
+- Change the CSP policy: Set `devContentSecurityPolicy` in `forge.config.ts`.
 
 ## Screenshots
 

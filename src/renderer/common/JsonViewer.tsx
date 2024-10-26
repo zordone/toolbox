@@ -29,6 +29,11 @@ const Container = displayName(
         sans-serif;
     }
 
+    .basic {
+      padding: 0;
+      margin: 0;
+    }
+
     .value {
       color: var(--input-fg);
       font-weight: 900;
@@ -58,6 +63,7 @@ const Container = displayName(
   `
 );
 
+darkStyles.basicChildStyle = "basic";
 darkStyles.container = "container";
 darkStyles.nullValue = "value";
 darkStyles.undefinedValue = "value";

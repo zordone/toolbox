@@ -64,10 +64,12 @@ const Cell = displayName(
   "Cell",
   styled.span`
     cursor: pointer;
+
     &.char {
       font-family: monospace;
       color: var(--input-fg);
     }
+
     :hover {
       background: var(--selection);
     }

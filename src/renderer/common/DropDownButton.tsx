@@ -13,6 +13,7 @@ const Container = displayName(
   styled.div<ContainerProps>`
     position: relative;
     background: inherit;
+
     &:not(:hover) {
       opacity: ${({ $fade }) => ($fade ? 0.2 : 1)};
     }
@@ -47,6 +48,7 @@ const Item = displayName(
   "Item",
   styled.li`
     display: contents;
+
     & > button {
       background: none;
       border: none;
@@ -55,9 +57,11 @@ const Item = displayName(
       text-align: left;
       padding: 0.2rem 0.5rem;
       cursor: pointer;
+
       &:hover {
         background: var(--selection);
       }
+
       &:disabled {
         opacity: 0.4;
         background: none;

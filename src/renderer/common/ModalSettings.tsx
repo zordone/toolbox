@@ -16,7 +16,7 @@ import Modal, { ModalBody, ModalFooter, ModalTitle, useModal } from "./Modal";
 const Name = displayName(
   "Name",
   styled.div`
-    margin: 1rem 0 0.2rem 0;
+    margin: 1rem 0 0.2rem;
   `
 );
 

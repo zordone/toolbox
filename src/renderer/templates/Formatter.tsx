@@ -12,11 +12,10 @@ const Grid = displayName(
   styled.div<CssGridAreaProps>`
     ${cssGridArea}
     display: grid;
-    grid-template-columns: 1fr 0fr;
-    grid-template-rows: 0fr 1fr;
-    grid-template-areas:
-      "label copy paste"
-      "code  code code";
+    grid-template:
+      "label copy paste" 0fr
+      "code  code code" 1fr
+      / 1fr 0fr;
     gap: var(--gap-size);
     height: 100%;
   `

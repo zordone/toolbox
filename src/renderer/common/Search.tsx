@@ -87,7 +87,7 @@ const SearchOption = displayName(
   `
 );
 
-const SearchOptionName = displayName("SearchOptionName", styled.div``);
+const SearchOptionName = displayName("SearchOptionName", styled.div({}));
 
 const SearchOptionDesc = displayName(
   "SearchOptionDesc",

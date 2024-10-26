@@ -16,7 +16,7 @@ const Container = displayName(
 const KeyInfo = displayName(
   "KeyInfo",
   styled.p`
-    margin: 0 0 1rem 0;
+    margin: 0 0 1rem;
   `
 );
 
@@ -24,7 +24,7 @@ const Key = displayName(
   "Key",
   styled.span`
     border-radius: var(--border-radius);
-    padding: 0.1rem 0.2rem 0.3rem 0.2rem;
+    padding: 0.1rem 0.2rem 0.3rem;
     margin: 0 0.1rem 0 0.2rem;
     background: #999;
     box-shadow: -0.08rem 0.08rem 0 0.08rem #777;
@@ -76,6 +76,7 @@ const ToolName = displayName(
   styled.a`
     font-weight: 700;
     cursor: pointer;
+
     &:hover {
       color: var(--link-hover);
     }
@@ -94,7 +95,7 @@ const Footer = displayName(
   styled.p`
     font-size: 0.7rem;
     opacity: 0.2;
-    margin: 0.2rem 0 0 0;
+    margin: 0.2rem 0 0;
   `
 );
 

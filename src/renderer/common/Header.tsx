@@ -58,10 +58,12 @@ const Buttons = displayName(
     font-weight: 400;
     margin-right: 1rem;
     background: inherit;
+
     /* extend the mouseleave area of the cog */
     & > div {
       padding-left: 2rem;
     }
+
     & button {
       display: flex;
       justify-content: space-between;

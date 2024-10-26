@@ -23,11 +23,10 @@ const Grid = displayName(
   "Grid",
   styled.div`
     display: grid;
-    grid-template-columns: 1fr 0fr 0fr;
-    grid-template-rows: 0fr 1fr;
-    grid-template-areas:
-      "label copy  paste"
-      "field field field";
+    grid-template:
+      "label copy  paste" 0fr
+      "field field field" 1fr
+      / 1fr 0fr 0fr;
     gap: var(--gap-size);
   `
 );

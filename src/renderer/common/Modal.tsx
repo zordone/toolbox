@@ -25,10 +25,7 @@ const ModalOverlay = displayName(
   styled.div`
     display: flex;
     position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
+    inset: 0;
     align-items: center;
     justify-content: center;
     background: var(--modal-overlay);
@@ -50,14 +47,14 @@ const ModalContent = displayName(
 export const ModalTitle = displayName(
   "ModalTitle",
   styled.h2`
-    margin: 0 0 1rem 0;
+    margin: 0 0 1rem;
   `
 );
 
 export const ModalBody = displayName(
   "ModalBody",
   styled.div`
-    margin: 0 0 1rem 0;
+    margin: 0 0 1rem;
   `
 );
 

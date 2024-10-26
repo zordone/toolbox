@@ -16,7 +16,6 @@ const WatchesScroller = displayName(
     ${cssGridArea}
     position: relative;
     overflow: scroll;
-    position: relative;
     height: 100%;
     border-radius: var(--border-radius);
   `
@@ -40,11 +39,10 @@ const Watch = displayName(
   styled.div<CssFieldStyteProps>`
     ${cssFieldStyle}
     display: grid;
-    grid-template-columns: 1fr 0fr;
-    grid-template-rows: 0fr 1fr;
-    grid-template-areas:
-      "label remove"
-      "value value";
+    grid-template:
+      "label remove" 0fr
+      "value value" 1fr
+      / 1fr 0fr;
     gap: 0.4rem;
   `
 );
@@ -80,6 +78,7 @@ const WatchRemove = displayName(
   styled(IconButton)`
     font-size: 0.7rem;
     opacity: 0.5;
+
     &:hover {
       color: red;
       opacity: 0.7;

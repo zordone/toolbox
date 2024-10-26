@@ -20,14 +20,13 @@ const Grid = displayName(
   "Grid",
   styled.div`
     display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 0fr 0fr 0fr 0fr 1fr;
-    grid-template-areas:
-      "lexp copy past"
-      "fexp fexp fexp"
-      "lres lres lres"
-      "fres fres fres"
-      "fctx fctx fctx";
+    grid-template:
+      "lexp copy past" 0fr
+      "fexp fexp fexp" 0fr
+      "lres lres lres" 0fr
+      "fres fres fres" 0fr
+      "fctx fctx fctx" 1fr
+      / 1fr;
     gap: var(--gap-size);
     height: 100%;
   `
