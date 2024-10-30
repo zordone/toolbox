@@ -57,4 +57,5 @@ const config: ForgeConfig = {
   ],
 };
 
+// noinspection JSUnusedGlobalSymbols - this is definitely used
 export default config;

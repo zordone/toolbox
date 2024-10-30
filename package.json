@@ -1,7 +1,7 @@
 {
   "name": "toolbox",
   "productName": "Toolbox",
-  "version": "1.0.15-beta.4",
+  "version": "1.0.15-beta.5",
   "description": "Collection of my small development tools bundled in an Electron app.",
   "main": "./.webpack/main",
   "private": true,
@@ -44,6 +44,7 @@
     "fork-ts-checker-webpack-plugin": "^7.3.0",
     "node-loader": "^2.0.0",
     "postcss-styled-syntax": "^0.6.4",
+    "prettier": "^3.3.3",
     "style-loader": "^3.3.4",
     "stylelint": "^16.10.0",
     "stylelint-config-standard": "^36.0.1",

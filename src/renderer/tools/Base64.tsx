@@ -74,5 +74,3 @@ registerTool({
   name: "Base64",
   description: "Base64 encoder and decoder.",
 });
-
-export default Base64;

@@ -6,6 +6,7 @@ import { useSettings } from "../settings";
 import { registerTool, ToolProps } from "../toolStore";
 import { displayName } from "../utils";
 
+// noinspection SpellCheckingInspection
 const NORMAL_CHARS =
   "abcdefghijklmnopqrstuvwxyz" +
   "ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
@@ -78,5 +79,3 @@ registerTool({
     },
   ],
 });
-
-export default PasswordGenerator;

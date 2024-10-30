@@ -32,5 +32,3 @@ registerTool({
   name: "LodashPlayground",
   description: "JavaScript playground with Lodash.",
 });
-
-export default LodashPlayground;

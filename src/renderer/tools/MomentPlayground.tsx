@@ -47,5 +47,3 @@ registerTool({
   name: "MomentPlayground",
   description: "JavaScript playground with Moment.js.",
 });
-
-export default MomentPlayground;

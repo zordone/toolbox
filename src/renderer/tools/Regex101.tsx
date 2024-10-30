@@ -11,5 +11,3 @@ registerTool({
   name: "Regex101",
   description: "Regular expression tester website.",
 });
-
-export default Regex101;

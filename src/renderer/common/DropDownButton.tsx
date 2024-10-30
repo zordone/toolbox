@@ -17,7 +17,7 @@ const Container = displayName(
     &:not(:hover) {
       opacity: ${({ $fade }) => ($fade ? 0.2 : 1)};
     }
-  `
+  `,
 );
 
 interface DropDownProps {
@@ -27,7 +27,7 @@ interface DropDownProps {
 const DropDown = displayName(
   "DropDown",
   styled.ul<DropDownProps>`
-    ${cssShadow}
+    ${cssShadow};
     position: absolute;
     z-index: 1;
     display: ${({ $isVisible }) => ($isVisible ? "flex" : "none")};
@@ -41,7 +41,7 @@ const DropDown = displayName(
     width: max-content;
     margin: 0;
     border: 1px solid var(--selection);
-  `
+  `,
 );
 
 const Item = displayName(
@@ -68,7 +68,7 @@ const Item = displayName(
         cursor: default;
       }
     }
-  `
+  `,
 );
 
 interface DropDownButtonProps {

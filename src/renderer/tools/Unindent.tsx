@@ -51,5 +51,3 @@ registerTool({
     },
   ],
 });
-
-export default Unindent;

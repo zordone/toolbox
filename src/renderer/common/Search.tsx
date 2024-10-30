@@ -3,6 +3,7 @@ import React, {
   ChangeEventHandler,
   FC,
   KeyboardEventHandler,
+  KeyboardEvent,
   MutableRefObject,
   useCallback,
   useEffect,
@@ -24,7 +25,7 @@ const SearchContainer = displayName(
     margin-right: 1rem;
     background: inherit;
     font: inherit;
-  `
+  `,
 );
 
 interface SearchInputProps {
@@ -46,7 +47,7 @@ const SearchInput = displayName(
     color: ${({ $isOk }) => ($isOk ? "inherit" : "var(--error-fg)")};
     padding: 0.2rem;
     font: inherit;
-  `
+  `,
 );
 
 interface SearchOptionsProps {
@@ -56,7 +57,7 @@ interface SearchOptionsProps {
 const SearchOptions = displayName(
   "SearchOptions",
   styled.div<SearchOptionsProps>`
-    ${cssShadow}
+    ${cssShadow};
     position: absolute;
     z-index: 2;
     top: 100%;
@@ -69,7 +70,7 @@ const SearchOptions = displayName(
     border-radius: var(--border-radius);
     max-height: calc(100vh - 5rem);
     overflow-y: scroll;
-  `
+  `,
 );
 
 interface SearchOptionProps {
@@ -84,7 +85,7 @@ const SearchOption = displayName(
     background: ${({ $isSelected }) =>
       $isSelected ? "var(--selection)" : "none"};
     cursor: pointer;
-  `
+  `,
 );
 
 const SearchOptionName = displayName("SearchOptionName", styled.div({}));
@@ -95,7 +96,7 @@ const SearchOptionDesc = displayName(
     font-size: 0.7rem;
     opacity: 0.5;
     margin-top: -0.2rem;
-  `
+  `,
 );
 
 interface SearchProps {
@@ -134,19 +135,19 @@ const Search: FC<SearchProps> = ({
         setValue(newValue);
       }
     },
-    [setValue, value]
+    [setValue, value],
   );
 
   const handleKey = useCallback(
-    (key: string) => {
+    (key: string, event?: KeyboardEvent) => {
       if (key === "ArrowUp") {
         setIndex(Math.max(0, index - 1));
-        event.preventDefault();
+        event?.preventDefault();
         return;
       }
       if (key === "ArrowDown") {
         setIndex(Math.min(index + 1, filtered.length - 1));
-        event.preventDefault();
+        event?.preventDefault();
         return;
       }
       if (key === "Enter" && filtered.length > index) {
@@ -159,17 +160,17 @@ const Search: FC<SearchProps> = ({
       if (key === "Escape" || key === "Tab") {
         setValue(currentToolName);
         searchRef.current?.blur();
-        event.stopPropagation();
-        event.preventDefault();
+        event?.stopPropagation();
+        event?.preventDefault();
         return;
       }
     },
-    [index, filtered, searchRef, currentToolName, onSelectTool]
+    [index, filtered, searchRef, currentToolName, onSelectTool],
   );
 
   const onKeyDown: KeyboardEventHandler<HTMLInputElement> = useCallback(
-    (event) => handleKey(event.key),
-    [handleKey]
+    (event) => handleKey(event.key, event),
+    [handleKey],
   );
 
   const onOptionClick = useCallback(() => handleKey("Enter"), [handleKey]);
@@ -180,7 +181,7 @@ const Search: FC<SearchProps> = ({
       new FuzzySearch(Object.values(tools), ["name", "description"], {
         caseSensitive: false,
         sort: true,
-      })
+      }),
     );
   }, [tools]);
 

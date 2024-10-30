@@ -21,7 +21,7 @@ const Container = displayName(
     display: flex;
     flex-direction: column;
     gap: 1rem;
-  `
+  `,
 );
 
 const Grid = displayName(
@@ -45,7 +45,7 @@ const Grid = displayName(
       padding: var(--gap-size);
       box-sizing: border-box;
     }
-  `
+  `,
 );
 
 const Header = displayName(
@@ -57,7 +57,9 @@ const Header = displayName(
     top: 0;
     outline: 1px solid var(--grid-border);
     z-index: 1;
-  `
+    font-size: 0.8rem;
+    text-wrap: nowrap;
+  `,
 );
 
 const Cell = displayName(
@@ -70,10 +72,10 @@ const Cell = displayName(
       color: var(--input-fg);
     }
 
-    :hover {
+    &:hover {
       background: var(--selection);
     }
-  `
+  `,
 );
 
 // decimal to hexadecimal number
@@ -83,7 +85,7 @@ const hex = (dec: number) => dec.toString(16).padStart(2, "0");
 const search = ascii.map(([code, char, symbol, number, name, description]) =>
   [symbol, char, code, hex(code), number, name, description]
     .join(" ")
-    .toLowerCase()
+    .toLowerCase(),
 );
 
 // copy the original character or other cell text
@@ -107,7 +109,7 @@ const AsciiTable: FC<ToolProps> = () => {
       if (!first) return;
       copyCell(first);
     },
-    []
+    [],
   );
 
   const onClick: MouseEventHandler<HTMLDivElement> = useCallback(
@@ -116,7 +118,7 @@ const AsciiTable: FC<ToolProps> = () => {
       if (target.tagName !== "SPAN") return;
       copyCell(target);
     },
-    []
+    [],
   );
 
   return (
@@ -169,5 +171,3 @@ registerTool({
   name: "AsciiTable",
   description: "ASCII table.",
 });
-
-export default AsciiTable;

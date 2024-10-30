@@ -13,8 +13,7 @@ const AspectOuter = displayName(
     height: 0;
     padding-top: ${({ $aspectRatio }) => {
       const [w, h] = $aspectRatio.split(":").map(Number);
-      const padding = (h / w) * 100;
-      return padding;
+      return (h / w) * 100;
     }}%;
   `
 );

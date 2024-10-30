@@ -4,7 +4,7 @@ import Aspect from "../common/Aspect";
 import {
   CopyButton,
   IconButton,
-  OnOfffButton,
+  OnOffButton,
   PasteButton,
 } from "../common/Buttons";
 import { cssGridArea, CssGridAreaProps } from "../common/styledCss";
@@ -28,7 +28,7 @@ const Grid = displayName(
     grid-template-rows: 0fr 1fr;
     grid-auto-flow: column;
     gap: var(--gap-size);
-  `
+  `,
 );
 
 interface PreviewProps {
@@ -81,7 +81,7 @@ const Preview = displayName(
       `
         border: 0.1rem dashed #fff;
     `}
-  `
+  `,
 );
 
 const EditorGrid = displayName(
@@ -102,7 +102,7 @@ const EditorGrid = displayName(
     gap: var(--gap-size);
     width: fit-content;
     min-width: 25rem;
-  `
+  `,
 );
 
 const Cell = displayName(
@@ -110,17 +110,17 @@ const Cell = displayName(
   styled.div`
     display: flex;
     gap: var(--gap-size);
-  `
+  `,
 );
 
 const Separator = displayName(
   "Separator",
   styled.div<CssGridAreaProps>`
-    ${cssGridArea}
+    ${cssGridArea};
     height: 0.1rem;
     background: var(--main-fg);
     opacity: 0.2;
-  `
+  `,
 );
 
 const parts = [
@@ -258,18 +258,18 @@ const Color = () => {
   const [selected, setSelected] = usePersistedState(
     Color,
     "selected",
-    "center"
+    "center",
   );
   const selectedRef = useRef<string>();
   const [colors, setColors] = usePersistedState(
     Color,
     "colors",
-    Object.fromEntries(parts.map(({ name, initial }) => [name, initial]))
+    Object.fromEntries(parts.map(({ name, initial }) => [name, initial])),
   );
   const [toggles, setToggles] = usePersistedState(
     Color,
     "toggles",
-    Object.fromEntries(parts.map(({ name }) => [name, true]))
+    Object.fromEntries(parts.map(({ name }) => [name, true])),
   );
 
   const [isHover, setIsHover] = useState(false);
@@ -294,7 +294,7 @@ const Color = () => {
       newHsla[index] = value;
       setHsla(newHsla);
     },
-    [hsla]
+    [hsla],
   );
 
   // step one channel of HSLA
@@ -304,7 +304,7 @@ const Color = () => {
       const newVal = roundTo(limit(hsla[index] + sign * step, 0, max), fixed);
       setHslaPart(index, Number(newVal));
     },
-    [hsla, setHslaPart]
+    [hsla, setHslaPart],
   );
 
   // selection change -> set HSLA
@@ -329,8 +329,8 @@ const Color = () => {
       setHslaString(hslaString);
 
       if (hex) {
-        setColors((curentColors) => ({
-          ...curentColors,
+        setColors((currentColors) => ({
+          ...currentColors,
           [selected]: hex,
         }));
       }
@@ -370,7 +370,7 @@ const Color = () => {
       <EditorGrid>
         <FieldLabel>Part</FieldLabel>
         <TextField state={selected} readOnly />
-        <OnOfffButton
+        <OnOffButton
           setState={(value) => setToggles({ ...toggles, [selected]: value })}
           state={toggles[selected]}
         />
@@ -430,5 +430,3 @@ registerTool({
   name: "Color",
   description: "Color converter and preview.",
 });
-
-export default Color;

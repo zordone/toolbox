@@ -12,7 +12,7 @@ import React, {
 import styled from "styled-components";
 import {
   cssFieldStyle,
-  CssFieldStyteProps,
+  CssFieldStyleProps,
   cssGridArea,
   CssGridAreaProps,
 } from "../common/styledCss";
@@ -21,7 +21,7 @@ import { displayName, noop, stopPropagation } from "../utils";
 interface InputProps
   extends InputHTMLAttributes<HTMLInputElement>,
     CssGridAreaProps,
-    CssFieldStyteProps {
+    CssFieldStyleProps {
   $error?: string;
   $fullWidth?: boolean;
   $isDropOk?: boolean;

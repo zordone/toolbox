@@ -8,13 +8,13 @@ export const cssGridArea = css<CssGridAreaProps>`
   ${({ $area }) => $area && `grid-area: ${$area};`}
 `;
 
-export interface CssFieldStyteProps {
+export interface CssFieldStyleProps {
   $chromeless?: boolean;
-  // this on is intentionally not transient, as the native props is allso called readOnly
+  // this on is intentionally not transient, as the native props is also called readOnly
   readOnly?: boolean;
 }
 
-export const cssFieldStyle = css<CssFieldStyteProps>`
+export const cssFieldStyle = css<CssFieldStyleProps>`
   background: var(--input-bg);
   color: var(--input-fg);
   border: none;
@@ -23,6 +23,7 @@ export const cssFieldStyle = css<CssFieldStyteProps>`
   border-radius: var(--border-radius);
   font-size: 1rem;
   box-sizing: border-box;
+  resize: none;
 
   :focus,
   :focus-within {

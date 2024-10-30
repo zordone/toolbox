@@ -6,12 +6,12 @@ import { capitalize, displayName, noop } from "../utils";
 import Icon from "./Icon";
 import {
   cssFieldStyle,
-  CssFieldStyteProps,
+  CssFieldStyleProps,
   cssGridArea,
   CssGridAreaProps,
 } from "./styledCss";
 
-interface StyledButtonProps extends CssGridAreaProps, CssFieldStyteProps {
+interface StyledButtonProps extends CssGridAreaProps, CssFieldStyleProps {
   $fullWidth?: boolean;
   $isOn?: boolean;
 }
@@ -137,7 +137,7 @@ interface OnOffButtonProps extends Partial<IconButtonProps> {
   setState: (state: boolean) => void;
 }
 
-export const OnOfffButton: FC<OnOffButtonProps> = ({
+export const OnOffButton: FC<OnOffButtonProps> = ({
   state,
   setState,
   ...rest

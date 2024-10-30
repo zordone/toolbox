@@ -138,5 +138,3 @@ registerTool({
   name: "JsonTransformer",
   description: "JSON data transform with JavaScript and Lodash.",
 });
-
-export default JsonTransformer;

@@ -10,7 +10,7 @@ import { capitalize, displayName } from "../utils";
 const Grid = displayName(
   "Grid",
   styled.div<CssGridAreaProps>`
-    ${cssGridArea}
+    ${cssGridArea};
     display: grid;
     grid-template:
       "label copy paste" 0fr
@@ -18,7 +18,7 @@ const Grid = displayName(
       / 1fr 0fr;
     gap: var(--gap-size);
     height: 100%;
-  `
+  `,
 );
 
 interface FormatterProps extends ComponentProps<typeof CodeEditor> {

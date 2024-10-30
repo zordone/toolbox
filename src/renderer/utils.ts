@@ -4,8 +4,6 @@ export const noop = () => {
   // comment to satisfy eslint
 };
 
-export const identity = <T>(x: T): T => x;
-
 export const gcd = (a: number, b: number): number => (b ? gcd(b, a % b) : a);
 
 interface MatchGroups {
@@ -56,17 +54,8 @@ export const reindent = (code: string, baseIndent = 0) => {
   const dedented = trimmed.replace(new RegExp("^" + oldIndent, "gm"), "");
   // add new base indent
   const newIndent = Array(baseIndent).fill(" ").join("");
-  const reindented = dedented.replace(/^/gm, newIndent);
-  return reindented;
+  return dedented.replace(/^/gm, newIndent);
 };
-
-export const escapeHtml = (unsafe: string) =>
-  unsafe
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&apos;");
 
 export const formatJson = (obj: unknown) => JSON.stringify(obj, null, 2);
 

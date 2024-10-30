@@ -1,6 +1,7 @@
 import { OpenDialogOptions, SaveDialogOptions } from "electron";
 
 declare global {
+  // noinspection JSUnusedGlobalSymbols - this is definitely used
   interface Window {
     mainApi: MainApi;
   }

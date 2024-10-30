@@ -5,9 +5,9 @@ import { displayName } from "../utils";
 const FieldLabel = displayName(
   "FieldLabel",
   styled.span<CssGridAreaProps>`
-    ${cssGridArea}
+    ${cssGridArea};
     align-self: center;
-  `
+  `,
 );
 
 export default FieldLabel;

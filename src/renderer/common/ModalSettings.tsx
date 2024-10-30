@@ -17,7 +17,7 @@ const Name = displayName(
   "Name",
   styled.div`
     margin: 1rem 0 0.2rem;
-  `
+  `,
 );
 
 const TypeToInput: Record<SettingType, Field> = {
@@ -69,6 +69,7 @@ const ModalSettings: FC<ModalSettingsProps> = ({
                 setState={(newValue) =>
                   setValues({ ...values, [key]: newValue })
                 }
+                min={0}
                 state={values[key]}
                 tabIndex={0}
               />

@@ -11,5 +11,3 @@ registerTool({
   name: "CanIUse",
   description: "Browser support tables website.",
 });
-
-export default CanIUse;

@@ -56,5 +56,3 @@ registerTool({
   name: "WordCounter",
   description: "Word, line, and character counter.",
 });
-
-export default WordCounter;

@@ -1,13 +1,13 @@
 import React, { ComponentProps, FC } from "react";
 import BasicField from "./BasicField";
 import { displayName } from "../utils";
-import { cssFieldStyle, CssFieldStyteProps } from "../common/styledCss";
+import { cssFieldStyle, CssFieldStyleProps } from "../common/styledCss";
 import styled from "styled-components";
 
 const Container = displayName(
   "Container",
-  styled.div<CssFieldStyteProps>`
-    ${cssFieldStyle}
+  styled.div<CssFieldStyleProps>`
+    ${cssFieldStyle};
     display: flex;
     align-items: center;
     gap: 0.2rem;
@@ -23,7 +23,7 @@ const Container = displayName(
         opacity: 0.1;
       }
     }
-  `
+  `,
 );
 
 const BooleanField: FC<ComponentProps<typeof BasicField>> = (props) => (

@@ -42,5 +42,3 @@ registerTool({
   name: "JsonFormatter",
   description: "JSON formatter and editor.",
 });
-
-export default JsonFormatter;

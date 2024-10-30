@@ -136,5 +136,3 @@ registerTool({
   name: "AspectRatio",
   description: "Aspect ratio calculator.",
 });
-
-export default AspectRatio;

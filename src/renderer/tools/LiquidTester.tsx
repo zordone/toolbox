@@ -81,5 +81,3 @@ registerTool({
   name: "LiquidTester",
   description: "Liquid expression tester.",
 });
-
-export default LiquidTester;

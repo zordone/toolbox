@@ -21,19 +21,19 @@ import "ace-builds/src-noconflict/theme-tomorrow_night";
 const EditorContainer = displayName(
   "EditorContainer",
   styled.div<CssGridAreaProps>`
-    ${cssGridArea}
+    ${cssGridArea};
     position: relative;
     border-radius: var(--border-radius);
     overflow: hidden;
 
     /* AceEditor can't be styled directly, because styled components swallows the theme prop. */
     > .ace-editor {
-      ${cssGridArea}
+      ${cssGridArea};
       background: var(--input-bg);
       padding: 0.2rem;
       box-sizing: border-box;
     }
-  `
+  `,
 );
 
 interface ErrorProps {
@@ -53,7 +53,7 @@ const Error = displayName(
     padding: 0.2rem;
     transition: transform 400ms;
     transform: ${({ $visible }) => ($visible ? "none" : "translateY(100%)")};
-  `
+  `,
 );
 
 interface ValidatorResult {
@@ -101,7 +101,7 @@ const CodeEditor: FC<CodeEditorProps> = ({
         setState(value);
       }
     },
-    [setState, onValidate]
+    [setState, onValidate],
   );
 
   // extra validations

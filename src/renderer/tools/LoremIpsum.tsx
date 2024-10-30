@@ -6,6 +6,7 @@ import { usePersistedState } from "../persistedState";
 import { registerTool, ToolProps } from "../toolStore";
 import { displayName, repeat as repeatText } from "../utils";
 
+// noinspection SpellCheckingInspection
 const BASE = [
   "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
   "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ",
@@ -42,13 +43,13 @@ const LoremIpsum: FC<ToolProps> = () => {
     const count = repeat || Math.trunc(length / BASE.length + 1) || 0;
     const separator = eols ? repeatText("\n", eols) : " ";
     const maxLength = length || Infinity;
-    const result = repeatText(BASE, count, separator).substr(0, maxLength);
+    const result = repeatText(BASE, count, separator).slice(0, maxLength);
     setOutput(result);
   }, [eols, repeat, length]);
 
   useEffect(generate, [generate]);
 
-  // if neither `repeat` or `length` is specified after initialization, set a default
+  // if neither `repeat` nor `length` is specified after initialization, set a default
   useEffect(() => {
     if (!repeat && !length) {
       setRepeat(3);
@@ -84,5 +85,3 @@ registerTool({
   name: "LoremIpsum",
   description: "Lorem ipsum text generator.",
 });
-
-export default LoremIpsum;

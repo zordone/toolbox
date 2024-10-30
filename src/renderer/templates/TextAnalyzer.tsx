@@ -17,40 +17,40 @@ const Grid = displayName(
       / 1fr 0fr;
     gap: var(--gap-size);
     height: 100%;
-  `
+  `,
 );
 
 const Footer = displayName(
   "Footer",
   styled.div<CssGridAreaProps>`
-    ${cssGridArea}
+    ${cssGridArea};
     grid-area: foot;
     display: grid;
     grid-auto-flow: column;
     grid-auto-columns: 0fr;
     gap: var(--gap-size);
-  `
+  `,
 );
 
 const Value = displayName(
   "Value",
   styled.span<CssGridAreaProps>`
-    ${cssGridArea}
+    ${cssGridArea};
     white-space: nowrap;
     margin-right: 0.1rem;
     font-weight: bold;
     font-size: 1.5rem;
-  `
+  `,
 );
 
 const Unit = displayName(
   "Unit",
   styled.span<CssGridAreaProps>`
-    ${cssGridArea}
+    ${cssGridArea};
     white-space: nowrap;
     margin-right: 0.1rem;
     opacity: 0.5;
-  `
+  `,
 );
 
 interface Result {

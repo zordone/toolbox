@@ -42,5 +42,3 @@ registerTool({
   name: "Uuid",
   description: "UUID generator.",
 });
-
-export default Uuid;

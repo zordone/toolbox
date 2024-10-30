@@ -92,5 +92,3 @@ registerTool({
     },
   ],
 });
-
-export default SheetsToJson;

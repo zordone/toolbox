@@ -80,5 +80,3 @@ registerTool({
   name: "HtmlEntities",
   description: "HTML entities encoder and decoder.",
 });
-
-export default HtmlEntities;

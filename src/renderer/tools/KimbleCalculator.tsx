@@ -46,8 +46,8 @@ const sumHours = (hours: string[]): number =>
     .filter(Boolean)
     .reduce((sum, item) => sum + item, 0);
 
-const sumHoursBy = (collecion: Item[], key: keyof Item): Grouped => {
-  const grouped = groupBy(collecion, key);
+const sumHoursBy = (collection: Item[], key: keyof Item): Grouped => {
+  const grouped = groupBy(collection, key);
   const result: Grouped = {};
   Object.keys(grouped).forEach((key) => {
     result[key] = sumHours(grouped[key].map(({ hours }) => hours));
@@ -194,5 +194,3 @@ registerTool({
   name: "KimbleCalculator",
   description: "Kimble time log calculator.",
 });
-
-export default KimbleCalculator;

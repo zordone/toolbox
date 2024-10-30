@@ -5,7 +5,7 @@ import { IconButton } from "./Buttons";
 import JsonViewer from "./JsonViewer";
 import {
   cssFieldStyle,
-  CssFieldStyteProps,
+  CssFieldStyleProps,
   cssGridArea,
   CssGridAreaProps,
 } from "./styledCss";
@@ -13,12 +13,12 @@ import {
 const WatchesScroller = displayName(
   "WatchesScroller",
   styled.div<CssGridAreaProps>`
-    ${cssGridArea}
+    ${cssGridArea};
     position: relative;
     overflow: scroll;
     height: 100%;
     border-radius: var(--border-radius);
-  `
+  `,
 );
 
 const WatchesContent = displayName(
@@ -31,20 +31,20 @@ const WatchesContent = displayName(
     display: grid;
     grid-template-columns: 1fr;
     gap: var(--gap-size);
-  `
+  `,
 );
 
 const Watch = displayName(
   "Watch",
-  styled.div<CssFieldStyteProps>`
-    ${cssFieldStyle}
+  styled.div<CssFieldStyleProps>`
+    ${cssFieldStyle};
     display: grid;
     grid-template:
       "label remove" 0fr
       "value value" 1fr
       / 1fr 0fr;
     gap: 0.4rem;
-  `
+  `,
 );
 
 const WatchLabel = displayName(
@@ -53,7 +53,7 @@ const WatchLabel = displayName(
     grid-area: label;
     font-size: 0.8rem;
     color: var(--main-fg);
-  `
+  `,
 );
 
 interface WatchValueProps {
@@ -70,7 +70,7 @@ const WatchValue = displayName(
     max-height: 8rem;
     overflow: scroll;
     color: ${({ $isError }) => ($isError ? "red" : "var(--input-fg)")};
-  `
+  `,
 );
 
 const WatchRemove = displayName(
@@ -83,7 +83,7 @@ const WatchRemove = displayName(
       color: red;
       opacity: 0.7;
     }
-  `
+  `,
 );
 
 const formatValue = (value: unknown) => {
