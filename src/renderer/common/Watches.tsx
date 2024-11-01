@@ -1,6 +1,8 @@
+import copyToClipboard from "copy-to-clipboard";
 import React, { FC } from "react";
+import { toast } from "react-toastify";
 import styled from "styled-components";
-import { displayName } from "../utils";
+import { capitalize, displayName } from "../utils";
 import { IconButton } from "./Buttons";
 import JsonViewer from "./JsonViewer";
 import {
@@ -40,8 +42,8 @@ const Watch = displayName(
     ${cssFieldStyle};
     display: grid;
     grid-template:
-      "label remove" 0fr
-      "value value" 1fr
+      "label copy  remove" 0fr
+      "value value value" 1fr
       / 1fr 0fr;
     gap: 0.4rem;
   `,
@@ -53,9 +55,19 @@ const WatchLabel = displayName(
     grid-area: label;
     font-size: 0.8rem;
     color: var(--main-fg);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
   `,
 );
 
+const WatchScroller = displayName(
+  "WatchScroller",
+  styled.div`
+    grid-area: value;
+    overflow-x: scroll;
+  `,
+);
 interface WatchValueProps {
   $isError: boolean;
 }
@@ -63,7 +75,6 @@ interface WatchValueProps {
 const WatchValue = displayName(
   "WatchValue",
   styled.div<WatchValueProps>`
-    grid-area: value;
     font-weight: 900;
     white-space: pre;
     font-size: 0.8rem;
@@ -73,14 +84,18 @@ const WatchValue = displayName(
   `,
 );
 
-const WatchRemove = displayName(
-  "WatchRemove",
-  styled(IconButton)`
+interface WatchButtonProps {
+  $isDanger?: boolean;
+}
+
+const WatchButton = displayName(
+  "WatchButton",
+  styled(IconButton)<WatchButtonProps>`
     font-size: 0.7rem;
     opacity: 0.5;
 
     &:hover {
-      color: red;
+      color: ${({ $isDanger }) => ($isDanger ? "red" : "var(--main-fg)")};
       opacity: 0.7;
     }
   `,
@@ -105,13 +120,27 @@ interface WatchListProps {
   watches: Watch[];
 }
 
+const onCopy = (value: unknown) => {
+  copyToClipboard(JSON.stringify(value));
+  toast.success(capitalize(`Value copied to clipboard.`));
+};
+
 const WatchList: FC<WatchListProps> = ({ onRemove, watches }) => (
   <WatchesScroller>
     <WatchesContent>
       {watches.map(({ expr, value, isError }) => (
         <Watch key={expr} readOnly={true}>
           <WatchLabel>{expr}</WatchLabel>
-          <WatchRemove
+          <WatchButton
+            area="copy"
+            chromeless
+            icon="fa-copy"
+            iconStyle="far"
+            onClick={() => onCopy(value)}
+            title="Copy this watch"
+          />
+          <WatchButton
+            $isDanger
             area="remove"
             chromeless
             icon="fa-trash-alt"
@@ -119,11 +148,13 @@ const WatchList: FC<WatchListProps> = ({ onRemove, watches }) => (
             onClick={() => onRemove(expr)}
             title="Remove this watch"
           />
-          {typeof value === "object" && !isError ? (
-            <JsonViewer data={value} />
-          ) : (
-            <WatchValue $isError={isError}>{formatValue(value)}</WatchValue>
-          )}
+          <WatchScroller>
+            {typeof value === "object" && !isError ? (
+              <JsonViewer data={value} />
+            ) : (
+              <WatchValue $isError={isError}>{formatValue(value)}</WatchValue>
+            )}
+          </WatchScroller>
         </Watch>
       ))}
     </WatchesContent>
