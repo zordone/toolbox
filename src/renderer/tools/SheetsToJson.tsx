@@ -13,7 +13,9 @@ interface MySettings {
 
 const isBoolean = (value: string) =>
   ["true", "false"].includes(value.toLowerCase());
-const isNumber = (value: string) => !isNaN(parseFloat(value));
+const isNumber = (value: string) =>
+  !isNaN(Number(value)) && !isNaN(parseFloat(value));
+const isDate = (value: string) => !isNaN(Date.parse(value));
 
 const convertTsvToJson = (value: string, settings: MySettings): string => {
   const { detectTypes, excludeEmpty } = settings;
@@ -31,12 +33,14 @@ const convertTsvToJson = (value: string, settings: MySettings): string => {
             parsedCell = cell.toLowerCase() === "true";
           } else if (isNumber(cell)) {
             parsedCell = parseFloat(cell);
+          } else if (isDate(cell)) {
+            parsedCell = new Date(cell).toISOString();
           }
         }
 
         return [header[index] || `#${index}`, parsedCell];
-      })
-    )
+      }),
+    ),
   );
 
   return formatJson(table);
@@ -56,7 +60,7 @@ const SheetsToJson: FC<ToolProps> = ({ pasted }) => {
         return { value: "", error: ex.message };
       }
     },
-    [settings]
+    [settings],
   );
 
   return (
