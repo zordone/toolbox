@@ -31,3 +31,4 @@ yarn-error.log*
 NOTES.md
 MIGRATION.md
 .eslintcache
+/src/renderer/settings_test.tsx

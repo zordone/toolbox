@@ -24,9 +24,8 @@ const Container = displayName(
     .container {
       background: transparent;
       font-size: 0.7rem;
-      font-family: "PT Sans", -apple-system, system-ui, "Segoe UI", Roboto,
-        Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
-        sans-serif;
+      font-family: Monaco, Menlo, "Ubuntu Mono", Consolas, "Source Code Pro",
+        source-code-pro, monospace;
     }
 
     .basic {
@@ -36,7 +35,6 @@ const Container = displayName(
 
     .value {
       color: var(--input-fg);
-      font-weight: 900;
     }
 
     .label {
@@ -46,7 +44,7 @@ const Container = displayName(
     }
 
     .punctuation {
-      margin-right: 1ch;
+      margin-right: 5px;
       opacity: 1;
       color: var(--main-fg);
       font-size: 0.8rem;
@@ -54,13 +52,23 @@ const Container = displayName(
 
     .icon {
       color: var(--main-fg);
-      font-size: 1.5rem;
-      margin: 0;
-      line-height: 0;
       opacity: 0.5;
       display: inline-block;
+      font-family: monospace;
+
+      &:hover {
+        opacity: 1;
+      }
     }
-  `
+
+    .collapse::after {
+      content: "▶";
+    }
+
+    .expand::after {
+      content: "▼";
+    }
+  `,
 );
 
 darkStyles.basicChildStyle = "basic";
@@ -73,8 +81,8 @@ darkStyles.numberValue = "value";
 darkStyles.otherValue = "value";
 darkStyles.label = "label";
 darkStyles.punctuation = "punctuation";
-darkStyles.collapseIcon += " icon";
-darkStyles.expandIcon += " icon";
+darkStyles.collapseIcon += " collapse icon";
+darkStyles.expandIcon += " expand icon";
 
 interface JsonViewerProps {
   data: ComponentProps<typeof JsonView>["data"];
