@@ -15,7 +15,7 @@ import Splitter, { SplitterPane } from "../common/Splitter";
 import WatchList, { Watch } from "../common/Watches";
 import { FieldLabel } from "../fields";
 import { usePersistedState, usePersistedStateSet } from "../persistedState";
-import { displayName, noop, reindent } from "../utils";
+import { displayName, message, noop, reindent } from "../utils";
 import { ToolProps } from "../toolStore";
 
 const defaultCode = reindent(`
@@ -24,26 +24,28 @@ const defaultCode = reindent(`
 
 const defaultWatchExprs = ["number"];
 
-const wrapperStart = "(function () {";
-const wrapperEnd = "return context; })()";
-
 const runCode = async (
-  code: string,
+  userCode: string,
   extraContext: object,
   watchExprs: Set<string>,
 ) => {
-  const watchCode = Array.from(watchExprs)
-    .map((expr) => {
-      const exprStr = JSON.stringify(expr);
-      return reindent(`
-        try {
-          watches.push({ expr: ${exprStr}, value: ${expr} });
-        } catch (err) {
-          watches.push({ expr: ${exprStr}, value: err.message, isError: true });
-        }
-      `);
-    })
-    .join("\n");
+  const watchCode = Array.from(watchExprs).map((expr) => {
+    const exprStr = JSON.stringify(expr);
+    return `
+      try {
+        watches.push({ expr: ${exprStr}, value: ${expr} });
+      } catch (err) {
+        watches.push({ expr: ${exprStr}, value: err.message, isError: true });
+      }        
+    `;
+  });
+  const fullCode = [
+    "(function () {",
+    ...reindent(userCode, 2).split("\n"),
+    ...watchCode.map((code) => reindent(code, 2)),
+    "  return watches;",
+    "})()",
+  ].join("\n");
 
   const watches: Watch[] = [];
   const context = {
@@ -51,8 +53,7 @@ const runCode = async (
     watches,
   };
 
-  const fullCode = [wrapperStart, code, watchCode, wrapperEnd].join("\n");
-  return safeEval(fullCode, context);
+  return safeEval<Watch[]>(fullCode, context);
 };
 
 export const LabelRow = displayName(
@@ -107,15 +108,13 @@ const Playground: FC<PlaygroundProps> = ({
       await runCode(newCode, extraContext, watchExprs);
       return { value: newCode, error: null };
     } catch (err) {
-      return { value: newCode, error: err.message };
+      return { value: newCode, error: message(err) };
     }
   };
 
   useEffect(() => {
     runCode(code, extraContext, watchExprs)
-      .then((context: { watches: Watch[] }) => {
-        setWatchResults(context.watches);
-      })
+      .then(setWatchResults)
       .catch(() => {
         setWatchResults(
           Array.from(watchExprs).map((expr) => ({

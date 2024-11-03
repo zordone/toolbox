@@ -11,7 +11,7 @@ import { safeEval } from "../common/SafeEval";
 import { FieldLabel, FileField, TextArea } from "../fields";
 import { usePersistedState } from "../persistedState";
 import { registerTool } from "../toolStore";
-import { displayName, formatJson, reindent } from "../utils";
+import { displayName, formatJson, message, reindent } from "../utils";
 
 const Grid = displayName(
   "Grid",
@@ -25,7 +25,7 @@ const Grid = displayName(
       / 27rem 0fr 0fr 1fr 0fr;
     gap: var(--gap-size);
     height: 100%;
-  `
+  `,
 );
 
 const allowTypes = ["application/json"];
@@ -59,7 +59,7 @@ const JsonTransformer = () => {
   const [code, setCode] = usePersistedState(
     JsonTransformer,
     "code",
-    initialCode
+    initialCode,
   );
   const [output, setOutput] = useState("");
 
@@ -70,7 +70,7 @@ const JsonTransformer = () => {
       try {
         input = JSON.parse(content || "{}");
       } catch (err) {
-        return { value: "", error: `Invalid input: ${err.message}` };
+        return { value: "", error: `Invalid input: ${message(err)}` };
       }
       // run
       const context = { input };
@@ -81,10 +81,10 @@ const JsonTransformer = () => {
         setTimeout(() => setOutput(formatJson(result)), 0);
         return { value: newCode, error: null };
       } catch (err) {
-        return { value: "", error: err.message };
+        return { value: "", error: message(err) };
       }
     },
-    [content]
+    [content],
   );
 
   return (

@@ -1,9 +1,13 @@
 /* Theme overrides for the Ace Editor */
 
+.ace_editor {
+  line-height: 1.5;
+}
+
 /* gutter */
 .ace_editor .ace_gutter {
   background: #1c1c1c;
-  color: hsl(0, 0%, 30%);
+  color: hsl(0, 0%, 25%);
 }
 
 .ace_editor:focus .ace_cursor {

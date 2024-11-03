@@ -4,6 +4,9 @@ export const noop = (..._args: unknown[]) => {
   // comment to satisfy eslint
 };
 
+export const message = (error: unknown) =>
+  error instanceof Error ? error.message : String(error);
+
 export const gcd = (a: number, b: number): number => (b ? gcd(b, a % b) : a);
 
 interface MatchGroups {

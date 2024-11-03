@@ -20,7 +20,7 @@ const Grid = displayName(
     display: grid;
     grid-template-columns: 0fr 20rem 0fr;
     gap: var(--gap-size);
-  `
+  `,
 );
 
 const PasswordGenerator: FC<ToolProps> = () => {

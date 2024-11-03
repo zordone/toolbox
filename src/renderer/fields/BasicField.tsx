@@ -77,7 +77,7 @@ export interface BasicFieldProps<T extends Value>
   onValidate: (value: string) => { error: string | null; value: T };
   readOnly?: boolean;
   rows?: number;
-  setState?: Dispatch<SetStateAction<T>>;
+  setState?: Dispatch<SetStateAction<T>> | ((value: T) => void);
   state?: T;
 }
 

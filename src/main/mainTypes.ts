@@ -14,7 +14,7 @@ export enum MainMethodName {
 }
 
 // general case of a main method
-export type MainMethod = (params: object) => Promise<object>;
+export type MainMethod = ShowOpenDialog | ShowSaveDialog;
 
 // main method for showing the open dialog
 export type ShowOpenDialog = (params: {

@@ -43,7 +43,8 @@ export const usePersistedState = <TState>(
 };
 
 const setToArray = <T>(set: Set<T>): T[] => Array.from(set);
-const arrayToSet = <T>(array: T[]): Set<T> => array && new Set(array);
+const arrayToSet = <T>(array: JsonValue): Set<T> =>
+  new Set<T>(Array.isArray(array) ? array : []);
 
 // useState persisted into local storage - for Set
 export const usePersistedStateSet = <T>(

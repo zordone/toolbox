@@ -2,7 +2,7 @@ import React, { FC, useCallback } from "react";
 import Formatter from "../templates/Formatter";
 import { usePersistedState } from "../persistedState";
 import { registerTool, ToolProps } from "../toolStore";
-import { formatJson } from "../utils";
+import { formatJson, message } from "../utils";
 
 const initialJson = formatJson({
   hello: "world",
@@ -19,8 +19,8 @@ const JsonFormatter: FC<ToolProps> = ({ pasted }) => {
     try {
       const newValue = formatJson(JSON.parse(value));
       return { value: newValue, error: null };
-    } catch (ex) {
-      return { value: "", error: ex.message };
+    } catch (err) {
+      return { value: "", error: message(err) };
     }
   }, []);
 

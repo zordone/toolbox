@@ -6,7 +6,7 @@ import { FieldLabel, TextField } from "../fields";
 import { usePersistedState } from "../persistedState";
 import Formatter from "../templates/Formatter";
 import { registerTool, ToolProps } from "../toolStore";
-import { displayName, formatJson } from "../utils";
+import { displayName, formatJson, message } from "../utils";
 
 const engine = new Liquid();
 
@@ -29,7 +29,7 @@ const Grid = displayName(
       / 1fr;
     gap: var(--gap-size);
     height: 100%;
-  `
+  `,
 );
 
 const LiquidTester: FC<ToolProps> = ({ pasted }) => {
@@ -41,9 +41,9 @@ const LiquidTester: FC<ToolProps> = ({ pasted }) => {
     try {
       const newValue = formatJson(JSON.parse(value));
       return { value: newValue, error: null };
-    } catch (ex) {
+    } catch (err) {
       setResult("");
-      return { value: "", error: ex.message };
+      return { value: "", error: message(err) };
     }
   }, []);
 

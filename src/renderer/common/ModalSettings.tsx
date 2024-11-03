@@ -66,7 +66,7 @@ const ModalSettings: FC<ModalSettingsProps> = ({
               <Input
                 autoFocus={index === 0}
                 fullWidth
-                setState={(newValue) =>
+                setState={(newValue: number | boolean | string) =>
                   setValues({ ...values, [key]: newValue })
                 }
                 min={0}

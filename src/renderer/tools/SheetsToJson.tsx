@@ -3,7 +3,7 @@ import { usePersistedState } from "../persistedState";
 import { useSettings } from "../settings";
 import Formatter from "../templates/Formatter";
 import { registerTool, ToolProps } from "../toolStore";
-import { formatJson } from "../utils";
+import { formatJson, message } from "../utils";
 
 // TODO: type safe useSettings
 interface MySettings {
@@ -56,8 +56,8 @@ const SheetsToJson: FC<ToolProps> = ({ pasted }) => {
       try {
         const json = convertTsvToJson(value, settings);
         return { value: json, error: null };
-      } catch (ex) {
-        return { value: "", error: ex.message };
+      } catch (err) {
+        return { value: "", error: message(err) };
       }
     },
     [settings],

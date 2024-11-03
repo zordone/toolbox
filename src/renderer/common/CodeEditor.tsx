@@ -149,6 +149,7 @@ const CodeEditor: FC<CodeEditorProps> = ({
           showInvisibles: true,
           tabSize: 2,
           useWorker: false,
+          fontSize: "0.7rem",
         }}
         theme="tomorrow_night"
         value={inputValue}

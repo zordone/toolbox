@@ -17,10 +17,10 @@ const versions = `Node ${node}, Chrome ${chrome}, Electron ${electron}`;
 const callMethod = <
   TMethod extends MainMethod,
   TParams = Parameters<TMethod>[0],
-  TReturn = Awaited<ReturnType<TMethod>>
+  TReturn = Awaited<ReturnType<TMethod>>,
 >(
   method: MainMethodName,
-  params: TParams
+  params: TParams,
 ) =>
   new Promise<TReturn>((resolve, reject) => {
     ipcRenderer.once(`${method}-result`, (_, { error, result }) => {

@@ -14,7 +14,7 @@ const iframeSrc = reindent(`
   <!DOCTYPE html>
   <html>
     <head>
-      <script  src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js" integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js" integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>    
       <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.0/moment.min.js" integrity="sha512-Zld6cksVzVRF8ZJIbU4Or5vo47P1/Wg3U/c15iMudpFIExUKZlyHPB+i7+Wov3jfRMBECsn/MgqBPpfAJANHXw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
       <script>
         window.addEventListener('message', (event) => {
@@ -47,11 +47,11 @@ document.body.appendChild(iframe);
 
 // evaluates a JavaScript expression, with the provided context:
 // await safeEval("a+b", { a: 1, b: 2 }); // -> 3
-export const safeEval = async (
+export const safeEval = async <T = unknown>(
   expression: string,
   context: object,
-): Promise<unknown> => {
-  return new Promise((resolve, reject) => {
+): Promise<T> => {
+  return new Promise<T>((resolve, reject) => {
     window.addEventListener(
       "message",
       ({ origin, source, data }) => {
