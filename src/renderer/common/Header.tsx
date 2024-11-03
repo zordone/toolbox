@@ -26,7 +26,7 @@ const Container = displayName(
     user-select: none;
     font-size: 1.6rem;
     font-weight: bold;
-  `
+  `,
 );
 
 const Logo = displayName(
@@ -37,7 +37,7 @@ const Logo = displayName(
     height: auto;
     opacity: 0.7;
     cursor: pointer;
-  `
+  `,
 );
 
 const Title = displayName(
@@ -48,7 +48,7 @@ const Title = displayName(
     font: inherit;
     opacity: ${TITLE_OPACITY};
     cursor: pointer;
-  `
+  `,
 );
 
 const Buttons = displayName(
@@ -69,7 +69,7 @@ const Buttons = displayName(
       justify-content: space-between;
       gap: 1rem;
     }
-  `
+  `,
 );
 
 const Shortcut = displayName(
@@ -77,7 +77,7 @@ const Shortcut = displayName(
   styled.span`
     font-family: system-ui;
     opacity: 0.4;
-  `
+  `,
 );
 
 interface HeaderProps {
@@ -85,7 +85,7 @@ interface HeaderProps {
   onReloadTool: () => void;
   onSelectTool: (name: string) => void;
   onTitleClick: MouseEventHandler;
-  searchRef: MutableRefObject<HTMLInputElement>;
+  searchRef: MutableRefObject<HTMLInputElement | null>;
   tools: Tools;
 }
 
@@ -122,7 +122,7 @@ const Header: FC<HeaderProps> = ({
       }
       event.preventDefault();
     },
-    [hasSettings, onSettings]
+    [hasSettings, onSettings],
   );
 
   return (

@@ -24,15 +24,15 @@ const ToolContainer = displayName(
     user-select: none;
     overflow-y: hidden;
     box-sizing: border-box;
-  `
+  `,
 );
 
 const App = () => {
-  const searchRef = useRef<HTMLInputElement>();
+  const searchRef = useRef<HTMLInputElement>(null);
   const [currentToolName, setCurrentToolName] = usePersistedState(
     App,
     "tool",
-    ""
+    "",
   );
 
   const [pasted, setPasted] = useState("");
@@ -40,11 +40,11 @@ const App = () => {
 
   const focusSearch = useCallback(
     (event: MouseEvent | Event | null) => {
-      searchRef.current.focus();
+      searchRef.current?.focus();
       event?.preventDefault?.();
       return false;
     },
-    [searchRef]
+    [searchRef],
   );
 
   const onSelectTool = useCallback(
@@ -52,7 +52,7 @@ const App = () => {
       setCurrentToolName(name);
       setReload(0);
     },
-    [setCurrentToolName]
+    [setCurrentToolName],
   );
 
   const onReloadTool = useCallback(() => {
@@ -60,10 +60,10 @@ const App = () => {
   }, [reload]);
 
   const onPaste = useCallback((event: ClipboardEvent) => {
-    const text = event.clipboardData.getData("Text") || "";
+    const text = event.clipboardData?.getData("Text") || "";
     if (text) {
       setPasted(text);
-      setTimeout(() => setPasted(null), 0);
+      setTimeout(() => setPasted(""), 0);
     }
   }, []);
 

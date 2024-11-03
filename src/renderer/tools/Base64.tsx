@@ -16,7 +16,7 @@ const SideBySide = displayName(
     grid-template-columns: 1fr 1fr;
     gap: var(--gap-size);
     height: 100%;
-  `
+  `,
 );
 
 const Grid = displayName(
@@ -28,19 +28,19 @@ const Grid = displayName(
       "field field field" 1fr
       / 1fr 0fr 0fr;
     gap: var(--gap-size);
-  `
+  `,
 );
 
 const Base64: FC<ToolProps> = () => {
   const [text, setText] = usePersistedState(Base64, "text", initialText);
-  const [base64, setBase64] = useState<string>();
+  const [base64, setBase64] = useState<string>("");
 
   useEffect(() => {
     setBase64(btoa(text));
   }, [text]);
 
   useEffect(() => {
-    if (base64 === undefined) {
+    if (!base64) {
       return;
     }
     try {

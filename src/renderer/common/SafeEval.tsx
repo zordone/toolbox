@@ -67,6 +67,6 @@ export const safeEval = async (
       { once: true },
     );
 
-    iframe.contentWindow.postMessage({ expression, context }, "*");
+    iframe.contentWindow?.postMessage({ expression, context }, "*");
   });
 };

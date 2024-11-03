@@ -12,7 +12,7 @@
   opacity: 0.8;
 }
 
-/* active line */
+/* active line */
 .ace_editor .ace_marker-layer .ace_active-line {
   background: #32353b40;
 }

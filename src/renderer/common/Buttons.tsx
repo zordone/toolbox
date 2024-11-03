@@ -37,7 +37,7 @@ const StyledButton = displayName(
       }
     `}
     ${({ $fullWidth }) => $fullWidth && `width: 100%;`}
-  `
+  `,
 );
 
 interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
@@ -141,18 +141,15 @@ export const OnOffButton: FC<OnOffButtonProps> = ({
   state,
   setState,
   ...rest
-}) => {
-  const isOn = !!state;
-  return (
-    <IconButton
-      icon={isOn ? "fa-toggle-on" : "fa-toggle-off"}
-      isOn={isOn}
-      onClick={() => setState(!state)}
-      title="Toggle On / Off`"
-      {...rest}
-    />
-  );
-};
+}) => (
+  <IconButton
+    icon={state ? "fa-toggle-on" : "fa-toggle-off"}
+    isOn={state}
+    onClick={() => setState(!state)}
+    title="Toggle On / Off`"
+    {...rest}
+  />
+);
 
 interface OpenButtonProps extends Partial<IconButtonProps> {
   dialogOptions: Electron.CrossProcessExports.OpenDialogOptions;
@@ -173,7 +170,7 @@ export const OpenButton: FC<OpenButtonProps> = ({
       .showOpenDialog({ options: dialogOptions })
       .then(({ name, content }) => {
         if (content !== null) {
-          setName(name);
+          setName(name ?? "unnamed");
           setContent(content);
           toast.success(capitalize(`File loaded.`));
         }

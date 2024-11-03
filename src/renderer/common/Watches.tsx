@@ -102,6 +102,7 @@ const WatchButton = displayName(
 );
 
 const formatValue = (value: unknown) => {
+  if (value === null) return "null";
   if (value === undefined) return "undefined";
   if (value === Infinity) return "Infinity";
   if (value === -Infinity) return "-Infinity";
@@ -149,7 +150,7 @@ const WatchList: FC<WatchListProps> = ({ onRemove, watches }) => (
             title="Remove this watch"
           />
           <WatchScroller>
-            {typeof value === "object" && !isError ? (
+            {typeof value === "object" && value !== null && !isError ? (
               <JsonViewer data={value} />
             ) : (
               <WatchValue $isError={isError}>{formatValue(value)}</WatchValue>

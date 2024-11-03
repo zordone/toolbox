@@ -24,23 +24,26 @@ const Grid = displayName(
       / 0fr 4ch 0fr 8ch 0fr 4ch 1fr 0fr;
     gap: var(--gap-size);
     height: 100%;
-  `
+  `,
 );
 
 const LoremIpsum: FC<ToolProps> = () => {
   const [output, setOutput] = useState("");
   const [repeat, setRepeat] = usePersistedState<number | undefined>(
     LoremIpsum,
-    "repeat"
+    "repeat",
+    3,
   );
   const [length, setLength] = usePersistedState<number | undefined>(
     LoremIpsum,
-    "length"
+    "length",
+    undefined,
   );
   const [eols, setEols] = usePersistedState<number>(LoremIpsum, "eols", 2);
 
   const generate = useCallback(() => {
-    const count = repeat || Math.trunc(length / BASE.length + 1) || 0;
+    const count =
+      repeat || (length && Math.trunc(length / BASE.length + 1)) || 0;
     const separator = eols ? repeatText("\n", eols) : " ";
     const maxLength = length || Infinity;
     const result = repeatText(BASE, count, separator).slice(0, maxLength);
@@ -49,25 +52,18 @@ const LoremIpsum: FC<ToolProps> = () => {
 
   useEffect(generate, [generate]);
 
-  // if neither `repeat` nor `length` is specified after initialization, set a default
-  useEffect(() => {
-    if (!repeat && !length) {
-      setRepeat(3);
-    }
-  }, [length, repeat, setRepeat]);
-
   return (
     <Grid>
       <FieldLabel>Repeat</FieldLabel>
       <IntegerField
-        min={0}
+        min={1}
         onChange={() => setLength(undefined)}
         setState={setRepeat}
         state={repeat}
       />
       <FieldLabel>Length</FieldLabel>
       <IntegerField
-        min={0}
+        min={1}
         onChange={() => setRepeat(undefined)}
         setState={setLength}
         state={length}

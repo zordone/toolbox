@@ -1,8 +1,8 @@
-import React, { ComponentProps, FC } from "react";
-import BasicField from "./BasicField";
+import React from "react";
+import styled from "styled-components";
+import BasicField, { BasicFieldProps } from "./BasicField";
 import { displayName } from "../utils";
 import { cssFieldStyle, CssFieldStyleProps } from "../common/styledCss";
-import styled from "styled-components";
 
 const Container = displayName(
   "Container",
@@ -26,14 +26,29 @@ const Container = displayName(
   `,
 );
 
-const BooleanField: FC<ComponentProps<typeof BasicField>> = (props) => (
+interface BooleanFieldProps
+  extends Omit<BasicFieldProps<boolean>, "onValidate"> {
+  onValidate?: (text: string) => { value: boolean; error: string | null };
+}
+
+const defaultOnValidate = (text: string) => ({
+  value: text === "true",
+  error: null,
+});
+
+const BooleanField = ({
+  onValidate = defaultOnValidate,
+  state,
+  ...rest
+}: BooleanFieldProps) => (
   <Container>
-    <BasicField
-      {...props}
+    <BasicField<boolean>
+      {...rest}
       type="checkbox"
-      onValidate={(text: string) => ({ value: text === "true", error: null })}
+      onValidate={onValidate}
+      state={state}
     />
-    <span>{props.state ? "Yes" : "No"}</span>
+    <span>{state ? "Yes" : "No"}</span>
   </Container>
 );
 

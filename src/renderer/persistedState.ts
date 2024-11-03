@@ -12,25 +12,26 @@ type JsonValue = unknown;
 export const usePersistedState = <TState>(
   toolComp: FC,
   stateKey: string,
-  defaultValue?: TState,
+  defaultValue: TState,
   // the defaults are for JSON serializable types only.
   // otherwise, it's required to pass in a proper onSerialize and onDeserialize functions.
   onSerialize: (value: TState) => JsonValue = (value) =>
     value as unknown as JsonValue,
   onDeserialize: (value: JsonValue) => TState = (value) =>
-    value as unknown as TState
+    value as unknown as TState,
 ): [TState, Dispatch<SetStateAction<TState>>] => {
   const toolName = toolComp?.displayName;
   if (!toolName) {
     throw new Error("usePersistedState: No tool name!");
   }
-  if (typeof stateKey !== "string" || !stateKey) {
-    throw new Error("usePersistedState: No state key!");
-  }
   const key = getKey(toolName, stateKey);
-  const [state, setState] = useState<TState>(
-    () => onDeserialize(JSON.parse(localStorage.getItem(key))) || defaultValue
-  );
+  const [state, setState] = useState<TState>(() => {
+    const stored = localStorage.getItem(key);
+    if (stored === null) {
+      return defaultValue;
+    }
+    return onDeserialize(JSON.parse(stored)) || defaultValue;
+  });
   useEffect(() => {
     if (state !== undefined) {
       localStorage.setItem(key, JSON.stringify(onSerialize(state)));
@@ -48,7 +49,7 @@ const arrayToSet = <T>(array: T[]): Set<T> => array && new Set(array);
 export const usePersistedStateSet = <T>(
   toolComp: FC,
   stateKey: string,
-  defaultValue: Set<T>
+  defaultValue: Set<T>,
 ) =>
   usePersistedState(toolComp, stateKey, defaultValue, setToArray, arrayToSet);
 

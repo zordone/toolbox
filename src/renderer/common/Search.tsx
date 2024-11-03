@@ -16,6 +16,39 @@ import { cssShadow } from "./styledCss";
 
 const MAX_OPTIONS = 10;
 
+const exactMatch = (name: string, term: string) =>
+  Number(name.toLowerCase().startsWith(term));
+
+// 'JsonTransformer' -> 'jt', 'Base64' -> 'b64'
+const shorthand = (name: string) =>
+  name.replace(/[^A-Z0-9]/g, "").toLowerCase();
+
+const toolSearch = (searcher: FuzzySearch<Tool> | undefined, term: string) => {
+  if (!searcher) {
+    return [];
+  }
+
+  return searcher
+    .search(term)
+    .sort((a, b) => {
+      // if the name starts exactly with the term, sort it to the top
+      const aExact = exactMatch(a.name, term);
+      const bExact = exactMatch(b.name, term);
+      if (aExact !== bExact) {
+        return bExact - aExact;
+      }
+      // same for exact match in the shorthand name
+      const aShortExact = exactMatch(shorthand(a.name), term);
+      const bShortExact = exactMatch(shorthand(b.name), term);
+      if (aShortExact !== bShortExact) {
+        return bShortExact - aShortExact;
+      }
+      // default alphabetical order
+      return a.name.localeCompare(b.name);
+    })
+    .slice(0, MAX_OPTIONS);
+};
+
 const SearchContainer = displayName(
   "SearchContainer",
   styled.div`
@@ -102,7 +135,7 @@ const SearchOptionDesc = displayName(
 interface SearchProps {
   currentToolName: string;
   onSelectTool: (name: string) => void;
-  searchRef: MutableRefObject<HTMLInputElement>;
+  searchRef: MutableRefObject<HTMLInputElement | null>;
   tools: Tools;
 }
 
@@ -113,9 +146,9 @@ const Search: FC<SearchProps> = ({
   tools,
 }) => {
   const [value, setValue] = useState("");
-  const [filtered, setFiltered] = useState([]);
+  const [filtered, setFiltered] = useState<Tool[]>([]);
   const [searcher, setSearcher] = useState<FuzzySearch<Tool>>();
-  const [index, setIndex] = useState(null);
+  const [index, setIndex] = useState<number | null>(null);
   const [isFocused, setIsFocused] = useState(false);
 
   const onFocus = useCallback(() => {
@@ -140,18 +173,19 @@ const Search: FC<SearchProps> = ({
 
   const handleKey = useCallback(
     (key: string, event?: KeyboardEvent) => {
+      const indexNum = index ?? 0;
       if (key === "ArrowUp") {
-        setIndex(Math.max(0, index - 1));
+        setIndex(Math.max(0, indexNum - 1));
         event?.preventDefault();
         return;
       }
       if (key === "ArrowDown") {
-        setIndex(Math.min(index + 1, filtered.length - 1));
+        setIndex(Math.min(indexNum + 1, filtered.length - 1));
         event?.preventDefault();
         return;
       }
-      if (key === "Enter" && filtered.length > index) {
-        const toolName = filtered[index].name;
+      if (key === "Enter" && filtered.length > indexNum) {
+        const toolName = filtered[indexNum].name;
         setValue(toolName);
         onSelectTool(toolName);
         setTimeout(() => searchRef.current?.blur(), 0);
@@ -193,15 +227,7 @@ const Search: FC<SearchProps> = ({
       setIndex(null);
       return;
     }
-    const matches = searcher
-      .search(term)
-      .sort((a, b) => {
-        // if the name starts exactly with the term, sort it to the top
-        const aExact = Number(a.name.toLowerCase().startsWith(term));
-        const bExact = Number(b.name.toLowerCase().startsWith(term));
-        return bExact - aExact;
-      })
-      .slice(0, MAX_OPTIONS);
+    const matches = toolSearch(searcher, term);
     setFiltered(matches);
     setIndex(0);
   }, [value, tools, searcher]);

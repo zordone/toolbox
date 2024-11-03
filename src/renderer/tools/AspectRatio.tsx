@@ -21,7 +21,7 @@ const Grid = displayName(
     display: grid;
     grid-template-columns: 0fr 10rem 0fr;
     gap: var(--gap-size);
-  `
+  `,
 );
 
 interface CalculatorProps {
@@ -56,12 +56,12 @@ const AspectRatio: FC<ToolProps> = ({ pasted }) => {
 
   // recognize pasted resolution or ratio
   useEffect(() => {
-    const cleaned = pasted?.replace(/\*/g, "x").replace(/\s/g, "");
+    const cleaned = (pasted ?? "").replace(/\*/g, "x").replace(/\s/g, "");
     matchGroups(cleaned, reResolution, ({ width, height }) => {
       setCalc(RATIO);
       setWidth(parseInt(width, 10));
       setHeight(parseInt(height, 10));
-      toast.success("Pasted width & height.");
+      toast.success("Pasted width & height.");
     });
     matchGroups(cleaned, reRatio, ({ width, height }) => {
       setCalc(WIDTH);

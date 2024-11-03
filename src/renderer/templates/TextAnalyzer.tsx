@@ -77,7 +77,7 @@ const TextAnalyzer: FC<TextAnalyzerProps> = ({
   toolComp,
 }) => {
   const [text, setText] = usePersistedState(toolComp, "text", initialText);
-  const [results, setResults] = useState([]);
+  const [results, setResults] = useState<Result[]>([]);
 
   useEffect(() => {
     const newResults = onUpdateResults(text);

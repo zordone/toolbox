@@ -1,8 +1,8 @@
-import React, { ComponentProps, DragEvent, FC, useState } from "react";
+import React, { DragEvent, FC, useState } from "react";
 import { noop, preventDefault } from "../utils";
-import BasicField from "./BasicField";
+import BasicField, { BasicFieldProps } from "./BasicField";
 
-interface FileFieldProps extends ComponentProps<typeof BasicField> {
+interface FileFieldProps extends Omit<BasicFieldProps<string>, "onValidate"> {
   allowTypes: string[];
   setContent: (content: string) => void;
   setName: (name: string) => void;
@@ -34,13 +34,13 @@ const FileField: FC<FileFieldProps> = ({
 
   const getFile = (event: DragEvent<HTMLInputElement>) => {
     const files = [...event.dataTransfer.files].filter(
-      (file) => allowTypes.length === 0 || allowTypes.includes(file.type)
+      (file) => allowTypes.length === 0 || allowTypes.includes(file.type),
     );
     return files[0];
   };
 
   return (
-    <BasicField
+    <BasicField<string>
       {...rest}
       fullWidth
       isDropOk={isDropOk}
@@ -87,6 +87,7 @@ const FileField: FC<FileFieldProps> = ({
         // other
         console.warn("Unknown drop", event.dataTransfer);
       }}
+      onValidate={(value) => ({ value, error: null })}
     />
   );
 };

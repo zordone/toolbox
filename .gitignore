@@ -22,6 +22,7 @@
 # ide
 /.vscode
 /.idea
+/.github
 
 npm-debug.log*
 yarn-debug.log*

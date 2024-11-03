@@ -131,7 +131,7 @@ const parts = [
 ];
 
 // `css` can be any kind of color: hex, rgba, hsla, keyword, etc
-const cssToRgba = (css: string) => {
+const cssToRgba = (css: string): Num4 | undefined => {
   const temp = document.createElement("div");
   temp.style.color = css;
   document.body.appendChild(temp);
@@ -146,12 +146,12 @@ const cssToRgba = (css: string) => {
   matchGroups(rgbaString, reRgba, ({ r, b, g, a }) => {
     rgba = [r, g, b, a]
       .map((ch) => (ch ? Number(ch) : undefined))
-      .filter((ch) => ch !== undefined);
+      .filter((ch) => ch !== undefined) as Num4;
   });
   return rgba;
 };
 
-const rgbaToHex = (rgba: Num4) => {
+const rgbaToHex = (rgba: Num4 | undefined) => {
   if (!rgba) {
     return "";
   }
@@ -165,12 +165,12 @@ const rgbaToHex = (rgba: Num4) => {
   return ["#", ...parsed].join("").replace(reShortable, "#$1$2$3$4");
 };
 
-const rgbaToRgbaString = (rgba: Num4) =>
+const rgbaToRgbaString = (rgba: Num4 | undefined) =>
   rgba
     ? [rgba.length === 4 ? "rgba(" : "rgb(", rgba.join(", "), ")"].join("")
     : "";
 
-const rgbaToHsla = (rgba: Num4) => {
+const rgbaToHsla = (rgba: Num4 | undefined) => {
   if (!rgba) {
     return;
   }
@@ -179,7 +179,7 @@ const rgbaToHsla = (rgba: Num4) => {
   const max = Math.max(...rgb);
   const min = Math.min(...rgb);
 
-  let h;
+  let h = 0;
   let s;
   let l = (max + min) / 2;
 
@@ -220,7 +220,7 @@ const hslaToHslaString = (hsla: Num4) => {
   return [`hsl(${h} ${s}% ${l}%`, a < 1 ? ` / ${a}` : "", ")"].join("");
 };
 
-const hslaStringToHsla = (str: string): Num4 => {
+const hslaStringToHsla = (str: string): Num4 | undefined => {
   if (!str.match(reHsla)) {
     return;
   }
@@ -340,9 +340,9 @@ const Color = () => {
   }, [hsla, selected, setColors]);
 
   const copyFields = [
-    { name: "Hex", state: hex },
-    { name: "RGBA", state: rgbaString },
-    { name: "HSLA", state: hslaString },
+    { name: "Hex", state: hex ?? "" },
+    { name: "RGBA", state: rgbaString ?? "" },
+    { name: "HSLA", state: hslaString ?? "" },
   ];
 
   return (

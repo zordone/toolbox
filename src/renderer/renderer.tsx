@@ -15,9 +15,12 @@ console.log("Versions:", window.mainApi.versions);
 
 // render the app
 const domNode = document.getElementById("root");
+if (!domNode) {
+  throw new Error("Couldn't find the root element");
+}
 const root = createRoot(domNode);
 root.render(
   <StrictMode>
     <App />
-  </StrictMode>
+  </StrictMode>,
 );

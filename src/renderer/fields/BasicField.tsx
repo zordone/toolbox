@@ -1,7 +1,6 @@
 import React, {
   ChangeEventHandler,
   Dispatch,
-  FC,
   InputHTMLAttributes,
   MutableRefObject,
   SetStateAction,
@@ -22,7 +21,7 @@ interface InputProps
   extends InputHTMLAttributes<HTMLInputElement>,
     CssGridAreaProps,
     CssFieldStyleProps {
-  $error?: string;
+  $error?: string | null;
   $fullWidth?: boolean;
   $isDropOk?: boolean;
   $monoSpace?: boolean;
@@ -31,7 +30,7 @@ interface InputProps
 const Input = displayName(
   "Input",
   styled.input.attrs<InputProps>(({ $error }) => ({
-    title: $error || null,
+    title: $error ?? undefined,
     spellCheck: false,
   }))<InputProps>`
     ${cssFieldStyle}
@@ -61,13 +60,12 @@ const Input = displayName(
         : `box-shadow: 0 0 0 1px inset var(--${
             $isDropOk ? "ok" : "error"
           }-outline);`}
-  `
+  `,
 );
 
 type Value = string | number | boolean;
-type Validator = (value: string) => { error: string | null; value: Value };
 
-interface BasicFieldProps
+export interface BasicFieldProps<T extends Value>
   extends Omit<InputHTMLAttributes<HTMLInputElement>, "onChange"> {
   area?: string;
   as?: "textarea" | "checkbox";
@@ -75,35 +73,33 @@ interface BasicFieldProps
   inputRef?: MutableRefObject<HTMLInputElement>;
   isDropOk?: boolean;
   monoSpace?: boolean;
-  onChange?: (newValue: Value) => void;
-  onValidate?: Validator;
+  onChange?: (newValue: T) => void;
+  onValidate: (value: string) => { error: string | null; value: T };
   readOnly?: boolean;
   rows?: number;
-  setState?: Dispatch<SetStateAction<Value>>;
-  state?: Value;
+  setState?: Dispatch<SetStateAction<T>>;
+  state?: T;
 }
 
-const defaultValidator: Validator = (text) => ({ error: null, value: text });
-
-const BasicField: FC<BasicFieldProps> = ({
+const BasicField = <T extends Value>({
   area,
   fullWidth = false,
   inputRef,
   isDropOk,
   monoSpace = false,
   onChange = noop,
-  onValidate = defaultValidator,
+  onValidate,
   readOnly = false,
   setState = noop,
-  state = "",
+  state,
   type = "text",
   ...rest
-}) => {
-  const [error, setError] = useState<string | null>();
-  const [inputValue, setInputValue] = useState(state);
+}: BasicFieldProps<T>) => {
+  const [error, setError] = useState<string | null>(null);
+  const [inputValue, setInputValue] = useState<string>(String(state ?? ""));
 
   useEffect(() => {
-    setInputValue(state);
+    setInputValue(String(state ?? ""));
   }, [state]);
 
   const onChangeInternal: ChangeEventHandler<HTMLInputElement> = useCallback(
@@ -111,14 +107,14 @@ const BasicField: FC<BasicFieldProps> = ({
       const { type, checked, value } = event.target;
       const text = type === "checkbox" ? checked.toString() : value;
       const { value: validatedValue, error } = onValidate(text);
-      setInputValue(text);
+      setInputValue(String(text));
       setError(error);
       if (!error) {
         setState(validatedValue);
       }
       onChange(validatedValue);
     },
-    [setState, onValidate, onChange]
+    [setState, onValidate, onChange],
   );
 
   return (
@@ -133,8 +129,8 @@ const BasicField: FC<BasicFieldProps> = ({
       readOnly={readOnly}
       ref={inputRef}
       type={type}
-      value={inputValue.toString()}
-      checked={inputValue === true}
+      value={String(inputValue)}
+      checked={inputValue === "true"}
       {...rest}
     />
   );

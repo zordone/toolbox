@@ -1,6 +1,6 @@
 import { NamedExoticComponent, SyntheticEvent } from "react";
 
-export const noop = () => {
+export const noop = (..._args: unknown[]) => {
   // comment to satisfy eslint
 };
 
@@ -15,11 +15,11 @@ type OnMatch = (groups: MatchGroups) => void;
 export const matchGroups = (
   text: string,
   regex: RegExp,
-  onMatch: OnMatch = noop
+  onMatch: OnMatch = noop,
 ): void => {
   // ex: /(?<year>[0-9]{4})-(?<month>[0-9]{2})-(?<day>[0-9]{2})/
   const match = regex.exec(text);
-  if (match) {
+  if (match?.groups) {
     onMatch(match.groups);
   }
 };
@@ -28,11 +28,11 @@ export const limit = (num: number, min: number, max: number): number =>
   Math.min(max, Math.max(num, min));
 
 export const roundTo = (num: number, fixed: number): string =>
-  num && num.toFixed(fixed);
+  num.toFixed(fixed);
 
 export const displayName = <TComp extends NamedExoticComponent>(
   name: string,
-  StyledComp: TComp
+  StyledComp: TComp,
 ): TComp => {
   StyledComp.displayName = name;
   return StyledComp;
@@ -48,13 +48,14 @@ export const reindent = (code: string, baseIndent = 0) => {
   const trimmed = code
     .replace(/^[\s\n\r]+$/gm, "\n") // trim blanks
     .replace(/^\n*/, "") // remove leading blanks
-    .replace(/\n*$/, ""); // remove trailing blanks
+    .replace(/\n*$/, "") // remove trailing blanks
+    .replace(/\s+$/gm, ""); // remove trailing spaces from all lines
   // remove original base indent
-  const oldIndent = Array(trimmed.match(/^ */)[0].length).fill(" ").join("");
-  const dedented = trimmed.replace(new RegExp("^" + oldIndent, "gm"), "");
+  const oldIndent = Array(trimmed.match(/^ */)?.[0].length).fill(" ").join("");
+  const unindented = trimmed.replace(new RegExp("^" + oldIndent, "gm"), "");
   // add new base indent
   const newIndent = Array(baseIndent).fill(" ").join("");
-  return dedented.replace(/^/gm, newIndent);
+  return unindented.replace(/^/gm, newIndent);
 };
 
 export const formatJson = (obj: unknown) => JSON.stringify(obj, null, 2);

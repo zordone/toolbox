@@ -31,8 +31,11 @@ export const useSettings = (toolOrComp: Tool | FC) => {
   const [settings] = useState(() => {
     const key = getKey(tool.name);
     const saved = JSON.parse(localStorage.getItem(key) || "{}");
+    if (!tool.settings?.length) {
+      return {};
+    }
     return Object.fromEntries(
-      tool.settings.map(({ key, initial }) => [key, saved[key] ?? initial])
+      tool.settings.map(({ key, initial }) => [key, saved[key] ?? initial]),
     );
   });
 

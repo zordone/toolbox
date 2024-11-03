@@ -67,7 +67,7 @@ const defaultValidator: Validator = (text) => ({ error: null, value: text });
 
 interface CodeEditorProps extends Omit<IAceEditorProps, "onValidate" | "mode"> {
   area?: string;
-  editorRef?: MutableRefObject<AceEditor>;
+  editorRef?: MutableRefObject<AceEditor | null>;
   initialCode?: string;
   mode?: "javascript" | "json";
   onValidate?: Validator;
@@ -95,10 +95,13 @@ const CodeEditor: FC<CodeEditorProps> = ({
   const onChange: OnChange = useCallback(
     async (text: string) => {
       const { value, error } = await onValidate(text);
-      setInputValue(text);
       setError(error);
+      setInputValue(text);
       if (!error) {
-        setState(value);
+        setTimeout(() => {
+          setState(value);
+          setInputValue(value);
+        }, 0);
       }
     },
     [setState, onValidate],
@@ -141,10 +144,11 @@ const CodeEditor: FC<CodeEditorProps> = ({
           enableBasicAutocompletion: true,
           enableLiveAutocompletion: true,
           enableSnippets: true,
-          tabSize: 2,
-          useWorker: false,
           foldStyle: "markbeginend",
           highlightGutterLine: false,
+          showInvisibles: true,
+          tabSize: 2,
+          useWorker: false,
         }}
         theme="tomorrow_night"
         value={inputValue}

@@ -1,12 +1,6 @@
 import React, { FC, KeyboardEventHandler, useState } from "react";
 import styled from "styled-components";
-import {
-  BooleanField,
-  Field,
-  FloatField,
-  IntegerField,
-  TextField,
-} from "../fields";
+import { BooleanField, FloatField, IntegerField, TextField } from "../fields";
 import { saveSettings, SettingType, useSettings } from "../settings";
 import { Tool } from "../toolStore";
 import { displayName, noop } from "../utils";
@@ -20,7 +14,13 @@ const Name = displayName(
   `,
 );
 
-const TypeToInput: Record<SettingType, Field> = {
+type SettingField =
+  | typeof BooleanField
+  | typeof FloatField
+  | typeof IntegerField
+  | typeof TextField;
+
+const TypeToInput: Record<SettingType, SettingField> = {
   float: FloatField,
   integer: IntegerField,
   text: TextField,
@@ -58,7 +58,7 @@ const ModalSettings: FC<ModalSettingsProps> = ({
     <Modal isOpen={modalState.isOpen} onClose={modalState.close}>
       <ModalTitle>{tool.name} Settings</ModalTitle>
       <ModalBody autoFocus onKeyDown={onKeyDown}>
-        {config.map(({ key, title, type }, index) => {
+        {config?.map(({ key, title, type }, index) => {
           const Input = TypeToInput[type] || TypeToInput.text;
           return (
             <React.Fragment key={key}>

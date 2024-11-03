@@ -1,8 +1,17 @@
-import React, { ComponentProps, FC } from "react";
-import BasicField from "./BasicField";
+import React from "react";
+import BasicField, { BasicFieldProps } from "./BasicField";
 
-const TextField: FC<ComponentProps<typeof BasicField>> = (props) => (
-  <BasicField type="text" {...props} />
+interface TextFieldProps extends Omit<BasicFieldProps<string>, "onValidate"> {
+  onValidate?: BasicFieldProps<string>["onValidate"];
+}
+
+const defaultOnValidate = (text: string) => ({ value: text, error: null });
+
+const TextField = ({
+  onValidate = defaultOnValidate,
+  ...rest
+}: TextFieldProps) => (
+  <BasicField<string> type="text" onValidate={onValidate} {...rest} />
 );
 
 export default TextField;

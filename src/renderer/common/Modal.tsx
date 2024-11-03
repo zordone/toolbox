@@ -79,7 +79,7 @@ const Modal: FC<ModalProps> = ({
   onClose = noop,
 }) => {
   const [parent, setParent] = useState<HTMLDivElement>();
-  const contentRef = useRef<HTMLDivElement>();
+  const contentRef = useRef<HTMLDivElement>(null);
 
   const onKeyDown: KeyboardEventHandler = (event) => {
     const { key } = event;
@@ -91,6 +91,9 @@ const Modal: FC<ModalProps> = ({
 
   // create and attach parent div on mount
   useEffect(() => {
+    if (!modalRoot) {
+      return;
+    }
     const parent = document.createElement("div");
     parent.tabIndex = 0;
     modalRoot.appendChild(parent);
@@ -105,21 +108,21 @@ const Modal: FC<ModalProps> = ({
     contentRef?.current?.focus();
   }, [parent, contentRef, isOpen]);
 
-  return (
-    isOpen &&
-    parent &&
-    createPortal(
-      <ModalOverlay onClick={onClose}>
-        <ModalContent
-          onClick={stopPropagation}
-          onKeyDown={onKeyDown}
-          ref={contentRef}
-        >
-          {children}
-        </ModalContent>
-      </ModalOverlay>,
-      parent,
-    )
+  if (!(isOpen && parent)) {
+    return null;
+  }
+
+  return createPortal(
+    <ModalOverlay onClick={onClose}>
+      <ModalContent
+        onClick={stopPropagation}
+        onKeyDown={onKeyDown}
+        ref={contentRef}
+      >
+        {children}
+      </ModalContent>
+    </ModalOverlay>,
+    parent,
   );
 };
 

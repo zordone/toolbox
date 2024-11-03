@@ -13,7 +13,7 @@ const initialCode = `
 `;
 
 const Unindent: FC<ToolProps> = ({ pasted }) => {
-  const [code, setCode] = usePersistedState(Unindent, "code", undefined);
+  const [code, setCode] = usePersistedState(Unindent, "code", "");
   const settings = useSettings(Unindent);
 
   const onValidate = useCallback(
@@ -21,7 +21,7 @@ const Unindent: FC<ToolProps> = ({ pasted }) => {
       value: reindent(value, settings.leading),
       error: null,
     }),
-    [settings]
+    [settings],
   );
 
   return (
