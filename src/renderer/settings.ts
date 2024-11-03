@@ -1,5 +1,5 @@
 import { FC, useState } from "react";
-import { getToolByComponent, Tool } from "./toolStore";
+import { getToolByComponent, Tool, ToolProps } from "./toolStore";
 
 export type SettingType = "float" | "integer" | "text" | "boolean";
 
@@ -21,7 +21,7 @@ export const saveSettings = (tool: Tool, values: object) => {
 };
 
 // readonly useState initialised with the saved setting or the initial values
-export const useSettings = (toolOrComp: Tool | FC) => {
+export const useSettings = (toolOrComp: Tool | FC<ToolProps>) => {
   const tool =
     "component" in toolOrComp ? toolOrComp : getToolByComponent(toolOrComp);
   if (!tool) {

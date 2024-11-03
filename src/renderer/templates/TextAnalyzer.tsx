@@ -5,6 +5,7 @@ import { cssGridArea, CssGridAreaProps } from "../common/styledCss";
 import { FieldLabel, TextArea } from "../fields";
 import { usePersistedState } from "../persistedState";
 import { displayName } from "../utils";
+import { ToolProps } from "../toolStore";
 
 const Grid = displayName(
   "Grid",
@@ -65,7 +66,7 @@ interface TextAnalyzerProps {
   name: string;
   onUpdateResults: (text: string) => Result[];
   pasted?: string;
-  toolComp: FC;
+  toolComp: FC<ToolProps>;
 }
 
 const TextAnalyzer: FC<TextAnalyzerProps> = ({

@@ -2,7 +2,7 @@ import { FC } from "react";
 import { Setting } from "./settings";
 
 export interface ToolProps {
-  focusSearch: (event: Event) => void | false;
+  focusSearch: (event: Event | null) => void | false;
   onSelectTool: (name: string) => void;
   pasted?: string;
 }
@@ -29,5 +29,5 @@ export const registerTool = (tool: Tool) => {
 export const getAllTools = (): Tools =>
   Object.fromEntries(tools.map((tool) => [tool.name, { ...tool }]));
 
-export const getToolByComponent = (toolComponent: FC) =>
+export const getToolByComponent = (toolComponent: FC<ToolProps>) =>
   tools.find(({ component }) => component === toolComponent);

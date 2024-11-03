@@ -1,5 +1,5 @@
 import { Dispatch, FC, SetStateAction, useEffect, useState } from "react";
-import { Tool } from "./toolStore";
+import { Tool, ToolProps } from "./toolStore";
 
 const PREFIX = "state";
 
@@ -10,7 +10,7 @@ type JsonValue = unknown;
 
 // useState persisted into local storage
 export const usePersistedState = <TState>(
-  toolComp: FC,
+  toolComp: FC<ToolProps>,
   stateKey: string,
   defaultValue: TState,
   // the defaults are for JSON serializable types only.
@@ -47,7 +47,7 @@ const arrayToSet = <T>(array: T[]): Set<T> => array && new Set(array);
 
 // useState persisted into local storage - for Set
 export const usePersistedStateSet = <T>(
-  toolComp: FC,
+  toolComp: FC<ToolProps>,
   stateKey: string,
   defaultValue: Set<T>,
 ) =>

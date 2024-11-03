@@ -16,6 +16,7 @@ import WatchList, { Watch } from "../common/Watches";
 import { FieldLabel } from "../fields";
 import { usePersistedState, usePersistedStateSet } from "../persistedState";
 import { displayName, noop, reindent } from "../utils";
+import { ToolProps } from "../toolStore";
 
 const defaultCode = reindent(`
   const number = 1 + 2 + 3;
@@ -73,11 +74,11 @@ export const WatchHelp = displayName(
 
 interface PlaygroundProps {
   extraContext?: object;
-  focusSearch: (event: Event) => void | false;
+  focusSearch: (event: Event | null) => void | false;
   initialCode?: string;
   initialWatchExprs?: string[];
   label: string;
-  toolComp: FC;
+  toolComp: FC<ToolProps>;
 }
 
 const EMPTY = {};
