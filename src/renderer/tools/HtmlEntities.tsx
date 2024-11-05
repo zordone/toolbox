@@ -5,7 +5,7 @@ import { CopyButton, PasteButton } from "../common/Buttons";
 import { FieldLabel, TextArea } from "../fields";
 import { usePersistedState } from "../persistedState";
 import { registerTool, ToolProps } from "../toolStore";
-import { displayName, htmlToText } from "../utils";
+import { displayName, htmlToText, isNamedFocus } from "../utils";
 
 const initialText = "Rock & Roll !";
 
@@ -47,6 +47,9 @@ const HtmlEntities: FC<ToolProps> = () => {
   const [html, setHtml] = useState("");
 
   useEffect(() => {
+    if (isNamedFocus("html")) {
+      return;
+    }
     setHtml(textToHtml(text));
   }, [text]);
 
@@ -69,7 +72,13 @@ const HtmlEntities: FC<ToolProps> = () => {
         <FieldLabel $area="label">HTML entities</FieldLabel>
         <CopyButton area="copy" name="html" state={html} />
         <PasteButton area="paste" name="html" setState={setHtml} />
-        <TextArea area="field" state={html} setState={setHtml} rows={10} />
+        <TextArea
+          area="field"
+          state={html}
+          setState={setHtml}
+          rows={10}
+          data-name="html"
+        />
       </Grid>
     </SideBySide>
   );

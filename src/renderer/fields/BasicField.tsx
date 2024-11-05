@@ -38,7 +38,7 @@ const Input = displayName(
     ${({ $error }) =>
       $error &&
       `
-      :focus {
+      &:focus {
         outline: none;
         border-color: 0.1rem solid var(--error-outline);
         box-shadow: 0 0 0.3rem var(--error-outline);

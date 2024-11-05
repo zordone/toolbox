@@ -4,7 +4,7 @@ import { CopyButton } from "../common/Buttons";
 import { FieldLabel, IntegerField, TextArea } from "../fields";
 import { usePersistedState } from "../persistedState";
 import { registerTool, ToolProps } from "../toolStore";
-import { displayName, repeat as repeatText } from "../utils";
+import { displayName, falsyToNull, repeat as repeatText } from "../utils";
 
 // noinspection SpellCheckingInspection
 const BASE = [
@@ -43,9 +43,11 @@ const LoremIpsum: FC<ToolProps> = () => {
 
   const generate = useCallback(() => {
     const count =
-      repeat || (length && Math.trunc(length / BASE.length + 1)) || 0;
+      falsyToNull(repeat) ??
+      (length && Math.trunc(length / BASE.length + 1)) ??
+      0;
     const separator = eols ? repeatText("\n", eols) : " ";
-    const maxLength = length || Infinity;
+    const maxLength = falsyToNull(length) ?? Infinity;
     const result = repeatText(BASE, count, separator).slice(0, maxLength);
     setOutput(result);
   }, [eols, repeat, length]);

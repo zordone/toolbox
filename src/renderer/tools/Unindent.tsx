@@ -1,7 +1,7 @@
 import React, { FC, useCallback } from "react";
 import Formatter from "../templates/Formatter";
 import { usePersistedState } from "../persistedState";
-import { useSettings } from "../settings";
+import { SettingsRecord, useSettings } from "../settings";
 import { registerTool, ToolProps } from "../toolStore";
 import { reindent } from "../utils";
 
@@ -12,16 +12,20 @@ const initialCode = `
       }
 `;
 
+interface Settings extends SettingsRecord {
+  leading: number;
+}
+
 const Unindent: FC<ToolProps> = ({ pasted }) => {
   const [code, setCode] = usePersistedState(Unindent, "code", "");
-  const settings = useSettings(Unindent);
+  const { leading } = useSettings<Settings>(Unindent);
 
   const onValidate = useCallback(
     (value: string) => ({
-      value: reindent(value, settings.leading),
+      value: reindent(value, leading),
       error: null,
     }),
-    [settings],
+    [leading],
   );
 
   return (

@@ -60,7 +60,7 @@ const App = () => {
   }, [reload]);
 
   const onPaste = useCallback((event: ClipboardEvent) => {
-    const text = event.clipboardData?.getData("Text") || "";
+    const text = event.clipboardData?.getData("Text") ?? "";
     if (text) {
       setPasted(text);
       setTimeout(() => setPasted(""), 0);

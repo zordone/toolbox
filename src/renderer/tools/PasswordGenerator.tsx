@@ -2,7 +2,7 @@ import React, { FC, useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 import Button, { CopyButton } from "../common/Buttons";
 import { TextField } from "../fields";
-import { useSettings } from "../settings";
+import { SettingsRecord, useSettings } from "../settings";
 import { registerTool, ToolProps } from "../toolStore";
 import { displayName } from "../utils";
 
@@ -23,9 +23,14 @@ const Grid = displayName(
   `,
 );
 
+interface Settings extends SettingsRecord {
+  length: number;
+  specials: number;
+}
+
 const PasswordGenerator: FC<ToolProps> = () => {
   const [pass, setPass] = useState("");
-  const settings = useSettings(PasswordGenerator);
+  const { length, specials } = useSettings<Settings>(PasswordGenerator);
 
   const generate = useCallback(() => {
     const chars = NORMAL_CHARS.split("");
@@ -34,15 +39,15 @@ const PasswordGenerator: FC<ToolProps> = () => {
       chars.splice(Math.trunc(Math.random() * chars.length), 1)[0];
     const pickSpec = () =>
       specs.splice(Math.trunc(Math.random() * specs.length), 1)[0];
-    const pass = Array(settings.length - settings.specials)
+    const pass = Array(length - specials)
       .fill(0)
       .map(pickChar);
-    for (let i = 0; i < settings.specials; i++) {
+    for (let i = 0; i < specials; i++) {
       const index = Math.random() * pass.length;
       pass.splice(index, 0, pickSpec());
     }
     setPass(pass.join(""));
-  }, [settings]);
+  }, [length, specials]);
 
   useEffect(generate, [generate]);
 

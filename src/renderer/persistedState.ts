@@ -15,10 +15,10 @@ export const usePersistedState = <TState>(
   defaultValue: TState,
   // the defaults are for JSON serializable types only.
   // otherwise, it's required to pass in a proper onSerialize and onDeserialize functions.
-  onSerialize: (value: TState) => JsonValue = (value) =>
-    value as unknown as JsonValue,
-  onDeserialize: (value: JsonValue) => TState = (value) =>
-    value as unknown as TState,
+  onSerialize: (value: TState) => JsonValue = (value: TState): JsonValue =>
+    value as unknown,
+  onDeserialize: (value: JsonValue) => TState = (value: JsonValue): TState =>
+    value as TState,
 ): [TState, Dispatch<SetStateAction<TState>>] => {
   const toolName = toolComp?.displayName;
   if (!toolName) {

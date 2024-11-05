@@ -8,9 +8,10 @@ import React, {
 } from "react";
 import AceEditor, { IAceEditorProps } from "react-ace";
 import styled from "styled-components";
-import { displayName, noop, stopPropagation } from "../utils";
-import "./CodeEditor.css";
+import { displayName, ignoreError, noop, stopPropagation } from "../utils";
 import { cssGridArea, CssGridAreaProps } from "./styledCss";
+import { ErrorBanner } from "./ErrorBanner";
+import "./CodeEditor.css";
 // must be imported after AceEditor
 import "ace-builds/src-noconflict/ext-language_tools";
 import "ace-builds/src-noconflict/mode-javascript";
@@ -33,26 +34,6 @@ const EditorContainer = displayName(
       padding: 0.2rem;
       box-sizing: border-box;
     }
-  `,
-);
-
-interface ErrorProps {
-  $visible: boolean;
-}
-
-const Error = displayName(
-  "Error",
-  styled.div<ErrorProps>`
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 100;
-    background: var(--error-bg);
-    color: var(--error-fg);
-    padding: 0.2rem;
-    transition: transform 400ms;
-    transform: ${({ $visible }) => ($visible ? "none" : "translateY(100%)")};
   `,
 );
 
@@ -93,16 +74,21 @@ const CodeEditor: FC<CodeEditorProps> = ({
   const onChangeRef = useRef<OnChange>();
 
   const onChange: OnChange = useCallback(
-    async (text: string) => {
-      const { value, error } = await onValidate(text);
-      setError(error);
-      setInputValue(text);
-      if (!error) {
-        setTimeout(() => {
-          setState(value);
-          setInputValue(value);
-        }, 0);
-      }
+    (text: string) => {
+      // onValidate might be async, but AceEditor doesn't accept an async onChange handler,
+      // so we need to handle it here without await.
+      Promise.resolve(onValidate(text))
+        .then(({ value, error }) => {
+          setError(error);
+          setInputValue(text);
+          if (!error) {
+            setTimeout(() => {
+              setState(value);
+              setInputValue(value);
+            }, 0);
+          }
+        })
+        .catch(ignoreError);
     },
     [setState, onValidate],
   );
@@ -149,14 +135,14 @@ const CodeEditor: FC<CodeEditorProps> = ({
           showInvisibles: true,
           tabSize: 2,
           useWorker: false,
-          fontSize: "0.7rem",
+          fontSize: "0.8rem",
         }}
         theme="tomorrow_night"
         value={inputValue}
         width="100%"
         {...rest}
       />
-      <Error $visible={!!error}>{lastError}</Error>
+      <ErrorBanner $visible={!!error}>{lastError}</ErrorBanner>
     </EditorContainer>
   );
 };

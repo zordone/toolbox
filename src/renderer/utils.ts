@@ -4,14 +4,26 @@ export const noop = (..._args: unknown[]) => {
   // comment to satisfy eslint
 };
 
+export const falsyToNull = <T>(value: T): T | null => (value ? value : null);
+
+export const ignoreError = (error: unknown) => {
+  console.error(error);
+};
+
 export const message = (error: unknown) =>
   error instanceof Error ? error.message : String(error);
 
 export const gcd = (a: number, b: number): number => (b ? gcd(b, a % b) : a);
 
-interface MatchGroups {
-  [key: string]: string;
-}
+export const isNamedFocus = (name: string) => {
+  if (!(document.activeElement instanceof HTMLElement)) {
+    return false;
+  }
+
+  return document.activeElement.dataset.name === name;
+};
+
+type MatchGroups = Record<string, string>;
 
 type OnMatch = (groups: MatchGroups) => void;
 
@@ -54,7 +66,7 @@ export const reindent = (code: string, baseIndent = 0) => {
     .replace(/\n*$/, "") // remove trailing blanks
     .replace(/\s+$/gm, ""); // remove trailing spaces from all lines
   // remove original base indent
-  const oldIndent = Array(trimmed.match(/^ */)?.[0].length).fill(" ").join("");
+  const oldIndent = Array(/^ */.exec(trimmed)?.[0].length).fill(" ").join("");
   const unindented = trimmed.replace(new RegExp("^" + oldIndent, "gm"), "");
   // add new base indent
   const newIndent = Array(baseIndent).fill(" ").join("");

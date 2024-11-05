@@ -17,7 +17,7 @@ type Num4 = number[];
 
 const reRgba =
   /^rgba?\((?<r>\d+),\s*(?<g>\d+),\s*(?<b>\d+)(|,\s*(?<a>[\d.]+))\)$/;
-const reShortable = /^#(\w)\1(\w)\2(\w)\3(?:(\w)\4)?$/;
+const reCompressible = /^#(\w)\1(\w)\2(\w)\3(?:(\w)\4)?$/;
 const reHsla = /^hsl\((\d+)\s+?(\d+)%\s+?(\d+)%\s*\/?\s*([\d.]+)?\)$/;
 
 const Grid = displayName(
@@ -162,7 +162,7 @@ const rgbaToHex = (rgba: Num4 | undefined) => {
     return ch === undefined ? undefined : ch.toString(16).padStart(2, "0");
   });
 
-  return ["#", ...parsed].join("").replace(reShortable, "#$1$2$3$4");
+  return ["#", ...parsed].join("").replace(reCompressible, "#$1$2$3$4");
 };
 
 const rgbaToRgbaString = (rgba: Num4 | undefined) =>
@@ -221,7 +221,7 @@ const hslaToHslaString = (hsla: Num4) => {
 };
 
 const hslaStringToHsla = (str: string): Num4 | undefined => {
-  if (!str.match(reHsla)) {
+  if (!reHsla.exec(str)) {
     return;
   }
   const hsla = str
@@ -236,7 +236,7 @@ const hslaStringToHsla = (str: string): Num4 | undefined => {
 };
 
 const colorToHsla = (color: string): Num4 =>
-  hslaStringToHsla(color) || rgbaToHsla(cssToRgba(color)) || [];
+  hslaStringToHsla(color) ?? rgbaToHsla(cssToRgba(color)) ?? [];
 
 interface HslaField {
   Field: typeof IntegerField | typeof FloatField;

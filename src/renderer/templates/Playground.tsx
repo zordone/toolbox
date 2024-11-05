@@ -136,7 +136,7 @@ const Playground: FC<PlaygroundProps> = ({
   );
 
   const addWatch = useCallback(() => {
-    const expr = (editorRef.current?.editor.getSelectedText() || "").trim();
+    const expr = (editorRef.current?.editor.getSelectedText() ?? "").trim();
     if (!expr) {
       toast.error("Watch expression can't be empty.");
       return;

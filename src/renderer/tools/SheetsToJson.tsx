@@ -1,12 +1,11 @@
 import React, { FC, useCallback } from "react";
 import { usePersistedState } from "../persistedState";
-import { useSettings } from "../settings";
+import { SettingsRecord, useSettings } from "../settings";
 import Formatter from "../templates/Formatter";
 import { registerTool, ToolProps } from "../toolStore";
 import { formatJson, message } from "../utils";
 
-// TODO: type safe useSettings
-interface MySettings {
+interface Settings extends SettingsRecord {
   detectTypes: boolean;
   excludeEmpty: boolean;
 }
@@ -17,7 +16,7 @@ const isNumber = (value: string) =>
   !isNaN(Number(value)) && !isNaN(parseFloat(value));
 const isDate = (value: string) => !isNaN(Date.parse(value));
 
-const convertTsvToJson = (value: string, settings: MySettings): string => {
+const convertTsvToJson = (value: string, settings: Settings): string => {
   const { detectTypes, excludeEmpty } = settings;
   const [header, ...rows] = value.split("\n").map((line) => line.split("\t"));
 
@@ -48,7 +47,7 @@ const convertTsvToJson = (value: string, settings: MySettings): string => {
 
 const SheetsToJson: FC<ToolProps> = ({ pasted }) => {
   const [json, setJson] = usePersistedState(SheetsToJson, "json", "");
-  const settings = useSettings(SheetsToJson) as MySettings;
+  const settings = useSettings<Settings>(SheetsToJson);
 
   const onValidate = useCallback(
     (value: string) => {

@@ -10,9 +10,7 @@ interface Item {
   hours: string;
 }
 
-type Grouped = {
-  [key: string]: number;
-};
+type Grouped = Record<string, number>;
 
 const initialText = reindent(`
   01:
@@ -62,7 +60,7 @@ const Grid = displayName(
     grid-template-columns: 1fr;
     grid-template-rows: 1fr;
     height: 100%;
-  `
+  `,
 );
 
 const RowTitle = displayName(
@@ -72,28 +70,28 @@ const RowTitle = displayName(
     margin-bottom: 0.2rem;
     font-size: 0.8rem;
     opacity: 0.5;
-  `
+  `,
 );
 
 const Row = displayName(
   "Row",
   styled.div`
     font-size: 0.9rem;
-  `
+  `,
 );
 
 const Key = displayName(
   "Key",
   styled.span`
     opacity: 0.5;
-  `
+  `,
 );
 
 const Value = displayName(
   "Value",
   styled.span`
     font-weight: 700;
-  `
+  `,
 );
 
 interface UnitProps {
@@ -105,7 +103,7 @@ const Unit = displayName(
   styled.span<UnitProps>`
     margin-right: ${({ $gap }) => ($gap ? 0.8 : 0.3)}rem;
     opacity: 0.5;
-  `
+  `,
 );
 
 interface GroupedSectionProps {
@@ -135,17 +133,17 @@ const KimbleCalculator: FC<ToolProps> = (props) => {
 
   const analyze = useCallback((text: string) => {
     // get total hours
-    const sum = sumHours(text.match(reAllHours) || []);
+    const sum = sumHours(text.match(reAllHours) ?? []);
 
     // get hours grouped by day and category
     let day = "?";
     const items: Item[] = [];
     text.split(reEol).forEach((line) => {
-      const [, newDay] = line.match(reDay) || [];
+      const [, newDay] = reDay.exec(line) ?? [];
       if (newDay) {
         day = newDay;
       }
-      const [, hours, category] = line.match(reLine) || [];
+      const [, hours, category] = reLine.exec(line) ?? [];
       if (day && hours && category) {
         items.push({ day, hours, category });
       }

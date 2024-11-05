@@ -17,8 +17,8 @@ const initialText = reindent(`
 
 const WordCounter: FC<ToolProps> = (props) => {
   const analyze = (text: string) => {
-    const lines = (text.match(/\n/g) || []).length + Number(text.length > 0);
-    const words = Math.floor((text.match(/\b/g) || []).length / 2);
+    const lines = (text.match(/\n/g) ?? []).length + Number(text.length > 0);
+    const words = Math.floor((text.match(/\b/g) ?? []).length / 2);
     const chars = text.length;
     return [
       {

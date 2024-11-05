@@ -10,6 +10,7 @@ import { reindent } from "../utils";
 // - appends the expression as a return statement.
 // - creates a function to run the code.
 // - sends the result or error back to the main window.
+//noinspection SpellCheckingInspection
 const iframeSrc = reindent(`
   <!DOCTYPE html>
   <html>
@@ -45,6 +46,11 @@ iframe.setAttribute("sandbox", "allow-scripts");
 iframe.setAttribute("style", "display: none");
 document.body.appendChild(iframe);
 
+interface Message<T> {
+  value: T;
+  error?: string;
+}
+
 // evaluates a JavaScript expression, with the provided context:
 // await safeEval("a+b", { a: 1, b: 2 }); // -> 3
 export const safeEval = async <T = unknown>(
@@ -54,11 +60,11 @@ export const safeEval = async <T = unknown>(
   return new Promise<T>((resolve, reject) => {
     window.addEventListener(
       "message",
-      ({ origin, source, data }) => {
+      ({ origin, source, data }: MessageEvent<Message<T>>) => {
         if (origin === "null" && source === iframe.contentWindow) {
           const { value, error } = data;
           if (error) {
-            reject(error);
+            reject(new Error(error));
           } else {
             resolve(value);
           }

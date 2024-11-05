@@ -70,7 +70,9 @@ const ModalSettings: FC<ModalSettingsProps> = ({
                   setValues({ ...values, [key]: newValue })
                 }
                 min={0}
-                state={values[key]}
+                // TODO: we need to link the input type to the value type properly to resolve this one
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment
+                state={values[key] as any}
                 tabIndex={0}
               />
             </React.Fragment>

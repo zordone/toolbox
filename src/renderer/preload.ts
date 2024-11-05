@@ -25,9 +25,9 @@ const callMethod = <
   new Promise<TReturn>((resolve, reject) => {
     ipcRenderer.once(`${method}-result`, (_, { error, result }) => {
       if (error) {
-        reject(error);
+        reject(new Error(String(error)));
       } else {
-        resolve(result);
+        resolve(result as TReturn);
       }
     });
     ipcRenderer.send(method, params);

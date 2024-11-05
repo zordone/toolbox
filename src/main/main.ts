@@ -13,11 +13,12 @@ declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
+// eslint-disable-next-line @typescript-eslint/no-require-imports -- this is the only way I found to make it work
 if (require("electron-squirrel-startup")) {
   app.quit();
 }
 
-const createWindow = (): BrowserWindow => {
+const createWindow = async (): Promise<BrowserWindow> => {
   // Default window size.
   const { width: screenWidth, height: screenHeight } =
     screen.getPrimaryDisplay().size;
@@ -47,7 +48,7 @@ const createWindow = (): BrowserWindow => {
   mainWindowState.manage(mainWindow);
 
   // and load the index.html of the app.
-  mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY).then();
+  await mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY).then();
 
   // Open the DevTools.
   if (isDev) {
@@ -60,12 +61,12 @@ const createWindow = (): BrowserWindow => {
   mainWindow.webContents.session.webRequest.onHeadersReceived(
     { urls },
     (details, callback) => {
-      if (details && details.responseHeaders) {
+      if (details?.responseHeaders) {
         delete details.responseHeaders["X-Frame-Options"];
         delete details.responseHeaders["x-frame-options"];
       }
       callback({ cancel: false, responseHeaders: details.responseHeaders });
-    }
+    },
   );
 
   return mainWindow;
@@ -74,15 +75,18 @@ const createWindow = (): BrowserWindow => {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.whenReady().then(async () => {
-  await installDevTools(REACT_DEVELOPER_TOOLS, {
-    loadExtensionOptions: {
-      allowFileAccess: true,
-    },
-  });
-  const win = createWindow();
-  setupApi(win);
-});
+app
+  .whenReady()
+  .then(async () => {
+    await installDevTools(REACT_DEVELOPER_TOOLS, {
+      loadExtensionOptions: {
+        allowFileAccess: true,
+      },
+    });
+    const win = await createWindow();
+    setupApi(win);
+  })
+  .catch(console.error);
 
 // Quit when all windows are closed, even on macOS.
 app.on("window-all-closed", () => {

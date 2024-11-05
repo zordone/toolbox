@@ -14,9 +14,7 @@ export interface Tool {
   settings?: Setting[];
 }
 
-export interface Tools {
-  [name: string]: Tool;
-}
+export type Tools = Record<string, Tool>;
 
 const tools: Tool[] = [];
 

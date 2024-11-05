@@ -14,15 +14,18 @@ export const setupApi = (browserWindow: BrowserWindow) => {
   // add a promisified api handler, receiving & replying through IPC
   const addApiHandler = <THandler extends MainMethod>(
     apiName: string,
-    handler: THandler
+    handler: THandler,
   ) => {
-    ipcMain.on(apiName, async (event, args) => {
-      try {
-        const result = await handler(args);
-        event.reply(`${apiName}-result`, { result });
-      } catch (error) {
-        event.reply(`${apiName}-result`, { error });
-      }
+    ipcMain.on(apiName, (event, args) => {
+      // TODO: we need to link the args type to the actual handler type. just THandler is not enough. or maybe MainMethod is incorrect.
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+      handler(args)
+        .then((result) => {
+          event.reply(`${apiName}-result`, { result });
+        })
+        .catch((error: unknown) => {
+          event.reply(`${apiName}-result`, { error });
+        });
     });
   };
 
@@ -36,7 +39,7 @@ export const setupApi = (browserWindow: BrowserWindow) => {
         {
           properties: ["openFile"],
           ...options,
-        }
+        },
       );
       if (canceled || !filePaths?.length) {
         return { name: null, content: null };
@@ -44,7 +47,7 @@ export const setupApi = (browserWindow: BrowserWindow) => {
       const filePath = filePaths[0];
       const content = fs.readFileSync(filePath, { encoding: "utf8" });
       return { name: filePath, content };
-    }
+    },
   );
 
   // ShowSaveDialog: save file dialog, save file contents
@@ -54,14 +57,14 @@ export const setupApi = (browserWindow: BrowserWindow) => {
     async ({ content, options }) => {
       const { canceled, filePath } = await dialog.showSaveDialog(
         browserWindow,
-        options
+        options,
       );
       if (canceled || !filePath) {
         return { name: null };
       }
       fs.writeFileSync(filePath, content, { encoding: "utf8" });
       return { name: filePath };
-    }
+    },
   );
 
   // ...

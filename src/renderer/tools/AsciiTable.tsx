@@ -12,7 +12,7 @@ import { ascii } from "../common/ascii";
 import { TextField } from "../fields";
 import { usePersistedState } from "../persistedState";
 import { registerTool, ToolProps } from "../toolStore";
-import { displayName, htmlToText } from "../utils";
+import { displayName, falsyToNull, htmlToText } from "../utils";
 
 const Container = displayName(
   "Container",
@@ -92,7 +92,7 @@ const search = ascii.map(([code, char, symbol, number, name, description]) =>
 const copyCell = (element: HTMLElement) => {
   const { html, symbol } = element.dataset;
   const copy = html ? htmlToText(html) : element.innerText;
-  const show = symbol || JSON.stringify(copy);
+  const show = falsyToNull(symbol) ?? JSON.stringify(copy);
   if (!copy) return;
   copyToClipboard(copy);
   toast.success(`${show} copied to clipboard.`);

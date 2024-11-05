@@ -10,6 +10,8 @@ export interface Setting {
   type: SettingType;
 }
 
+export type SettingsRecord = Record<string, number | boolean | string>;
+
 const PREFIX = "settings";
 
 const getKey = (toolName: string) => [PREFIX, toolName].join("-");
@@ -21,22 +23,24 @@ export const saveSettings = (tool: Tool, values: object) => {
 };
 
 // readonly useState initialised with the saved setting or the initial values
-export const useSettings = (toolOrComp: Tool | FC<ToolProps>) => {
+export const useSettings = <T extends SettingsRecord>(
+  toolOrComp: Tool | FC<ToolProps>,
+): T => {
   const tool =
     "component" in toolOrComp ? toolOrComp : getToolByComponent(toolOrComp);
   if (!tool) {
     throw new Error("useSettings: Can't find tool!");
   }
 
-  const [settings] = useState(() => {
+  const [settings] = useState<T>(() => {
     const key = getKey(tool.name);
-    const saved = JSON.parse(localStorage.getItem(key) || "{}");
+    const saved = JSON.parse(localStorage.getItem(key) ?? "{}") as T;
     if (!tool.settings?.length) {
-      return {};
+      return {} as T;
     }
     return Object.fromEntries(
       tool.settings.map(({ key, initial }) => [key, saved[key] ?? initial]),
-    );
+    ) as T;
   });
 
   return settings;

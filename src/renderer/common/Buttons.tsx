@@ -2,7 +2,7 @@ import copyToClipboard from "copy-to-clipboard";
 import React, { FC, HTMLAttributes, ReactNode, useCallback } from "react";
 import { toast } from "react-toastify";
 import styled from "styled-components";
-import { capitalize, displayName, noop } from "../utils";
+import { capitalize, displayName, ignoreError, noop } from "../utils";
 import Icon from "./Icon";
 import {
   cssFieldStyle,
@@ -117,10 +117,13 @@ export const PasteButton: FC<PasteButtonProps> = ({
   ...rest
 }) => {
   const paste = useCallback(() => {
-    navigator.clipboard.readText().then((text) => {
-      setState(text);
-      toast.success(capitalize(`Pasted into ${name}.`));
-    });
+    navigator.clipboard
+      .readText()
+      .then((text) => {
+        setState(text);
+        toast.success(capitalize(`Pasted into ${name}.`));
+      })
+      .catch(ignoreError);
   }, [name, setState]);
   return (
     <IconButton

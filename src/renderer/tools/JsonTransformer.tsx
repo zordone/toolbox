@@ -66,7 +66,7 @@ const JsonTransformer = () => {
   const onValidate = useCallback(
     async (newCode: string) => {
       // parse input
-      let input;
+      let input: unknown;
       try {
         input = JSON.parse(content || "{}");
       } catch (err) {

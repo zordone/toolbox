@@ -1,11 +1,11 @@
 import React, { FC, useEffect, useState } from "react";
-import { toast } from "react-toastify";
 import styled from "styled-components";
 import { CopyButton, PasteButton } from "../common/Buttons";
+import { ErrorBanner } from "../common/ErrorBanner";
 import { FieldLabel, TextArea } from "../fields";
 import { usePersistedState } from "../persistedState";
 import { registerTool, ToolProps } from "../toolStore";
-import { displayName } from "../utils";
+import { displayName, isNamedFocus } from "../utils";
 
 const initialText = "Hello World!";
 
@@ -22,6 +22,8 @@ const SideBySide = displayName(
 const Grid = displayName(
   "Grid",
   styled.div`
+    position: relative;
+    overflow-y: hidden;
     display: grid;
     grid-template:
       "label copy  paste" 0fr
@@ -34,8 +36,12 @@ const Grid = displayName(
 const Base64: FC<ToolProps> = () => {
   const [text, setText] = usePersistedState(Base64, "text", initialText);
   const [base64, setBase64] = useState<string>("");
+  const [error, setError] = useState<string>("");
 
   useEffect(() => {
+    if (isNamedFocus("base64")) {
+      return;
+    }
     setBase64(btoa(text));
   }, [text]);
 
@@ -45,9 +51,10 @@ const Base64: FC<ToolProps> = () => {
     }
     try {
       setText(atob(base64));
-    } catch (err) {
+      setError("");
+    } catch (_err) {
       setText("");
-      toast.error("Invalid Base64 string.");
+      setError("Invalid Base64 string.");
     }
   }, [base64, setText]);
 
@@ -63,7 +70,14 @@ const Base64: FC<ToolProps> = () => {
         <FieldLabel $area="label">Base64</FieldLabel>
         <CopyButton area="copy" name="base64" state={base64} />
         <PasteButton area="paste" name="base64" setState={setBase64} />
-        <TextArea area="field" state={base64} setState={setBase64} rows={10} />
+        <TextArea
+          area="field"
+          state={base64}
+          setState={setBase64}
+          rows={10}
+          data-name="base64"
+        />
+        <ErrorBanner $visible={!!error}>{error}</ErrorBanner>
       </Grid>
     </SideBySide>
   );

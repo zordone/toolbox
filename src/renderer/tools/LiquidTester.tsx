@@ -2,6 +2,7 @@ import { Liquid } from "liquidjs";
 import React, { FC, useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 import { CopyButton, PasteButton } from "../common/Buttons";
+import { ErrorBanner } from "../common/ErrorBanner";
 import { FieldLabel, TextField } from "../fields";
 import { usePersistedState } from "../persistedState";
 import Formatter from "../templates/Formatter";
@@ -36,6 +37,7 @@ const LiquidTester: FC<ToolProps> = ({ pasted }) => {
   const [json, setJson] = usePersistedState(LiquidTester, "json", initialJson);
   const [expr, setExpr] = usePersistedState(LiquidTester, "expr", initialExpr);
   const [result, setResult] = useState("");
+  const [liquidError, setLiquidError] = useState("");
 
   const onValidate = useCallback((value: string) => {
     try {
@@ -48,8 +50,16 @@ const LiquidTester: FC<ToolProps> = ({ pasted }) => {
   }, []);
 
   useEffect(() => {
-    const context = JSON.parse(json) || {};
-    engine.parseAndRender(expr, context).then(setResult);
+    const context = (JSON.parse(json) as object) || {};
+    engine
+      .parseAndRender(expr, context)
+      .then((result) => {
+        setResult(String(result));
+        setLiquidError("");
+      })
+      .catch((err) => {
+        setLiquidError(message(err));
+      });
   }, [json, expr]);
 
   return (
@@ -72,6 +82,8 @@ const LiquidTester: FC<ToolProps> = ({ pasted }) => {
         state={json}
         title="Context JSON"
       />
+
+      <ErrorBanner $visible={!!liquidError}>{liquidError}</ErrorBanner>
     </Grid>
   );
 };
