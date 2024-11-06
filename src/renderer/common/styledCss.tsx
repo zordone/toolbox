@@ -8,8 +8,25 @@ export const cssGridArea = css<CssGridAreaProps>`
   ${({ $area }) => $area && `grid-area: ${$area};`}
 `;
 
-export interface CssFieldStyleProps {
+export interface CssFocusStyleProps {
   $chromeless?: boolean;
+}
+
+export const cssFocusStyle = css<CssFocusStyleProps>`
+  outline: none;
+
+  &:focus-visible {
+    ${({ $chromeless }) =>
+      !$chromeless &&
+      `      
+        /* also change it in CodeEditor */
+        outline: 1px solid var(--focus-outline);
+        outline-offset: -1px;
+    `}
+  }
+`;
+
+export interface CssFieldStyleProps extends CssFocusStyleProps {
   // this on is intentionally not transient, as the native props is also called readOnly
   readOnly?: boolean;
 }
@@ -25,16 +42,7 @@ export const cssFieldStyle = css<CssFieldStyleProps>`
   box-sizing: border-box;
   resize: none;
 
-  :focus,
-  :focus-within {
-    outline: none;
-    ${({ $chromeless }) =>
-      !$chromeless &&
-      `
-      border-color: 0.1rem solid var(--focus-outline);
-      box-shadow: 0 0 0.3rem var(--focus-outline);
-    `}
-  }
+  ${cssFocusStyle};
 
   ${({ readOnly }) =>
     readOnly &&

@@ -83,7 +83,7 @@ const DropDownButton: FC<DropDownButtonProps> = ({ children }) => {
 
   return (
     <Container onMouseLeave={onHide} $fade={!isOpen}>
-      <IconButton icon="fa-cog" chromeless onClick={onToggle} />
+      <IconButton icon="fa-cog" chromeless onClick={onToggle} tabIndex={-1} />
       <DropDown $isVisible={isOpen}>
         {React.Children.map(children, (child) => (
           <Item>{child}</Item>

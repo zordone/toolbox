@@ -95,7 +95,6 @@ const Modal: FC<ModalProps> = ({
       return;
     }
     const parent = document.createElement("div");
-    parent.tabIndex = 0;
     modalRoot.appendChild(parent);
     setParent(parent);
     return () => {

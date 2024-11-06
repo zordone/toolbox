@@ -7,7 +7,7 @@
   --error-bg: #8008;
   --error-fg: #ff3b00;
   --error-outline: var(--error-fg);
-  --focus-outline: #006eff;
+  --focus-outline: var(--selection);
   --ok-outline: #00ff00;
   --input-fg: #00c3ff;
   --input-fg-readonly: #999;

@@ -17,9 +17,10 @@ const WatchesScroller = displayName(
   styled.div<CssGridAreaProps>`
     ${cssGridArea};
     position: relative;
-    overflow: scroll;
     height: 100%;
     border-radius: var(--border-radius);
+    overflow: scroll;
+    scroll-behavior: smooth;
   `,
 );
 
@@ -90,7 +91,9 @@ interface WatchButtonProps {
 
 const WatchButton = displayName(
   "WatchButton",
-  styled(IconButton)<WatchButtonProps>`
+  styled(IconButton).attrs(() => ({
+    tabIndex: -1,
+  }))<WatchButtonProps>`
     font-size: 0.7rem;
     opacity: 0.5;
 

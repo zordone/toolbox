@@ -26,6 +26,10 @@ const Container = displayName(
     user-select: none;
     font-size: 1.6rem;
     font-weight: bold;
+
+    &:focus-within {
+      background: var(--selection);
+    }
   `,
 );
 
@@ -57,7 +61,6 @@ const Buttons = displayName(
     font-size: 1rem;
     font-weight: 400;
     margin-right: 1rem;
-    background: inherit;
 
     /* extend the mouseleave area of the cog */
     & > div {

@@ -3,12 +3,13 @@ import { JsonView, darkStyles } from "react-json-view-lite";
 import "react-json-view-lite/dist/index.css";
 import styled from "styled-components";
 import { displayName } from "../utils";
+import { cssFocusStyle, CssFocusStyleProps } from "./styledCss";
 
 const shouldExpandNode = (level: number) => level < 2;
 
 const Container = displayName(
   "Container",
-  styled.div`
+  styled.div<CssFocusStyleProps>`
     &&& * {
       border: none;
       box-shadow: none;
@@ -19,6 +20,16 @@ const Container = displayName(
       padding-inline-start: 1rem;
       margin-block: 0;
       border-inline-start: 1px solid #fff2;
+    }
+
+    & [role="button"] {
+      ${cssFocusStyle};
+      border-radius: var(--border-radius);
+      padding: 2px;
+
+      &:focus-visible {
+        opacity: 1;
+      }
     }
 
     .container {

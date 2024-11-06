@@ -24,8 +24,14 @@ const EditorContainer = displayName(
   styled.div<CssGridAreaProps>`
     ${cssGridArea};
     position: relative;
-    border-radius: var(--border-radius);
     overflow: hidden;
+    border: 1px solid #1d1f21; /* gutter bg */
+    border-radius: var(--border-radius);
+
+    &:focus-within {
+      /* based on cssFocusStyle, adapted for AceEditor */
+      border: 1px solid var(--focus-outline);
+    }
 
     /* AceEditor can't be styled directly, because styled components swallows the theme prop. */
     > .ace-editor {
@@ -116,6 +122,18 @@ const CodeEditor: FC<CodeEditorProps> = ({
       setLastError(error);
     }
   }, [error, lastError]);
+
+  // force the scrollbar to be un-focusable. no way to configure it.
+  useEffect(() => {
+    if (!editorRef?.current) {
+      return;
+    }
+    editorRef.current.refEditor
+      .querySelectorAll(".ace_scrollbar")
+      .forEach((element) => {
+        element.setAttribute("tabindex", "-1");
+      });
+  }, [editorRef]);
 
   return (
     <EditorContainer $area={area} onPaste={stopPropagation}>

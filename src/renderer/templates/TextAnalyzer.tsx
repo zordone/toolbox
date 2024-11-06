@@ -100,6 +100,7 @@ const TextAnalyzer: FC<TextAnalyzerProps> = ({
         rows={10}
         setState={setText}
         state={text}
+        autoFocus
       />
       <CopyButton area="copy" name={name} state={text} />
       <Footer>

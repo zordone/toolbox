@@ -9,6 +9,7 @@ import React, {
 import { toast } from "react-toastify";
 import styled from "styled-components";
 import { ascii } from "../common/ascii";
+import { cssFocusStyle, CssFocusStyleProps } from "../common/styledCss";
 import { TextField } from "../fields";
 import { usePersistedState } from "../persistedState";
 import { registerTool, ToolProps } from "../toolStore";
@@ -26,17 +27,20 @@ const Container = displayName(
 
 const Grid = displayName(
   "Grid",
-  styled.div`
+  styled.div<CssFocusStyleProps>`
     --grid-border: #181818;
 
     display: grid;
     grid-template-columns: 0fr 0fr 0fr 0fr 0fr 0fr 1fr;
     gap: 1px;
     border: 1px solid var(--grid-border);
+    border-radius: var(--border-radius);
     background: var(--grid-border);
     max-height: 100%;
     overflow-y: scroll;
     box-sizing: border-box;
+
+    ${cssFocusStyle};
 
     & > * {
       background: var(--main-bg);

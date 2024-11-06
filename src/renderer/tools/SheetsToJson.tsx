@@ -71,7 +71,6 @@ const SheetsToJson: FC<ToolProps> = ({ pasted }) => {
       setState={setJson}
       state={json}
       title="Paste your Google Sheets data"
-      readOnly
     />
   );
 };

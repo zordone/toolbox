@@ -2,11 +2,13 @@ import FuzzySearch from "fuzzy-search";
 import React, {
   ChangeEventHandler,
   FC,
-  KeyboardEventHandler,
+  FocusEventHandler,
   KeyboardEvent,
+  KeyboardEventHandler,
   MutableRefObject,
   useCallback,
   useEffect,
+  useRef,
   useState,
 } from "react";
 import styled from "styled-components";
@@ -56,7 +58,6 @@ const SearchContainer = displayName(
     box-sizing: border-box;
     flex-grow: 1;
     margin-right: 1rem;
-    background: inherit;
     font: inherit;
   `,
 );
@@ -74,7 +75,7 @@ const SearchInput = displayName(
     display: block;
     box-sizing: border-box;
     width: 100%;
-    background: inherit;
+    background: none;
     border: none;
     outline: none;
     color: ${({ $isOk }) => ($isOk ? "inherit" : "var(--error-fg)")};
@@ -150,12 +151,18 @@ const Search: FC<SearchProps> = ({
   const [searcher, setSearcher] = useState<FuzzySearch<Tool>>();
   const [index, setIndex] = useState<number | null>(null);
   const [isFocused, setIsFocused] = useState(false);
+  const prevFocused = useRef<HTMLElement | null>(null);
 
-  const onFocus = useCallback(() => {
-    setIsFocused(true);
-    setValue("");
-    setFiltered([]);
-  }, [setIsFocused]);
+  const onFocus: FocusEventHandler<HTMLInputElement> = useCallback(
+    (event) => {
+      prevFocused.current =
+        event.relatedTarget instanceof HTMLElement ? event.relatedTarget : null;
+      setIsFocused(true);
+      setValue("");
+      setFiltered([]);
+    },
+    [setIsFocused],
+  );
 
   const onBlur = useCallback(() => {
     setIsFocused(false);
@@ -191,9 +198,9 @@ const Search: FC<SearchProps> = ({
         setTimeout(() => searchRef.current?.blur(), 0);
         return;
       }
-      if (key === "Escape" || key === "Tab") {
+      if (key === "Escape") {
         setValue(currentToolName);
-        searchRef.current?.blur();
+        prevFocused.current?.focus();
         event?.stopPropagation();
         event?.preventDefault();
         return;
@@ -248,6 +255,7 @@ const Search: FC<SearchProps> = ({
         onInput={onInput}
         onKeyDown={onKeyDown}
         ref={searchRef}
+        tabIndex={-1}
         value={value}
       />
       <SearchOptions $isVisible={isFocused && Boolean(filtered.length)}>

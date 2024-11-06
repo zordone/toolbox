@@ -127,6 +127,7 @@ const BasicField = <T extends Value>({
       onChange={onChangeInternal}
       onPaste={stopPropagation}
       readOnly={readOnly}
+      disabled={readOnly}
       ref={inputRef}
       type={type}
       value={String(inputValue)}

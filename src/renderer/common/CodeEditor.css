@@ -32,6 +32,11 @@
   color: #666;
 }
 
+/* invisible characters */
+.ace_editor .ace_invisible {
+  opacity: 0.5;
+}
+
 /* code completion */
 .ace_dark.ace_editor.ace_autocomplete .ace_marker-layer .ace_active-line {
   background-color: var(--selection);

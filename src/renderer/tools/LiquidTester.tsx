@@ -67,7 +67,13 @@ const LiquidTester: FC<ToolProps> = ({ pasted }) => {
       <FieldLabel $area="lexp">Liquid Expression</FieldLabel>
       <CopyButton area="copy" name="expression" state={expr} />
       <PasteButton area="past" name="expression" setState={setExpr} />
-      <TextField area="fexp" monoSpace setState={setExpr} state={expr} />
+      <TextField
+        area="fexp"
+        monoSpace
+        setState={setExpr}
+        state={expr}
+        autoFocus
+      />
 
       <FieldLabel $area="lres">Result</FieldLabel>
       <TextField area="fres" monoSpace readOnly state={result} />
