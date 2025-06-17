@@ -1,7 +1,8 @@
 import { htmlToText } from "../utils";
 
-// 0     1     2       3       4     5
+// 0     1*    2       3       4     5
 // code, char, symbol, number, name, description
+/* prettier-ignore */
 export const ascii: [number, string, string, string, string, string][] = [
   [0, "", "NUL", "&#00;", "", "Null character"],
   [1, "", "SOH", "&#01;", "", "Start of Heading"],
@@ -158,14 +159,7 @@ export const ascii: [number, string, string, string, string, string][] = [
   [152, "", "", "&#152;", "&tilde;", "Small tilde"],
   [153, "", "", "&#153;", "&trade;", "Trade mark sign"],
   [154, "", "", "&#154;", "&scaron;", "Latin small letter S with caron"],
-  [
-    155,
-    "",
-    "",
-    "&#155;",
-    "&rsaquo;",
-    "Single right-pointing angle quotation mark",
-  ],
+  [155, "", "", "&#155;", "&rsaquo;", "Single right-pointing angle quotation mark"],
   [156, "", "", "&#156;", "&oelig;", "Latin small ligature oe"],
   [157, "", "", "", "", "Unused"],
   [158, "", "", "&#158;", "&zcaron;", "Latin small letter z with caron"],

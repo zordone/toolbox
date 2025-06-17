@@ -16,10 +16,12 @@ import "./LodashPlayground";
 import "./LoremIpsum";
 import "./MomentPlayground";
 import "./PasswordGenerator";
+import "./ReactEvents";
 import "./Regex101";
 import "./SheetsToJson";
 import "./Unindent";
 import "./Uuid";
+import "./WatermarkRemover";
 import "./WordCounter";
 
 // now all tools are registered here

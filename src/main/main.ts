@@ -1,4 +1,4 @@
-import { app, BrowserWindow, screen } from "electron";
+import { app, BrowserWindow, screen, shell } from "electron";
 import installDevTools, {
   REACT_DEVELOPER_TOOLS,
 } from "electron-extension-installer";
@@ -42,6 +42,12 @@ const createWindow = async (): Promise<BrowserWindow> => {
     webPreferences: {
       preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
     },
+  });
+
+  // open target="_blank" links in the default browser
+  mainWindow.webContents.setWindowOpenHandler(({ url }) => {
+    shell.openExternal(url).then().catch(console.error);
+    return { action: "deny" };
   });
 
   // Watch window position & size.

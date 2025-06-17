@@ -15,6 +15,7 @@
   --input-bg-readonly: #18181870;
   --input-placeholder: #fff2;
   --input-mark: #808d;
+  --link-fg: #3eafdf;
   --link-hover: var(--input-fg);
   --border-radius: 0.2rem;
   --selection: #297d9793;
@@ -46,9 +47,19 @@ body {
 body,
 input,
 button {
-  font-family: "PT Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
-    "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
-    "Helvetica Neue", sans-serif;
+  font-family:
+    "PT Sans",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    "Roboto",
+    "Oxygen",
+    "Ubuntu",
+    "Cantarell",
+    "Fira Sans",
+    "Droid Sans",
+    "Helvetica Neue",
+    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -67,4 +78,11 @@ input::-webkit-inner-spin-button {
 ::placeholder {
   color: var(--input-placeholder);
   opacity: 1;
+}
+
+a {
+  color: var(--link-fg);
+  &:hover {
+    color: var(--link-hover);
+  }
 }
