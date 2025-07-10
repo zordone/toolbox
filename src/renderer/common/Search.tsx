@@ -59,7 +59,7 @@ const SearchContainer = displayName(
     flex-grow: 1;
     margin-right: 1rem;
     font: inherit;
-  `,
+  `
 );
 
 interface SearchInputProps {
@@ -81,7 +81,7 @@ const SearchInput = displayName(
     color: ${({ $isOk }) => ($isOk ? "inherit" : "var(--error-fg)")};
     padding: 0.2rem;
     font: inherit;
-  `,
+  `
 );
 
 interface SearchOptionsProps {
@@ -104,7 +104,7 @@ const SearchOptions = displayName(
     border-radius: var(--border-radius);
     max-height: calc(100vh - 5rem);
     overflow-y: scroll;
-  `,
+  `
 );
 
 interface SearchOptionProps {
@@ -119,7 +119,7 @@ const SearchOption = displayName(
     background: ${({ $isSelected }) =>
       $isSelected ? "var(--selection)" : "none"};
     cursor: pointer;
-  `,
+  `
 );
 
 const SearchOptionName = displayName("SearchOptionName", styled.div({}));
@@ -130,7 +130,7 @@ const SearchOptionDesc = displayName(
     font-size: 0.7rem;
     opacity: 0.5;
     margin-top: -0.2rem;
-  `,
+  `
 );
 
 interface SearchProps {
@@ -161,7 +161,7 @@ const Search: FC<SearchProps> = ({
       setValue("");
       setFiltered([]);
     },
-    [setIsFocused],
+    [setIsFocused]
   );
 
   const onBlur = useCallback(() => {
@@ -175,7 +175,7 @@ const Search: FC<SearchProps> = ({
         setValue(newValue);
       }
     },
-    [setValue, value],
+    [setValue, value]
   );
 
   const handleKey = useCallback(
@@ -196,6 +196,7 @@ const Search: FC<SearchProps> = ({
         setValue(toolName);
         onSelectTool(toolName);
         setTimeout(() => searchRef.current?.blur(), 0);
+        event?.preventDefault();
         return;
       }
       if (key === "Escape") {
@@ -206,12 +207,12 @@ const Search: FC<SearchProps> = ({
         return;
       }
     },
-    [index, filtered, searchRef, currentToolName, onSelectTool],
+    [index, filtered, searchRef, currentToolName, onSelectTool]
   );
 
   const onKeyDown: KeyboardEventHandler<HTMLInputElement> = useCallback(
     (event) => handleKey(event.key, event),
-    [handleKey],
+    [handleKey]
   );
 
   const onOptionClick = useCallback(() => handleKey("Enter"), [handleKey]);
@@ -222,7 +223,7 @@ const Search: FC<SearchProps> = ({
       new FuzzySearch(Object.values(tools), ["name", "description"], {
         caseSensitive: false,
         sort: true,
-      }),
+      })
     );
   }, [tools]);
 
