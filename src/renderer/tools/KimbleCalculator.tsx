@@ -8,24 +8,27 @@ interface Item {
   category: string;
   day: string;
   hours: string;
+  ticket: "Ticket" | "Other";
 }
 
 type Grouped = Record<string, number>;
 
 const initialText = reindent(`
   01:
-  0.50 - OTT: something
-  1.25 - ONE: other thing
-
+  0.50 - MAI: something
+  1.25 - RND: other thing
+  1.00 - RND: ONEWEB-123 - yet another thing
+  
   02:
-  1.50 - OTT: something else
-  3.25 - ONE: yet another thing
+  1.50 - MAI: something else
+  3.25 - RND: ONEWEB-123 - yet another thing
 `);
 
 const reAllHours = /^\d{1,2}\.\d{2}\b/gm;
 const reEol = /[\n\r]+/;
 const reDay = /^(\d\d):$/;
 const reLine = /^(\d{1,2}\.\d{2}) - (\w+):\s*(.*)$/;
+const reTicket = /[A-Z]{3,}-\d+/;
 
 // TODO: switch to Object.groupBy as soon as forge & electron upgrades to a more recent ECMAScript spec
 const groupBy = (items: Item[], key: keyof Item): Record<string, Item[]> => {
@@ -128,8 +131,9 @@ const GroupedSection: FC<GroupedSectionProps> = ({ groupedData, title }) => (
 );
 
 const KimbleCalculator: FC<ToolProps> = (props) => {
-  const [itemsByDay, setItemsByDay] = useState({});
-  const [itemsByCat, setItemsByCat] = useState({});
+  const [itemsByDay, setItemsByDay] = useState<Grouped>({});
+  const [itemsByCat, setItemsByCat] = useState<Grouped>({});
+  const [itemsByTicket, setItemsByTicket] = useState<Grouped>({});
 
   const analyze = useCallback((text: string) => {
     // get total hours
@@ -144,12 +148,14 @@ const KimbleCalculator: FC<ToolProps> = (props) => {
         day = newDay;
       }
       const [, hours, category] = reLine.exec(line) ?? [];
+      const ticket = reTicket.exec(line) ? "Ticket" : "Other";
       if (day && hours && category) {
-        items.push({ day, hours, category });
+        items.push({ day, hours, category, ticket });
       }
     });
     setItemsByDay(sumHoursBy(items, "day"));
     setItemsByCat(sumHoursBy(items, "category"));
+    setItemsByTicket(sumHoursBy(items, "ticket"));
 
     // analyzer results
     return [
@@ -181,8 +187,9 @@ const KimbleCalculator: FC<ToolProps> = (props) => {
         toolComp={KimbleCalculator}
         {...props}
       />
-      <GroupedSection groupedData={itemsByDay} title="Hours per day" />
-      <GroupedSection groupedData={itemsByCat} title="Hours per category" />
+      <GroupedSection groupedData={itemsByDay} title="Days" />
+      <GroupedSection groupedData={itemsByCat} title="Categories" />
+      <GroupedSection groupedData={itemsByTicket} title="Tickets" />
     </Grid>
   );
 };
