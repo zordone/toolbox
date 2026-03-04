@@ -12,12 +12,13 @@
   "scripts": {
     "start": "electron-forge start",
     "package": "electron-forge package",
-    "make": "electron-forge make --arch=arm64",
+    "make": "electron-forge make --arch=arm64 && npm run show-build",
     "publish": "electron-forge publish",
     "lint": "npm run lint:ts && npm run lint:style",
     "lint:ts": "eslint --ext .js,.jsx,.ts,.tsx .",
     "lint:style": "stylelint './src/**/*.ts*'",
-    "generate-app-icon": "npx electron-icon-maker --input=./_work/icon.png --output=src/renderer/public"
+    "generate-app-icon": "npx electron-icon-maker --input=./_work/icon.png --output=src/renderer/public",
+    "show-build": "open -R ./out/Toolbox-darwin-arm64/Toolbox.app"
   },
   "devDependencies": {
     "@electron-forge/cli": "^7.5.0",

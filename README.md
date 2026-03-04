@@ -23,7 +23,7 @@ But since I plan to add a lot of tools to this toolbox, I've spent the time to c
 ## Main scripts
 
 - `npm start` - Start development in Electron with dev server.
-- `npm run make` - Build production MacOS app. Output: `out/Toolbox-darwin-arm64/Toolbox.app`.
+- `npm run make` - Build production MacOS app, then show it in the Finder.
 
 ## Customizations
 
