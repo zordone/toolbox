@@ -1,7 +1,7 @@
 {
   "name": "toolbox",
   "productName": "Toolbox",
-  "version": "1.0.17-beta.3",
+  "version": "1.0.17-beta.4",
   "description": "Collection of my small development tools bundled in an Electron app.",
   "main": "./.webpack/main",
   "private": true,
@@ -17,6 +17,7 @@
     "lint": "npm run lint:ts && npm run lint:style",
     "lint:ts": "eslint --ext .js,.jsx,.ts,.tsx .",
     "lint:style": "stylelint './src/**/*.ts*'",
+    "test": "jest",
     "generate-app-icon": "npx electron-icon-maker --input=./_work/icon.png --output=src/renderer/public",
     "show-build": "open -R ./out/Toolbox-darwin-arm64/Toolbox.app"
   },
@@ -31,6 +32,7 @@
     "@electron-forge/plugin-webpack": "^7.5.0",
     "@electron/fuses": "^1.8.0",
     "@types/fuzzy-search": "2.1.5",
+    "@types/jest": "^30.0.0",
     "@types/react-dom": "^18.3.1",
     "@typescript-eslint/eslint-plugin": "^8.13.0",
     "@typescript-eslint/parser": "^8.13.0",
@@ -43,12 +45,15 @@
     "eslint-plugin-react-hooks": "^5.0.0",
     "file-loader": "^6.2.0",
     "fork-ts-checker-webpack-plugin": "^7.3.0",
+    "jest": "^30.4.2",
+    "jest-environment-jsdom": "^30.4.1",
     "node-loader": "^2.0.0",
     "postcss-styled-syntax": "^0.6.4",
     "prettier": "^3.3.3",
     "style-loader": "^3.3.4",
     "stylelint": "^16.10.0",
     "stylelint-config-standard": "^36.0.1",
+    "ts-jest": "^29.4.11",
     "ts-loader": "^9.5.1",
     "ts-node": "^10.9.2",
     "typescript": "5.6.3"
@@ -95,5 +100,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "jsdom"
   }
 }
