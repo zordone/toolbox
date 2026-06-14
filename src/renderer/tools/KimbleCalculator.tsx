@@ -1,6 +1,8 @@
 import React, { FC, useCallback, useState } from "react";
 import styled from "styled-components";
 import TextAnalyzer from "../templates/TextAnalyzer";
+import { Unit } from "../common/Unit";
+import { Value } from "../common/Value";
 import { registerTool, ToolProps } from "../toolStore";
 import { displayName, reindent } from "../utils";
 
@@ -43,7 +45,7 @@ const groupBy = (items: Item[], key: keyof Item): Record<string, Item[]> => {
 
 const sumHours = (hours: string[]): number =>
   hours
-    .map(parseFloat)
+    .map(Number.parseFloat)
     .filter(Boolean)
     .reduce((sum, item) => sum + item, 0);
 
@@ -90,25 +92,6 @@ const Key = displayName(
   `,
 );
 
-const Value = displayName(
-  "Value",
-  styled.span`
-    font-weight: 700;
-  `,
-);
-
-interface UnitProps {
-  $gap?: boolean;
-}
-
-const Unit = displayName(
-  "Unit",
-  styled.span<UnitProps>`
-    margin-right: ${({ $gap }) => ($gap ? 0.8 : 0.3)}rem;
-    opacity: 0.5;
-  `,
-);
-
 interface GroupedSectionProps {
   groupedData: Grouped;
   title: string;
@@ -119,12 +102,11 @@ const GroupedSection: FC<GroupedSectionProps> = ({ groupedData, title }) => (
     <RowTitle key="foo">{title}</RowTitle>
     <Row>
       {Object.entries(groupedData).map(([group, hours]) => [
-        <Key key={`key-${group}`}>{group}</Key>,
-        <Unit key={`sep-${group}`}>:</Unit>,
-        <Value key={`val-${group}`}>{hours.toFixed(2)}</Value>,
-        <Unit key={`uni-${group}`} $gap>
-          h
-        </Unit>,
+        <Key key={`key-${group}`}>{group}:&nbsp;</Key>,
+        <Value key={`val-${group}`} $small>
+          {hours.toFixed(2)}
+        </Value>,
+        <Unit key={`uni-${group}`}>h&nbsp;&nbsp;&nbsp;</Unit>,
       ])}
     </Row>
   </>

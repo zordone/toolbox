@@ -1,6 +1,9 @@
 import React, { FC, useEffect, useState } from "react";
 import styled from "styled-components";
 import { CopyButton, PasteButton } from "../common/Buttons";
+import { Footer } from "../common/Footer";
+import { Unit } from "../common/Unit";
+import { Value } from "../common/Value";
 import { FieldLabel, TextArea } from "../fields";
 import { usePersistedState } from "../persistedState";
 import { registerTool, ToolProps } from "../toolStore";
@@ -32,28 +35,6 @@ const Grid = displayName(
       "field field field" 1fr
       / 1fr 0fr 0fr;
     gap: var(--gap-size);
-  `,
-);
-
-const Footer = displayName(
-  "Footer",
-  styled.div`
-    /* empty */
-  `,
-);
-
-const Value = displayName(
-  "Value",
-  styled.span`
-    font-weight: 700;
-    margin-right: 0.3rem;
-  `,
-);
-
-const Unit = displayName(
-  "Unit",
-  styled.span`
-    opacity: 0.5;
   `,
 );
 
@@ -111,9 +92,9 @@ const WatermarkRemover: FC<ToolProps> = () => {
           data-name="clean text"
         />
       </Grid>
-      <Footer>
+      <Footer style={{ gridColumn: "1 / 3" }}>
         <Value>{removed}</Value>
-        <Unit>characters removed.</Unit>
+        <Unit> characters removed.</Unit>
       </Footer>
     </SideBySideWithFooter>
   );

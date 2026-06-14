@@ -24,17 +24,17 @@ const WordCounter: FC<ToolProps> = (props) => {
       {
         title: "Number of lines",
         value: lines,
-        unit: "lines,",
+        unit: " lines,",
       },
       {
         title: "Number of words",
         value: words,
-        unit: "words,",
+        unit: " words,",
       },
       {
         title: "Number of characters",
         value: chars,
-        unit: "characters.",
+        unit: " characters.",
       },
     ];
   };

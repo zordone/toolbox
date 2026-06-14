@@ -1,7 +1,9 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useEffect, useState, Fragment } from "react";
 import styled from "styled-components";
 import { CopyButton } from "../common/Buttons";
-import { cssGridArea, CssGridAreaProps } from "../common/styledCss";
+import { Footer } from "../common/Footer";
+import { Unit } from "../common/Unit";
+import { Value } from "../common/Value";
 import { FieldLabel, TextArea } from "../fields";
 import { usePersistedState } from "../persistedState";
 import { displayName } from "../utils";
@@ -18,39 +20,6 @@ const Grid = displayName(
       / 1fr 0fr;
     gap: var(--gap-size);
     height: 100%;
-  `,
-);
-
-const Footer = displayName(
-  "Footer",
-  styled.div<CssGridAreaProps>`
-    ${cssGridArea};
-    grid-area: foot;
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: 0fr;
-    gap: var(--gap-size);
-  `,
-);
-
-const Value = displayName(
-  "Value",
-  styled.span<CssGridAreaProps>`
-    ${cssGridArea};
-    white-space: nowrap;
-    margin-right: 0.1rem;
-    font-weight: bold;
-    font-size: 1.5rem;
-  `,
-);
-
-const Unit = displayName(
-  "Unit",
-  styled.span<CssGridAreaProps>`
-    ${cssGridArea};
-    white-space: nowrap;
-    margin-right: 0.1rem;
-    opacity: 0.5;
   `,
 );
 
@@ -103,12 +72,12 @@ const TextAnalyzer: FC<TextAnalyzerProps> = ({
         autoFocus
       />
       <CopyButton area="copy" name={name} state={text} />
-      <Footer>
+      <Footer $area="foot">
         {results.map(({ title, unit, value }) => (
-          <div key={title}>
+          <Fragment key={title}>
             <Value title={title}>{value}</Value>
-            <Unit>{unit}</Unit>
-          </div>
+            <Unit>{unit}&nbsp;</Unit>
+          </Fragment>
         ))}
       </Footer>
     </Grid>
