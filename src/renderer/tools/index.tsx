@@ -6,6 +6,7 @@ import "./AspectRatio";
 import "./Base64";
 import "./CanIUse";
 import "./Color";
+import "./Diff";
 import "./Help";
 import "./HtmlEntities";
 import "./JsonFormatter";

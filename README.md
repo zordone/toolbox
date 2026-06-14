@@ -38,6 +38,7 @@ If you fork this to build your own toolbox, you might want to change some things
 ![Help](docs/screenshot-help.png)
 ![Search](docs/screenshot-search.png)
 ![Json](docs/screenshot-json.png)
+![Diff](docs/screenshot-diff.png)
 ![Lodash](docs/screenshot-lodash.png)
 ![Base64](docs/screenshot-bsase64.png)
 ![Ascii](docs/screenshot-ascii.png)

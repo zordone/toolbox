@@ -4,7 +4,7 @@ export const noop = (..._args: unknown[]) => {
   // comment to satisfy eslint
 };
 
-export const falsyToNull = <T>(value: T): T | null => (value ? value : null);
+export const falsyToNull = <T>(value: T): T | null => value || null;
 
 export const ignoreError = (error: unknown) => {
   console.error(error);
@@ -15,6 +15,7 @@ export const message = (error: unknown) =>
 
 export const gcd = (a: number, b: number): number => (b ? gcd(b, a % b) : a);
 
+// this is using an extra `data-name` attribute put on the element
 export const isNamedFocus = (name: string) => {
   if (!(document.activeElement instanceof HTMLElement)) {
     return false;
@@ -57,20 +58,22 @@ export const capitalize = (text: string) =>
   `${text[0].toUpperCase()}${text.slice(1)}`;
 
 export const repeat = (text: string, times = 1, separator = "") =>
-  Array(times).fill(text).join(separator);
+  new Array(times).fill(text).join(separator);
 
 export const reindent = (code: string, baseIndent = 0) => {
   const trimmed = code
-    .replace(/^[\s\n\r]+$/gm, "\n") // trim blanks
+    .replaceAll(/^[\t ]+$/gm, "") // trim blanks
     .replace(/^\n*/, "") // remove leading blanks
     .replace(/\n*$/, "") // remove trailing blanks
-    .replace(/\s+$/gm, ""); // remove trailing spaces from all lines
+    .replaceAll(/[\t ]+$/gm, ""); // remove trailing spaces from all lines
   // remove original base indent
-  const oldIndent = Array(/^ */.exec(trimmed)?.[0].length).fill(" ").join("");
-  const unindented = trimmed.replace(new RegExp("^" + oldIndent, "gm"), "");
+  const oldIndent = new Array(/^ */.exec(trimmed)?.[0].length)
+    .fill(" ")
+    .join("");
+  const unindented = trimmed.replaceAll(new RegExp("^" + oldIndent, "gm"), "");
   // add new base indent
-  const newIndent = Array(baseIndent).fill(" ").join("");
-  return unindented.replace(/^/gm, newIndent);
+  const newIndent = new Array(baseIndent).fill(" ").join("");
+  return unindented.replaceAll(/^/gm, newIndent);
 };
 
 export const formatJson = (obj: unknown) => JSON.stringify(obj, null, 2);
