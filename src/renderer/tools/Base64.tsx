@@ -27,13 +27,20 @@ const Grid = displayName(
 const Base64: FC<ToolProps> = () => {
   const [text, setText] = usePersistedState(Base64, "text", initialText);
   const [base64, setBase64] = useState<string>("");
-  const [error, setError] = useState<string>("");
+  const [textError, setTextError] = useState<string>("");
+  const [base64Error, setBase64Error] = useState<string>("");
 
   useEffect(() => {
     if (isNamedFocus("base64")) {
       return;
     }
-    setBase64(btoa(text));
+    try {
+      setBase64(btoa(text));
+      setTextError("");
+    } catch {
+      setBase64("");
+      setTextError("Non-ASCII string.");
+    }
   }, [text]);
 
   useEffect(() => {
@@ -42,10 +49,10 @@ const Base64: FC<ToolProps> = () => {
     }
     try {
       setText(atob(base64));
-      setError("");
-    } catch (_err) {
+      setBase64Error("");
+    } catch {
       setText("");
-      setError("Invalid Base64 string.");
+      setBase64Error("Invalid Base64 string.");
     }
   }, [base64, setText]);
 
@@ -56,6 +63,7 @@ const Base64: FC<ToolProps> = () => {
         <CopyButton area="copy" name="plain text" state={text} />
         <PasteButton area="paste" name="plain text" setState={setText} />
         <TextArea area="field" state={text} setState={setText} rows={10} />
+        <ErrorBanner $visible={!!textError}>{textError}</ErrorBanner>
       </Grid>
       <Grid>
         <FieldLabel $area="label">Base64</FieldLabel>
@@ -68,7 +76,7 @@ const Base64: FC<ToolProps> = () => {
           rows={10}
           data-name="base64"
         />
-        <ErrorBanner $visible={!!error}>{error}</ErrorBanner>
+        <ErrorBanner $visible={!!base64Error}>{base64Error}</ErrorBanner>
       </Grid>
     </SideBySide>
   );
