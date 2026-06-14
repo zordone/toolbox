@@ -2,22 +2,13 @@ import React, { FC, useEffect, useState } from "react";
 import styled from "styled-components";
 import { CopyButton, PasteButton } from "../common/Buttons";
 import { ErrorBanner } from "../common/ErrorBanner";
+import { SideBySide } from "../common/SideBySide";
 import { FieldLabel, TextArea } from "../fields";
 import { usePersistedState } from "../persistedState";
 import { registerTool, ToolProps } from "../toolStore";
 import { displayName, isNamedFocus } from "../utils";
 
 const initialText = "Hello World!";
-
-const SideBySide = displayName(
-  "SideBySide",
-  styled.div`
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--gap-size);
-    height: 100%;
-  `,
-);
 
 const Grid = displayName(
   "Grid",

@@ -2,22 +2,13 @@ import React, { FC, useEffect, useState } from "react";
 import styled from "styled-components";
 import { ascii } from "../common/ascii";
 import { CopyButton, PasteButton } from "../common/Buttons";
+import { SideBySide } from "../common/SideBySide";
 import { FieldLabel, TextArea } from "../fields";
 import { usePersistedState } from "../persistedState";
 import { registerTool, ToolProps } from "../toolStore";
 import { displayName, htmlToText, isNamedFocus } from "../utils";
 
 const initialText = "Rock & Roll !";
-
-const SideBySide = displayName(
-  "SideBySide",
-  styled.div`
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--gap-size);
-    height: 100%;
-  `,
-);
 
 const Grid = displayName(
   "Grid",
