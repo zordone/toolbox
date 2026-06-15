@@ -12,6 +12,26 @@ import { DiffEditor, loader } from "@monaco-editor/react";
 import * as monaco from "monaco-editor/esm/vs/editor/editor.api";
 import type { editor } from "monaco-editor";
 
+monaco.editor.defineTheme("custom", {
+  base: "vs-dark",
+  inherit: true,
+  rules: [],
+  colors: {
+    "diffEditor.diagonalFill": "#BBBBBB20",
+    "diffEditor.insertedLineBackground": "#9CCC2C18",
+    "diffEditor.insertedTextBackground": "#9CCC2C40",
+    "diffEditor.removedLineBackground": "#FF000018",
+    "diffEditor.removedTextBackground": "#FF000040",
+    "editor.background": "#181818", // --input-bg
+    "editor.wordHighlightTextBackground": "#00000000",
+    "editorCursor.foreground": "#00C3FF", // --input-fg
+    "editorLineNumber.activeForeground": "#FFFFFF20",
+    "editorLineNumber.foreground": "#FFFFFF20",
+    "menu.separatorBackground": "#60606040",
+    "scrollbar.shadow": "#00000000",
+  },
+});
+
 loader.config({ monaco });
 
 const initialBefore = reindent(`
@@ -45,6 +65,20 @@ const initialAfter = reindent(`
   Hello World!
 `);
 
+const monacoOptions: monaco.editor.IDiffEditorConstructionOptions = {
+  fontSize: 16,
+  minimap: { enabled: false },
+  originalEditable: true,
+  parameterHints: { enabled: false },
+  quickSuggestions: false,
+  scrollBeyondLastLine: false,
+  suggestOnTriggerCharacters: false,
+  renderSideBySideInlineBreakpoint: 0,
+  cursorWidth: 2,
+  glyphMargin: true,
+  lineDecorationsWidth: 20,
+};
+
 const Container = displayName(
   "Container",
   styled.div`
@@ -56,6 +90,22 @@ const Container = displayName(
     gap: var(--gap-size);
     overflow: hidden;
     height: 100%;
+
+    /* transparent gutter to make it look like two editors */
+    & .monaco-diff-editor .gutter {
+      background: transparent;
+    }
+
+    /* don't highlight the current line */
+    & .monaco-editor .view-overlays .current-line-exact {
+      border: none;
+    }
+
+    /* imitate the border radius of our own inputs */
+    & .monaco-editor,
+    & .monaco-editor .overflow-guard {
+      border-radius: var(--border-radius);
+    }
   `,
 );
 
@@ -135,17 +185,9 @@ const Diff: FC<ToolProps> = () => {
       <DiffEditor
         language="plaintext"
         modified={stableModified.current}
-        options={{
-          fontSize: 16,
-          minimap: { enabled: false },
-          originalEditable: true,
-          parameterHints: { enabled: false },
-          quickSuggestions: false,
-          scrollBeyondLastLine: false,
-          suggestOnTriggerCharacters: false,
-        }}
+        options={monacoOptions}
         original={stableOriginal.current}
-        theme="vs-dark"
+        theme="custom"
         onMount={(editor) => {
           editorRef.current = editor;
           const syncWidth = () =>
