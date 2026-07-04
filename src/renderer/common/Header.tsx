@@ -41,6 +41,15 @@ const Logo = displayName(
     height: auto;
     opacity: 0.7;
     cursor: pointer;
+    transition: scale 50ms ease-in;
+
+    &:hover {
+      scale: 1.08;
+    }
+
+    &:active {
+      scale: 0.9;
+    }
   `
 );
 
