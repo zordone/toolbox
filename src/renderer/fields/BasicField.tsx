@@ -32,6 +32,8 @@ const Input = displayName(
   styled.input.attrs<InputProps>(({ $error }) => ({
     title: $error ?? undefined,
     spellCheck: false,
+    autoCorrect: "off",
+    autoCapitalize: "off",
   }))<InputProps>`
     ${cssFieldStyle}
     ${cssGridArea}
