@@ -19,7 +19,7 @@ const Container = displayName(
     display: flex;
     flex-direction: column;
     gap: 1rem;
-  `,
+  `
 );
 
 interface GridProps extends CssFocusStyleProps {
@@ -51,7 +51,7 @@ const Grid = displayName(
       padding: var(--gap-size);
       box-sizing: border-box;
     }
-  `,
+  `
 );
 
 const Header = displayName(
@@ -65,7 +65,7 @@ const Header = displayName(
     z-index: 1;
     font-size: 0.8rem;
     text-wrap: nowrap;
-  `,
+  `
 );
 
 const Cell = displayName(
@@ -76,7 +76,7 @@ const Cell = displayName(
     &:hover {
       background: var(--selection);
     }
-  `,
+  `
 );
 
 interface TableProps {
@@ -112,7 +112,7 @@ export const Table: FC<TableProps> = ({
       if (!row || !col) return;
       onCellClick?.(Number(row), Number(col));
     },
-    [onCellClick],
+    [onCellClick]
   );
 
   const onKeyDown: KeyboardEventHandler<HTMLInputElement> = useCallback(
@@ -124,7 +124,7 @@ export const Table: FC<TableProps> = ({
       if (!row) return;
       onRowEnter?.(Number(row));
     },
-    [onRowEnter],
+    [onRowEnter]
   );
 
   return (

@@ -22,5 +22,5 @@ const root = createRoot(domNode);
 root.render(
   <StrictMode>
     <App />
-  </StrictMode>,
+  </StrictMode>
 );

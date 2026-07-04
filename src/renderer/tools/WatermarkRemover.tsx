@@ -21,7 +21,7 @@ const SideBySideWithFooter = displayName(
       / 1fr 1fr;
     gap: var(--gap-size);
     height: 100%;
-  `,
+  `
 );
 
 const Grid = displayName(
@@ -35,7 +35,7 @@ const Grid = displayName(
       "field field field" 1fr
       / 1fr 0fr 0fr;
     gap: var(--gap-size);
-  `,
+  `
 );
 
 const reInvisible = /\p{Default_Ignorable_Code_Point}|[\uFFF0-\uFFFF]/gu;
@@ -54,7 +54,7 @@ const WatermarkRemover: FC<ToolProps> = () => {
   const [marked, setMarked] = usePersistedState(
     WatermarkRemover,
     "marked",
-    initialText,
+    initialText
   );
   const [clean, setClean] = useState("");
   const [removed, setRemoved] = useState(0);

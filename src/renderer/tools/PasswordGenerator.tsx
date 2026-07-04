@@ -12,7 +12,7 @@ const NORMAL_CHARS =
   "ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
   "0123456789" +
   "0123456789";
-const SPECIAL_CHARS = "_-+:;!#()[]{}.,$£/|=@‹›~^";
+const SPECIAL_CHARS = "_-+:;!?#&'\"()[]{}.,$£€/*%|=@‹›<>~^";
 
 const Grid = displayName(
   "Grid",
@@ -20,7 +20,7 @@ const Grid = displayName(
     display: grid;
     grid-template-columns: 0fr 20rem 0fr;
     gap: var(--gap-size);
-  `,
+  `
 );
 
 interface Settings extends SettingsRecord {
@@ -39,9 +39,7 @@ const PasswordGenerator: FC<ToolProps> = () => {
       chars.splice(Math.trunc(Math.random() * chars.length), 1)[0];
     const pickSpec = () =>
       specs.splice(Math.trunc(Math.random() * specs.length), 1)[0];
-    const pass = Array(length - specials)
-      .fill(0)
-      .map(pickChar);
+    const pass = new Array(length - specials).fill(0).map(pickChar);
     for (let i = 0; i < specials; i++) {
       const index = Math.random() * pass.length;
       pass.splice(index, 0, pickSpec());

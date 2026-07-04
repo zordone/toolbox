@@ -30,7 +30,7 @@ const Grid = displayName(
       / 1fr;
     gap: var(--gap-size);
     height: 100%;
-  `,
+  `
 );
 
 const LiquidTester: FC<ToolProps> = ({ pasted }) => {

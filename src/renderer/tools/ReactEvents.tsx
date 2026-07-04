@@ -2,7 +2,7 @@ import copyToClipboard from "copy-to-clipboard";
 import React, { FC, ReactNode } from "react";
 import { toast } from "react-toastify";
 import styled from "styled-components";
-import { registerTool, ToolProps } from "../toolStore";
+import { ToolProps } from "../toolStore";
 import { Table } from "../templates/Table";
 import { data } from "./reactEventsData";
 import { displayName } from "../utils";
@@ -76,6 +76,8 @@ const copyExample = (row: number) => {
   copyCell(row, 4);
 };
 
+// disabled for now. never needed it since it was created.
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const ReactEvents: FC<ToolProps> = () => (
   <Table
     colWidths={colWidths}
@@ -87,8 +89,6 @@ const ReactEvents: FC<ToolProps> = () => (
     onRowEnter={copyExample}
   />
 );
-
-// disabled for now. never needed it since it was created.
 
 // registerTool({
 //   component: ReactEvents,

@@ -16,7 +16,7 @@ import { displayName, limit, matchGroups, roundTo } from "../utils";
 type Num4 = number[];
 
 const reRgba =
-  /^rgba?\((?<r>\d+),\s*(?<g>\d+),\s*(?<b>\d+)(|,\s*(?<a>[\d.]+))\)$/;
+  /^rgba?\((?<r>\d+),\s*(?<g>\d+),\s*(?<b>\d+)(?:,\s*(?<a>[\d.]+))?\)$/;
 const reCompressible = /^#(\w)\1(\w)\2(\w)\3(?:(\w)\4)?$/;
 const reHsla = /^hsl\((\d+)\s+?(\d+)%\s+?(\d+)%\s*\/?\s*([\d.]+)?\)$/;
 
@@ -28,7 +28,7 @@ const Grid = displayName(
     grid-template-rows: 0fr 1fr;
     grid-auto-flow: column;
     gap: var(--gap-size);
-  `,
+  `
 );
 
 interface PreviewProps {
@@ -81,7 +81,7 @@ const Preview = displayName(
       `
         border: 0.1rem dashed #fff;
     `}
-  `,
+  `
 );
 
 const EditorGrid = displayName(
@@ -102,7 +102,7 @@ const EditorGrid = displayName(
     gap: var(--gap-size);
     width: fit-content;
     min-width: 25rem;
-  `,
+  `
 );
 
 const Cell = displayName(
@@ -110,7 +110,7 @@ const Cell = displayName(
   styled.div`
     display: flex;
     gap: var(--gap-size);
-  `,
+  `
 );
 
 const Separator = displayName(
@@ -120,7 +120,7 @@ const Separator = displayName(
     height: 0.1rem;
     background: var(--main-fg);
     opacity: 0.2;
-  `,
+  `
 );
 
 const parts = [
@@ -140,7 +140,7 @@ const cssToRgba = (css: string): Num4 | undefined => {
   }
   const cs = window.getComputedStyle(temp);
   const rgbaString = cs.getPropertyValue("color");
-  document.body.removeChild(temp);
+  temp.remove();
 
   let rgba;
   matchGroups(rgbaString, reRgba, ({ r, b, g, a }) => {
@@ -209,7 +209,7 @@ const rgbaToHsla = (rgba: Num4 | undefined) => {
   h = Math.round(h * 360);
   s = Math.round(s * 100);
   l = Math.round(l * 100);
-  return [h, s, l, alpha || 1.0];
+  return [h, s, l, alpha || 1];
 };
 
 const hslaToHslaString = (hsla: Num4) => {
@@ -258,18 +258,18 @@ const Color = () => {
   const [selected, setSelected] = usePersistedState(
     Color,
     "selected",
-    "center",
+    "center"
   );
   const selectedRef = useRef<string>();
   const [colors, setColors] = usePersistedState(
     Color,
     "colors",
-    Object.fromEntries(parts.map(({ name, initial }) => [name, initial])),
+    Object.fromEntries(parts.map(({ name, initial }) => [name, initial]))
   );
   const [toggles, setToggles] = usePersistedState(
     Color,
     "toggles",
-    Object.fromEntries(parts.map(({ name }) => [name, true])),
+    Object.fromEntries(parts.map(({ name }) => [name, true]))
   );
 
   const [isHover, setIsHover] = useState(false);
@@ -294,7 +294,7 @@ const Color = () => {
       newHsla[index] = value;
       setHsla(newHsla);
     },
-    [hsla],
+    [hsla]
   );
 
   // step one channel of HSLA
@@ -304,7 +304,7 @@ const Color = () => {
       const newVal = roundTo(limit(hsla[index] + sign * step, 0, max), fixed);
       setHslaPart(index, Number(newVal));
     },
-    [hsla, setHslaPart],
+    [hsla, setHslaPart]
   );
 
   // selection change -> set HSLA

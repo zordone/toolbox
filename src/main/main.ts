@@ -72,7 +72,7 @@ const createWindow = async (): Promise<BrowserWindow> => {
         delete details.responseHeaders["x-frame-options"];
       }
       callback({ cancel: false, responseHeaders: details.responseHeaders });
-    },
+    }
   );
 
   return mainWindow;

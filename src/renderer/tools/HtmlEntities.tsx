@@ -19,12 +19,12 @@ const Grid = displayName(
       "field field field" 1fr
       / 1fr 0fr 0fr;
     gap: var(--gap-size);
-  `,
+  `
 );
 
 const entities = ascii.filter((ascii) => ascii[4]);
 const charToEntity = Object.fromEntries(
-  entities.map((row) => [row[1], row[4]]),
+  entities.map((row) => [row[1], row[4]])
 );
 
 const textToHtml = (text: string) =>

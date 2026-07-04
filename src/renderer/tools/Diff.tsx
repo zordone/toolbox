@@ -106,7 +106,7 @@ const Container = displayName(
     & .monaco-editor .overflow-guard {
       border-radius: var(--border-radius);
     }
-  `,
+  `
 );
 
 interface HeaderProps {
@@ -120,7 +120,7 @@ const Header = displayName(
     grid-template-columns: ${({ $leftWidthPx }) =>
       $leftWidthPx ? `${$leftWidthPx}px 1fr` : "1fr 1fr"};
     gap: var(--gap-size);
-  `,
+  `
 );
 
 const PaneHeader = displayName(
@@ -129,7 +129,7 @@ const PaneHeader = displayName(
     display: flex;
     align-items: center;
     gap: var(--gap-size);
-  `,
+  `
 );
 
 const Diff: FC<ToolProps> = () => {
@@ -195,7 +195,7 @@ const Diff: FC<ToolProps> = () => {
           editor.getOriginalEditor().onDidLayoutChange(syncWidth);
           syncWidth();
           editor.onDidUpdateDiff(() =>
-            setDiffCount(editor.getLineChanges()?.length ?? 0),
+            setDiffCount(editor.getLineChanges()?.length ?? 0)
           );
           editor.getOriginalEditor().onDidChangeModelContent(() => {
             const value = editor.getOriginalEditor().getValue();

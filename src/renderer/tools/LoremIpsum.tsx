@@ -24,7 +24,7 @@ const Grid = displayName(
       / 0fr 4ch 0fr 8ch 0fr 4ch 1fr 0fr;
     gap: var(--gap-size);
     height: 100%;
-  `,
+  `
 );
 
 const LoremIpsum: FC<ToolProps> = () => {
@@ -32,12 +32,12 @@ const LoremIpsum: FC<ToolProps> = () => {
   const [repeat, setRepeat] = usePersistedState<number | undefined>(
     LoremIpsum,
     "repeat",
-    3,
+    3
   );
   const [length, setLength] = usePersistedState<number | undefined>(
     LoremIpsum,
     "length",
-    undefined,
+    undefined
   );
   const [eols, setEols] = usePersistedState<number>(LoremIpsum, "eols", 2);
 

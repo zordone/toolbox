@@ -31,7 +31,7 @@ type OnMatch = (groups: MatchGroups) => void;
 export const matchGroups = (
   text: string,
   regex: RegExp,
-  onMatch: OnMatch = noop,
+  onMatch: OnMatch = noop
 ): void => {
   // ex: /(?<year>[0-9]{4})-(?<month>[0-9]{2})-(?<day>[0-9]{2})/
   const match = regex.exec(text);
@@ -48,7 +48,7 @@ export const roundTo = (num: number, fixed: number): string =>
 
 export const displayName = <TComp extends NamedExoticComponent>(
   name: string,
-  StyledComp: TComp,
+  StyledComp: TComp
 ): TComp => {
   StyledComp.displayName = name;
   return StyledComp;

@@ -6,8 +6,8 @@ interface FloatFieldProps extends Omit<BasicFieldProps<number>, "onValidate"> {
 }
 
 const defaultOnValidate = (text: string) => {
-  const value = parseFloat(text);
-  const error = isNaN(value) ? "Not a valid float" : null;
+  const value = Number.parseFloat(text);
+  const error = Number.isNaN(value) ? "Not a valid float" : null;
   return { value, error };
 };
 

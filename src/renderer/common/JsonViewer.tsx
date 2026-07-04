@@ -79,7 +79,7 @@ const Container = displayName(
     .expand::after {
       content: "▼";
     }
-  `,
+  `
 );
 
 darkStyles.basicChildStyle = "basic";

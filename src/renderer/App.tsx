@@ -24,7 +24,7 @@ const ToolContainer = displayName(
     user-select: none;
     overflow-y: hidden;
     box-sizing: border-box;
-  `,
+  `
 );
 
 const App = () => {
@@ -32,7 +32,7 @@ const App = () => {
   const [currentToolName, setCurrentToolName] = usePersistedState(
     App,
     "tool",
-    "",
+    ""
   );
 
   const [pasted, setPasted] = useState("");
@@ -44,7 +44,7 @@ const App = () => {
       event?.preventDefault?.();
       return false;
     },
-    [searchRef],
+    [searchRef]
   );
 
   const onSelectTool = useCallback(
@@ -52,7 +52,7 @@ const App = () => {
       setCurrentToolName(name);
       setReload(0);
     },
-    [setCurrentToolName],
+    [setCurrentToolName]
   );
 
   const onReloadTool = useCallback(() => {

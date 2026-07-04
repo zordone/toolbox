@@ -30,7 +30,7 @@ const ModalOverlay = displayName(
     justify-content: center;
     background: var(--modal-overlay);
     z-index: 1;
-  `,
+  `
 );
 
 const ModalContent = displayName(
@@ -41,21 +41,21 @@ const ModalContent = displayName(
     padding: 1rem;
     outline: none;
     border-radius: var(--border-radius);
-  `,
+  `
 );
 
 export const ModalTitle = displayName(
   "ModalTitle",
   styled.h2`
     margin: 0 0 1rem;
-  `,
+  `
 );
 
 export const ModalBody = displayName(
   "ModalBody",
   styled.div`
     margin: 0 0 1rem;
-  `,
+  `
 );
 
 export const ModalFooter = displayName(
@@ -64,7 +64,7 @@ export const ModalFooter = displayName(
     display: flex;
     justify-content: center;
     gap: var(--gap-size);
-  `,
+  `
 );
 
 interface ModalProps {
@@ -97,9 +97,7 @@ const Modal: FC<ModalProps> = ({
     const parent = document.createElement("div");
     modalRoot.appendChild(parent);
     setParent(parent);
-    return () => {
-      modalRoot.removeChild(parent);
-    };
+    return () => parent.remove();
   }, []);
 
   // focus modal when we show it
@@ -121,7 +119,7 @@ const Modal: FC<ModalProps> = ({
         {children}
       </ModalContent>
     </ModalOverlay>,
-    parent,
+    parent
   );
 };
 

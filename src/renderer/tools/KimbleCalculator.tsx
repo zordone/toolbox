@@ -65,7 +65,7 @@ const Grid = displayName(
     grid-template-columns: 1fr;
     grid-template-rows: 1fr;
     height: 100%;
-  `,
+  `
 );
 
 const RowTitle = displayName(
@@ -75,21 +75,21 @@ const RowTitle = displayName(
     margin-bottom: 0.2rem;
     font-size: 0.8rem;
     opacity: 0.5;
-  `,
+  `
 );
 
 const Row = displayName(
   "Row",
   styled.div`
     font-size: 0.9rem;
-  `,
+  `
 );
 
 const Key = displayName(
   "Key",
   styled.span`
     opacity: 0.5;
-  `,
+  `
 );
 
 interface GroupedSectionProps {

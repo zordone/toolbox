@@ -265,7 +265,8 @@ const Search: FC<SearchProps> = ({
             $isSelected={optIndex === index}
             key={name}
             onClick={onOptionClick}
-            // TODO: workaround to make onClick work. why??
+            // mousedown on this non-focusable div would blur the input, which hides
+            // the dropdown (isFocused) before the click fires. preventDefault keeps focus
             onMouseDown={preventDefault}
             onMouseEnter={() => setIndex(optIndex)}
           >

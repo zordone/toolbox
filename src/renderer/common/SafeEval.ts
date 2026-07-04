@@ -55,7 +55,7 @@ interface Message<T> {
 // await safeEval("a+b", { a: 1, b: 2 }); // -> 3
 export const safeEval = async <T = unknown>(
   expression: string,
-  context: object,
+  context: object
 ): Promise<T> => {
   return new Promise<T>((resolve, reject) => {
     window.addEventListener(
@@ -70,9 +70,12 @@ export const safeEval = async <T = unknown>(
           }
         }
       },
-      { once: true },
+      { once: true }
     );
 
-    iframe.contentWindow?.postMessage({ expression, context }, "*");
+    // the sandboxed iframe: no allow-same-origin, that keeps its origin opaque ("null"), so eval
+    // can't reach our DOM/storage - that's what makes this safe. But it also means there's no real
+    // origin to target here, so "*" is the only value the platform allows.
+    iframe.contentWindow?.postMessage({ expression, context }, "*"); // NOSONAR
   });
 };

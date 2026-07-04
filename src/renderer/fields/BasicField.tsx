@@ -56,13 +56,12 @@ const Input = displayName(
       `
       width: 100%;
     `}
-    ${({ $isDropOk }) =>
-      $isDropOk === undefined
-        ? ""
-        : `box-shadow: 0 0 0 1px inset var(--${
-            $isDropOk ? "ok" : "error"
-          }-outline);`}
-  `,
+    ${({ $isDropOk }) => {
+      if ($isDropOk === undefined) return "";
+
+      return `box-shadow: 0 0 0 1px inset var(--${$isDropOk ? "ok" : "error"}-outline);`;
+    }}
+  `
 );
 
 type Value = string | number | boolean;
@@ -116,7 +115,7 @@ const BasicField = <T extends Value>({
       }
       onChange(validatedValue);
     },
-    [setState, onValidate, onChange],
+    [setState, onValidate, onChange]
   );
 
   return (

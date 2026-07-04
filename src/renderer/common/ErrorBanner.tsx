@@ -18,5 +18,5 @@ export const ErrorBanner = displayName(
     padding: 0.4rem;
     transition: transform 400ms;
     transform: ${({ $visible }) => ($visible ? "none" : "translateY(100%)")};
-  `,
+  `
 );

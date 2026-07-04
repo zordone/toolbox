@@ -20,7 +20,7 @@ const Grid = displayName(
       / 1fr 0fr;
     gap: var(--gap-size);
     height: 100%;
-  `,
+  `
 );
 
 interface Result {

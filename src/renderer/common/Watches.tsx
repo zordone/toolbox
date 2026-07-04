@@ -21,7 +21,7 @@ const WatchesScroller = displayName(
     border-radius: var(--border-radius);
     overflow: scroll;
     scroll-behavior: smooth;
-  `,
+  `
 );
 
 const WatchesContent = displayName(
@@ -34,7 +34,7 @@ const WatchesContent = displayName(
     display: grid;
     grid-template-columns: 1fr;
     gap: var(--gap-size);
-  `,
+  `
 );
 
 const Watch = displayName(
@@ -47,7 +47,7 @@ const Watch = displayName(
       "value value value" 1fr
       / 1fr 0fr;
     gap: 0.4rem;
-  `,
+  `
 );
 
 const WatchLabel = displayName(
@@ -59,7 +59,7 @@ const WatchLabel = displayName(
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 100%;
-  `,
+  `
 );
 
 const WatchScroller = displayName(
@@ -67,7 +67,7 @@ const WatchScroller = displayName(
   styled.div`
     grid-area: value;
     overflow-x: scroll;
-  `,
+  `
 );
 interface WatchValueProps {
   $isError: boolean;
@@ -82,7 +82,7 @@ const WatchValue = displayName(
     max-height: 8rem;
     overflow: scroll;
     color: ${({ $isError }) => ($isError ? "red" : "var(--input-fg)")};
-  `,
+  `
 );
 
 interface WatchButtonProps {
@@ -101,7 +101,7 @@ const WatchButton = displayName(
       color: ${({ $isDanger }) => ($isDanger ? "red" : "var(--main-fg)")};
       opacity: 0.7;
     }
-  `,
+  `
 );
 
 const formatValue = (value: unknown) => {
@@ -109,7 +109,7 @@ const formatValue = (value: unknown) => {
   if (value === undefined) return "undefined";
   if (value === Infinity) return "Infinity";
   if (value === -Infinity) return "-Infinity";
-  if (typeof value === "number" && isNaN(value)) return "NaN";
+  if (typeof value === "number" && Number.isNaN(value)) return "NaN";
   return JSON.stringify(value);
 };
 

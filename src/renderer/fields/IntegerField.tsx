@@ -7,8 +7,8 @@ interface IntegerFieldProps
 }
 
 const defaultOnValidate = (text: string) => {
-  const value = parseInt(text, 10);
-  const error = isNaN(value) ? "Not a valid integer" : null;
+  const value = Number.parseInt(text, 10);
+  const error = Number.isNaN(value) ? "Not a valid integer" : null;
   return { value, error };
 };
 

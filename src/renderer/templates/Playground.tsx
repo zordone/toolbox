@@ -27,7 +27,7 @@ const defaultWatchExprs = ["number"];
 const runCode = async (
   userCode: string,
   extraContext: object,
-  watchExprs: Set<string>,
+  watchExprs: Set<string>
 ) => {
   const watchCode = Array.from(watchExprs).map((expr) => {
     const exprStr = JSON.stringify(expr);
@@ -61,7 +61,7 @@ export const LabelRow = displayName(
   styled.div`
     display: flex;
     justify-content: space-between;
-  `,
+  `
 );
 
 export const WatchHelp = displayName(
@@ -70,7 +70,7 @@ export const WatchHelp = displayName(
     align-self: flex-end;
     opacity: 0.4;
     font-size: 0.7rem;
-  `,
+  `
 );
 
 interface PlaygroundProps {
@@ -96,13 +96,13 @@ const Playground: FC<PlaygroundProps> = ({
   const [watchExprs, setWatchExprs] = usePersistedStateSet<string>(
     toolComp,
     "watchExprs",
-    new Set(initialWatchExprs),
+    new Set(initialWatchExprs)
   );
   const [watchResults, setWatchResults] = useState<Watch[]>([]);
   const editorRef = useRef<AceEditor>(null);
 
   const onValidate: ComponentProps<typeof CodeEditor>["onValidate"] = async (
-    newCode,
+    newCode
   ) => {
     try {
       await runCode(newCode, extraContext, watchExprs);
@@ -121,7 +121,7 @@ const Playground: FC<PlaygroundProps> = ({
             expr,
             value: "?",
             isError: true,
-          })),
+          }))
         );
       });
   }, [code, extraContext, watchExprs]);
@@ -132,7 +132,7 @@ const Playground: FC<PlaygroundProps> = ({
       setWatchExprs(new Set(watchExprs));
       toast.success("Watch expression removed.");
     },
-    [setWatchExprs, watchExprs],
+    [setWatchExprs, watchExprs]
   );
 
   const addWatch = useCallback(() => {

@@ -18,7 +18,7 @@ export const usePersistedState = <TState>(
   onSerialize: (value: TState) => JsonValue = (value: TState): JsonValue =>
     value as unknown,
   onDeserialize: (value: JsonValue) => TState = (value: JsonValue): TState =>
-    value as TState,
+    value as TState
 ): [TState, Dispatch<SetStateAction<TState>>] => {
   const toolName = toolComp?.displayName;
   if (!toolName) {
@@ -33,10 +33,10 @@ export const usePersistedState = <TState>(
     return onDeserialize(JSON.parse(stored)) || defaultValue;
   });
   useEffect(() => {
-    if (state !== undefined) {
-      localStorage.setItem(key, JSON.stringify(onSerialize(state)));
-    } else {
+    if (state === undefined) {
       localStorage.removeItem(key);
+    } else {
+      localStorage.setItem(key, JSON.stringify(onSerialize(state)));
     }
   }, [key, state, onSerialize]);
   return [state, setState];
@@ -50,7 +50,7 @@ const arrayToSet = <T>(array: JsonValue): Set<T> =>
 export const usePersistedStateSet = <T>(
   toolComp: FC<ToolProps>,
   stateKey: string,
-  defaultValue: Set<T>,
+  defaultValue: Set<T>
 ) =>
   usePersistedState(toolComp, stateKey, defaultValue, setToArray, arrayToSet);
 

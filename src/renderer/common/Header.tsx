@@ -30,7 +30,7 @@ const Container = displayName(
     &:focus-within {
       background: var(--selection);
     }
-  `,
+  `
 );
 
 const Logo = displayName(
@@ -41,7 +41,7 @@ const Logo = displayName(
     height: auto;
     opacity: 0.7;
     cursor: pointer;
-  `,
+  `
 );
 
 const Title = displayName(
@@ -52,7 +52,7 @@ const Title = displayName(
     font: inherit;
     opacity: ${TITLE_OPACITY};
     cursor: pointer;
-  `,
+  `
 );
 
 const Buttons = displayName(
@@ -72,7 +72,7 @@ const Buttons = displayName(
       justify-content: space-between;
       gap: 1rem;
     }
-  `,
+  `
 );
 
 const Shortcut = displayName(
@@ -80,7 +80,7 @@ const Shortcut = displayName(
   styled.span`
     font-family: system-ui;
     opacity: 0.4;
-  `,
+  `
 );
 
 interface HeaderProps {
@@ -125,7 +125,7 @@ const Header: FC<HeaderProps> = ({
       }
       event.preventDefault();
     },
-    [hasSettings, onSettings],
+    [hasSettings, onSettings]
   );
 
   return (

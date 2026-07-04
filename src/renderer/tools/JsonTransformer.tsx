@@ -25,7 +25,7 @@ const Grid = displayName(
       / 27rem 0fr 0fr 1fr 0fr;
     gap: var(--gap-size);
     height: 100%;
-  `,
+  `
 );
 
 const allowTypes = ["application/json"];
@@ -59,7 +59,7 @@ const JsonTransformer = () => {
   const [code, setCode] = usePersistedState(
     JsonTransformer,
     "code",
-    initialCode,
+    initialCode
   );
   const [output, setOutput] = useState("");
 
@@ -84,7 +84,7 @@ const JsonTransformer = () => {
         return { value: "", error: message(err) };
       }
     },
-    [content],
+    [content]
   );
 
   return (

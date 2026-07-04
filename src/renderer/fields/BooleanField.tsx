@@ -23,7 +23,7 @@ const Container = displayName(
         opacity: 0.1;
       }
     }
-  `,
+  `
 );
 
 interface BooleanFieldProps

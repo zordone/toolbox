@@ -24,7 +24,7 @@ export const saveSettings = (tool: Tool, values: object) => {
 
 // readonly useState initialised with the saved setting or the initial values
 export const useSettings = <T extends SettingsRecord>(
-  toolOrComp: Tool | FC<ToolProps>,
+  toolOrComp: Tool | FC<ToolProps>
 ): T => {
   const tool =
     "component" in toolOrComp ? toolOrComp : getToolByComponent(toolOrComp);
@@ -39,7 +39,7 @@ export const useSettings = <T extends SettingsRecord>(
       return {} as T;
     }
     return Object.fromEntries(
-      tool.settings.map(({ key, initial }) => [key, saved[key] ?? initial]),
+      tool.settings.map(({ key, initial }) => [key, saved[key] ?? initial])
     ) as T;
   });
 

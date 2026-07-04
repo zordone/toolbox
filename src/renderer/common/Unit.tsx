@@ -6,5 +6,5 @@ export const Unit = displayName(
   styled.span`
     opacity: 0.5;
     white-space: pre;
-  `,
+  `
 );

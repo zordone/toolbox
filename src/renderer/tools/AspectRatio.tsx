@@ -21,7 +21,7 @@ const Grid = displayName(
     display: grid;
     grid-template-columns: 0fr 10rem 0fr;
     gap: var(--gap-size);
-  `,
+  `
 );
 
 interface CalculatorProps {
@@ -46,7 +46,7 @@ const normalizeFraction = (numerator: number, denominator: number) => {
 };
 
 const parseRatio = (ratio: string) =>
-  ratio.split(":").map((value) => parseInt(value, 10));
+  ratio.split(":").map((value) => Number.parseInt(value, 10));
 
 const AspectRatio: FC<ToolProps> = ({ pasted }) => {
   const [width, setWidth] = usePersistedState(AspectRatio, "width", 1920);
@@ -56,11 +56,11 @@ const AspectRatio: FC<ToolProps> = ({ pasted }) => {
 
   // recognize pasted resolution or ratio
   useEffect(() => {
-    const cleaned = (pasted ?? "").replace(/\*/g, "x").replace(/\s/g, "");
+    const cleaned = (pasted ?? "").replaceAll("*", "x").replace(/\s/g, "");
     matchGroups(cleaned, reResolution, ({ width, height }) => {
       setCalc(RATIO);
-      setWidth(parseInt(width, 10));
-      setHeight(parseInt(height, 10));
+      setWidth(Number.parseInt(width, 10));
+      setHeight(Number.parseInt(height, 10));
       toast.success("Pasted width & height.");
     });
     matchGroups(cleaned, reRatio, ({ width, height }) => {

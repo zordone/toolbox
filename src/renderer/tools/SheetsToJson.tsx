@@ -13,8 +13,8 @@ interface Settings extends SettingsRecord {
 const isBoolean = (value: string) =>
   ["true", "false"].includes(value.toLowerCase());
 const isNumber = (value: string) =>
-  !isNaN(Number(value)) && !isNaN(parseFloat(value));
-const isDate = (value: string) => !isNaN(Date.parse(value));
+  !Number.isNaN(Number(value)) && !Number.isNaN(Number.parseFloat(value));
+const isDate = (value: string) => !Number.isNaN(Date.parse(value));
 
 const convertTsvToJson = (value: string, settings: Settings): string => {
   const { detectTypes, excludeEmpty } = settings;
@@ -31,15 +31,15 @@ const convertTsvToJson = (value: string, settings: Settings): string => {
           if (isBoolean(cell)) {
             parsedCell = cell.toLowerCase() === "true";
           } else if (isNumber(cell)) {
-            parsedCell = parseFloat(cell);
+            parsedCell = Number.parseFloat(cell);
           } else if (isDate(cell)) {
             parsedCell = new Date(cell).toISOString();
           }
         }
 
         return [header[index] || `#${index}`, parsedCell];
-      }),
-    ),
+      })
+    )
   );
 
   return formatJson(table);
@@ -59,7 +59,7 @@ const SheetsToJson: FC<ToolProps> = ({ pasted }) => {
         return { value: "", error: message(err) };
       }
     },
-    [settings],
+    [settings]
   );
 
   return (

@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
     "jsx": "react",
-    "target": "ES2021",
-    "lib": ["ES2021", "DOM", "DOM.Iterable"],
+    "target": "ES2023",
+    "lib": ["ES2023", "DOM", "DOM.Iterable"],
     "allowJs": false,
     "module": "commonjs",
     "skipLibCheck": true,

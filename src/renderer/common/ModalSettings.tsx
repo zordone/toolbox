@@ -11,7 +11,7 @@ const Name = displayName(
   "Name",
   styled.div`
     margin: 1rem 0 0.2rem;
-  `,
+  `
 );
 
 type SettingField =

@@ -11,14 +11,14 @@ const Container = displayName(
     display: flex;
     flex-direction: column;
     height: 100%;
-  `,
+  `
 );
 
 const KeyInfo = displayName(
   "KeyInfo",
   styled.p`
     margin: 0 0 1rem;
-  `,
+  `
 );
 
 const Key = displayName(
@@ -34,7 +34,7 @@ const Key = displayName(
     height: 1rem;
     display: inline-block;
     text-align: center;
-  `,
+  `
 );
 
 const Heading = displayName(
@@ -44,7 +44,7 @@ const Heading = displayName(
     line-height: 1.5;
     font-size: 1.3rem;
     font-weight: bold;
-  `,
+  `
 );
 
 const Count = displayName(
@@ -53,7 +53,7 @@ const Count = displayName(
     font-size: 0.7rem;
     font-weight: 400;
     opacity: 0.2;
-  `,
+  `
 );
 
 const ToolList = displayName(
@@ -62,14 +62,14 @@ const ToolList = displayName(
     flex: 1 0 0;
     overflow-y: scroll;
     margin: 0;
-  `,
+  `
 );
 
 const ToolItem = displayName(
   "ToolItem",
   styled.li`
     line-height: 1.5;
-  `,
+  `
 );
 
 const ToolName = displayName(
@@ -81,14 +81,14 @@ const ToolName = displayName(
     &:hover {
       color: var(--link-hover);
     }
-  `,
+  `
 );
 
 const ToolDesc = displayName(
   "ToolDesc",
   styled.span`
     opacity: 0.5;
-  `,
+  `
 );
 
 const Footer = displayName(
@@ -97,14 +97,13 @@ const Footer = displayName(
     font-size: 0.7rem;
     opacity: 0.2;
     margin: 0.2rem 0 0;
-  `,
+  `
 );
 
 const Help: FC<ToolProps> = ({ onSelectTool = noop }) => {
-  const sortedTools = Object.values(tools)
-    .map((tool) => tool.name)
-    .sort()
-    .map((name) => tools[name]);
+  const sortedTools = Object.values(tools).toSorted((a, z) =>
+    a.name.localeCompare(z.name)
+  );
 
   return (
     <Container>

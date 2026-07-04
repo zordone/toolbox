@@ -40,7 +40,7 @@ const EditorContainer = displayName(
       padding: 0.2rem;
       box-sizing: border-box;
     }
-  `,
+  `
 );
 
 interface ValidatorResult {
@@ -96,7 +96,7 @@ const CodeEditor: FC<CodeEditorProps> = ({
         })
         .catch(ignoreError);
     },
-    [setState, onValidate],
+    [setState, onValidate]
   );
 
   // extra validations

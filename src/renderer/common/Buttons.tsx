@@ -37,7 +37,7 @@ const StyledButton = displayName(
       }
     `}
     ${({ $fullWidth }) => $fullWidth && `width: 100%;`}
-  `,
+  `
 );
 
 interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {

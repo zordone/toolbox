@@ -8,5 +8,5 @@ export const SideBySide = displayName(
     grid-template-columns: 1fr 1fr;
     gap: var(--gap-size);
     height: 100%;
-  `,
+  `
 );

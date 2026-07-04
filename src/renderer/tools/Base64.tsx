@@ -21,7 +21,7 @@ const Grid = displayName(
       "field field field" 1fr
       / 1fr 0fr 0fr;
     gap: var(--gap-size);
-  `,
+  `
 );
 
 const Base64: FC<ToolProps> = () => {

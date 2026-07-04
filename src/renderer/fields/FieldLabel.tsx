@@ -7,7 +7,7 @@ const FieldLabel = displayName(
   styled.span<CssGridAreaProps>`
     ${cssGridArea};
     align-self: center;
-  `,
+  `
 );
 
 export default FieldLabel;

@@ -9,5 +9,5 @@ export const Footer = displayName(
     display: flex;
     flex-wrap: wrap;
     align-items: baseline;
-  `,
+  `
 );

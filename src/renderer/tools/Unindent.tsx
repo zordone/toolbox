@@ -25,7 +25,7 @@ const Unindent: FC<ToolProps> = ({ pasted }) => {
       value: reindent(value, leading),
       error: null,
     }),
-    [leading],
+    [leading]
   );
 
   return (

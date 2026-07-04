@@ -10,5 +10,5 @@ export const Value = displayName(
   styled.span<ValueProps>`
     font-weight: 700;
     font-size: ${({ $small }) => ($small ? 1 : 1.5)}rem;
-  `,
+  `
 );

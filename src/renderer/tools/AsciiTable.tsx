@@ -12,7 +12,7 @@ const CharSpan = displayName(
   styled.span`
     font-family: monospace;
     color: var(--input-fg);
-  `,
+  `
 );
 
 // decimal to hexadecimal number
@@ -36,12 +36,12 @@ const rows: [string, string, ReactNode, string, string, string, string][] =
     hex(code),
     <CharSpan
       id={`${rowIndex}-char`}
-      key={rowIndex}
+      key={code}
       dangerouslySetInnerHTML={{ __html: symbol || number }}
       data-copy={htmlToText(number)}
       data-show={falsyToNull(symbol) ?? JSON.stringify(htmlToText(number))}
     />,
-    `\\x${hex(code)}`,
+    String.raw`\x${hex(code)}`,
     number,
     name,
     description,
@@ -51,7 +51,7 @@ const rows: [string, string, ReactNode, string, string, string, string][] =
 const search = ascii.map(([code, char, symbol, number, name, description]) =>
   [symbol, char, code, hex(code), number, name, description]
     .join(" ")
-    .toLowerCase(),
+    .toLowerCase()
 );
 
 // copy the original character or other cell text

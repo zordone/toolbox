@@ -10,7 +10,7 @@ const reRatio = /^(\d+):(\d+)$/;
 const defaultOnValidate = (text: string) => {
   const match = reRatio.exec(text);
   const value = match ? `${match[1]}:${match[2]}` : "";
-  const error = !match ? "Should be in WIDTH:HEIGHT format" : null;
+  const error = match ? null : "Should be in WIDTH:HEIGHT format";
   return { value, error };
 };
 

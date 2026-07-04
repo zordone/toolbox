@@ -20,7 +20,7 @@ const callMethod = <
   TReturn = Awaited<ReturnType<TMethod>>,
 >(
   method: MainMethodName,
-  params: TParams,
+  params: TParams
 ) =>
   new Promise<TReturn>((resolve, reject) => {
     ipcRenderer.once(`${method}-result`, (_, { error, result }) => {
