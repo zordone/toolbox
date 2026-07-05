@@ -16,6 +16,7 @@ import "./CodeEditor.css";
 import "ace-builds/src-noconflict/ext-language_tools";
 import "ace-builds/src-noconflict/mode-javascript";
 import "ace-builds/src-noconflict/mode-json";
+import "ace-builds/src-noconflict/mode-markdown";
 import "ace-builds/src-noconflict/snippets/javascript";
 import "ace-builds/src-noconflict/theme-tomorrow_night";
 
@@ -56,7 +57,7 @@ interface CodeEditorProps extends Omit<IAceEditorProps, "onValidate" | "mode"> {
   area?: string;
   editorRef?: MutableRefObject<AceEditor | null>;
   initialCode?: string;
-  mode?: "javascript" | "json";
+  mode?: "javascript" | "json" | "markdown";
   onValidate?: Validator;
   readOnly?: boolean;
   setState: (state: string) => void;

@@ -20,6 +20,7 @@ import "./PasswordGenerator";
 import "./ReactEvents";
 import "./Regex101";
 import "./SheetsToJson";
+import "./SheetsToMarkdown";
 import "./Unindent";
 import "./Uuid";
 import "./WatermarkRemover";
