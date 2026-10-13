@@ -12,7 +12,7 @@ const NORMAL_CHARS =
   "ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
   "0123456789" +
   "0123456789";
-const SPECIAL_CHARS = "_-+:;!?#&'\"()[]{}.,$£€/*%|=@‹›<>~^";
+const SPECIAL_CHARS = String.raw`_-+:;!?#&'"()[]{}.,$£€/\*%|=@‹›<>~^`;
 
 const Grid = displayName(
   "Grid",

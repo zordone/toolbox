@@ -17,20 +17,39 @@ type Grouped = Record<string, number>;
 
 const initialText = reindent(`
   01:
-  0.50 - MAI: something
-  1.25 - RND: other thing
-  1.00 - RND: ONEWEB-123 - yet another thing
+  0.50 - MAI: meeting 
+  1.25 - RND: other meeting
+  1.00 - RND: ONEWEB-1234 - Player bug (fixed the thing)
   
   02:
-  1.50 - MAI: something else
-  3.25 - RND: ONEWEB-123 - yet another thing
+  1.50 - MAI: standup
+  3.25 - RND: ONEWEB-5678 - Release (released the thing)
+  0.75 - RND: ONEWEB-1212 - Logo fix (fixed the logo) 
 `);
 
 const reAllHours = /^\d{1,2}\.\d{2}\b/gm;
 const reEol = /[\n\r]+/;
 const reDay = /^(\d\d):$/;
-const reLine = /^(\d{1,2}\.\d{2}) - (\w+):\s*(.*)$/;
-const reTicket = /[A-Z]{3,}-\d+/;
+const reLine = /^(\d{1,2}\.\d{2}) - (\w+): (.*)$/;
+const reTicket = /[A-Z]{3,8}-\d+/;
+const reTicketTimeDetails = /^(\d{1,2}\.\d{2}) - \w+: ([A-Z]{3,}-\d+)/;
+const reTicketTimeComment = /\(([^()]*)\)\s*$/;
+
+const convertToYouTrack = (text: string) => {
+  const lines = text.split("\n").map((line) => {
+    const detailsMatch = reTicketTimeDetails.exec(line);
+    if (!detailsMatch) return "";
+    const [_, hours, ticket] = detailsMatch;
+    const comment = reTicketTimeComment.exec(line)?.[1] ?? "";
+    const [whole, partial] = hours.split(".").map(Number);
+    const parts = [];
+    if (whole) parts.push(`${whole}h`);
+    if (partial) parts.push(`${(partial / 100) * 60}m`);
+    const time = parts.join(" ");
+    return `${ticket}: work Development Today ${time} ${comment}`.trim();
+  });
+  return text + "\n\nYouTrack:\n" + lines.filter(Boolean).join("\n");
+};
 
 // TODO: switch to Object.groupBy as soon as forge & electron upgrades to a more recent ECMAScript spec
 const groupBy = (items: Item[], key: keyof Item): Record<string, Item[]> => {
@@ -167,6 +186,13 @@ const KimbleCalculator: FC<ToolProps> = (props) => {
         name="kimble log"
         onUpdateResults={analyze}
         toolComp={KimbleCalculator}
+        transforms={[
+          {
+            icon: "fa-stopwatch",
+            title: "Convert to YouTrack time tracking",
+            transform: convertToYouTrack,
+          },
+        ]}
         {...props}
       />
       <GroupedSection groupedData={itemsByDay} title="Days" />
